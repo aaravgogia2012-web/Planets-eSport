@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PLANETS ESPORT | Cyberpunk Arena</title>
+  <title data-en="PLANETS ESPORT | Cyberpunk Arena" data-hi="प्लैनेट्स ईस्पोर्ट्स | साइबरपंक एरिना">PLANETS ESPORT | Cyberpunk Arena</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,6 +41,41 @@
       position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* --- LANGUAGE SWITCHER STYLES --- */
+    .lang-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+      background: rgba(10, 14, 35, 0.85);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      padding: 6px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #a0aec0;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .lang-btn.active, .lang-btn:hover {
+      background: var(--primary);
+      color: #03030c;
+      box-shadow: 0 0 15px var(--primary);
     }
 
     /* --- BACKGROUND CANVAS & COSMIC GLOWS --- */
@@ -96,7 +131,7 @@
       100% { opacity: 1; transform: scale(1.15) translate3d(0, 0, 0); }
     }
 
-    /* --- 3D PLANETS (GPU Accelerated with Interactive Parallax) --- */
+    /* --- 3D PLANETS --- */
     .saturn {
       position: fixed;
       right: -30px;
@@ -208,7 +243,7 @@
       text-shadow: 0 0 20px var(--primary);
     }
 
-    /* --- HOLOGRAPHIC GLASS CARDS WITH ENTRANCE ANIMATIONS --- */
+    /* --- HOLOGRAPHIC GLASS CARDS --- */
     .card {
       width: 90%;
       max-width: 820px;
@@ -257,8 +292,8 @@
 
     .card h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 24px;
-      letter-spacing: 3px;
+      font-size: 22px;
+      letter-spacing: 2px;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -266,20 +301,22 @@
       gap: 12px;
       text-transform: uppercase;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+      flex-wrap: wrap;
     }
 
     .icon {
       width: 22px;
       height: 22px;
       fill: currentColor;
+      flex-shrink: 0;
     }
 
-    /* --- BUTTONS WITH FLUID RIPPLE & 3D HOVER --- */
+    /* --- BUTTONS & CONTROLS FIX FOR HINDI SPACING --- */
     .btn-group {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 18px;
+      gap: 14px;
       margin-top: 26px;
       position: relative;
       z-index: 20;
@@ -290,14 +327,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 18px 36px;
+      gap: 10px;
+      padding: 16px 22px;
       border-radius: 14px;
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
       font-weight: 800;
-      font-size: 14px;
-      letter-spacing: 2px;
+      font-size: 12px;
+      letter-spacing: 0.5px;
       text-decoration: none;
       text-transform: uppercase;
       cursor: pointer;
@@ -306,6 +343,10 @@
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, background 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.25);
       will-change: transform;
+      text-align: center;
+      white-space: nowrap;
+      flex: 1 1 auto;
+      min-width: 140px;
     }
 
     .button .ripple {
@@ -360,6 +401,19 @@
       box-shadow: 0 0 50px rgba(37, 211, 102, 0.9);
     }
 
+    .button.feedback {
+      background: linear-gradient(135deg, rgba(255, 165, 0, 0.35) 0%, rgba(204, 85, 0, 0.65) 100%);
+      border: 1px solid rgba(255, 165, 0, 0.9);
+      box-shadow: 0 0 25px rgba(255, 165, 0, 0.4);
+      backdrop-filter: blur(12px);
+    }
+
+    .button.feedback:hover {
+      transform: translate3d(0, -5px, 0) scale(1.04);
+      background: linear-gradient(135deg, rgba(255, 165, 0, 0.8) 0%, rgba(204, 85, 0, 0.95) 100%);
+      box-shadow: 0 0 50px rgba(255, 165, 0, 0.9);
+    }
+
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -369,20 +423,23 @@
     .modeBtn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 16px 30px;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 22px;
       border: 1px solid rgba(157, 0, 255, 0.5);
       border-radius: 12px;
       background: rgba(157, 0, 255, 0.15);
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 1.5px;
+      font-size: 12px;
+      letter-spacing: 1px;
       cursor: pointer;
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       user-select: none;
       will-change: transform;
+      text-align: center;
+      flex: 1 1 140px;
     }
 
     .modeBtn:hover, .modeBtn.active {
@@ -392,18 +449,18 @@
       transform: translate3d(0, -4px, 0) scale(1.02);
     }
 
-    /* --- STATS GRID & DYNAMIC DETAILS --- */
+    /* --- STATS GRID & PRIZES --- */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
       margin-top: 24px;
     }
 
     .stat-box {
       background: rgba(4, 8, 22, 0.85);
       border: 1px solid rgba(0, 240, 255, 0.3);
-      padding: 20px 14px;
+      padding: 18px 12px;
       border-radius: 14px;
       box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -417,7 +474,7 @@
 
     .stat-box h3 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 26px;
+      font-size: 22px;
       color: var(--primary);
       text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
     }
@@ -433,19 +490,19 @@
     }
 
     .stat-box p {
-      font-size: 12px;
+      font-size: 11px;
       color: #8a99ad;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       margin-top: 6px;
       font-weight: 700;
     }
 
     .prizes-container {
-      margin-top: 26px;
+      margin-top: 24px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
@@ -453,15 +510,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 25px;
+      gap: 16px;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       background: rgba(255, 255, 255, 0.04);
-      padding: 12px 30px;
-      border-radius: 30px;
+      padding: 10px 20px;
+      border-radius: 25px;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      min-width: 310px;
+      width: 100%;
+      max-width: 380px;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease;
     }
 
@@ -486,18 +544,18 @@
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: #ffffff;
       border: 1px solid var(--primary);
-      padding: 14px 24px;
+      padding: 12px 20px;
       border-radius: 30px;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 1.5px;
+      font-size: 12px;
+      letter-spacing: 1px;
       cursor: pointer;
       box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       will-change: transform;
     }
 
@@ -511,8 +569,8 @@
       position: absolute;
       bottom: 70px;
       right: 0;
-      width: 350px;
-      height: 440px;
+      width: 320px;
+      height: 420px;
       background: rgba(6, 10, 28, 0.96);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
@@ -532,31 +590,31 @@
 
     .ai-chat-header {
       background: rgba(0, 240, 255, 0.12);
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-bottom: 1px solid rgba(0, 240, 255, 0.3);
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: 'Orbitron', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--primary);
     }
 
     .ai-chat-messages {
       flex: 1;
-      padding: 16px;
+      padding: 14px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       scroll-behavior: smooth;
     }
 
     .ai-msg {
-      max-width: 85%;
-      padding: 10px 14px;
+      max-width: 88%;
+      padding: 10px 12px;
       border-radius: 12px;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.4;
       animation: fadeInMsg 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       will-change: transform, opacity;
@@ -586,7 +644,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      padding: 10px 14px;
+      padding: 8px 12px;
       background: rgba(0, 0, 0, 0.4);
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
@@ -595,9 +653,9 @@
       background: rgba(0, 240, 255, 0.15);
       border: 1px solid rgba(0, 240, 255, 0.3);
       color: var(--primary);
-      padding: 5px 10px;
-      border-radius: 14px;
-      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 10px;
       cursor: pointer;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
@@ -620,9 +678,9 @@
       flex: 1;
       background: transparent;
       border: none;
-      padding: 14px;
+      padding: 12px;
       color: #ffffff;
-      font-size: 13px;
+      font-size: 12px;
       outline: none;
     }
 
@@ -630,9 +688,10 @@
       background: var(--primary);
       border: none;
       color: #000;
-      padding: 0 18px;
+      padding: 0 16px;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
+      font-size: 11px;
       cursor: pointer;
       transition: background 0.25s ease;
     }
@@ -643,7 +702,7 @@
 
     footer {
       text-align: center;
-      padding: 50px 20px;
+      padding: 40px 20px;
       color: #4a5568;
       margin-top: 30px;
       position: relative;
@@ -651,15 +710,16 @@
     }
 
     @media (max-width: 768px) {
-      .logo { font-size: 30px; letter-spacing: 3px; }
-      .tag-ff { font-size: 12px; padding: 4px 12px; }
-      .subtitle { font-size: 11px; letter-spacing: 6px; }
-      .saturn { width: 140px; height: 140px; right: -20px; top: 20px; }
-      .saturn::before { width: 230px; height: 45px; }
-      .earth { width: 60px; height: 60px; left: 10px; top: 70px; }
-      .card { width: 92%; padding: 24px 18px; }
-      .button { width: 100%; padding: 16px 20px; }
-      .ai-chat-card { width: 300px; right: -10px; }
+      .logo { font-size: 26px; letter-spacing: 2px; }
+      .tag-ff { font-size: 11px; padding: 4px 10px; }
+      .subtitle { font-size: 10px; letter-spacing: 4px; }
+      .saturn { width: 120px; height: 120px; right: -15px; top: 15px; }
+      .saturn::before { width: 190px; height: 35px; }
+      .earth { width: 50px; height: 50px; left: 10px; top: 60px; }
+      .card { width: 94%; padding: 20px 14px; }
+      .button { min-width: calc(50% - 7px); padding: 12px 10px; font-size: 11px; }
+      .modeBtn { flex: 1 1 100%; }
+      .ai-chat-card { width: 280px; right: -5px; height: 380px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
@@ -667,7 +727,13 @@
 
 <body>
 
-  <!-- Dynamic Cosmic Canvas with Interactive Mouse Parallax & Shooting Stars -->
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">EN</button>
+    <button class="lang-btn" id="btnHi" onclick="setLanguage('hi')">हिन्दी</button>
+  </div>
+
+  <!-- Space Canvas Background -->
   <canvas id="space-canvas"></canvas>
 
   <!-- Ambient Nebula Orbs -->
@@ -684,31 +750,35 @@
     <div class="logo">
       PLANETS ESPORT <span class="tag-ff">FREE FIRE</span>
     </div>
-    <div class="subtitle">CYBERPUNK ARENA</div>
+    <div class="subtitle" data-en="CYBERPUNK ARENA" data-hi="साइबरपंक एरिना">CYBERPUNK ARENA</div>
   </header>
 
   <!-- Main Registration Portal -->
   <div class="card">
     <h2>
       <svg class="icon" viewBox="0 0 24 24"><path fill="var(--primary)" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-      DAILY ARENA
+      <span data-en="DAILY ARENA" data-hi="दैनिक एरिना">DAILY ARENA</span>
     </h2>
-    <p style="margin: 12px 0 24px; color: #a0aec0; font-size: 17px; line-height: 1.5;">
+    <p style="margin: 12px 0 20px; color: #a0aec0; font-size: 15px; line-height: 1.5;" data-en="Compete against top survivors, climb the galaxy leaderboards & win daily prize pools." data-hi="शीर्ष उत्तरजीवियों के खिलाफ प्रतिस्पर्धा करें, गैलेक्सी लीडरबोर्ड पर चढ़ें और दैनिक पुरस्कार पूल जीतें।">
       Compete against top survivors, climb the galaxy leaderboards & win daily prize pools.
     </p>
 
     <div class="btn-group">
       <a class="button register" href="https://docs.google.com/forms/d/e/1FAIpQLSf3ktwGZacwDV0MKXi29xuh-8oTKo0y3-JVr6IQe2TzsKm43w/viewform?usp=dialog" target="_blank">
         <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v2H6v-2H4v-2h2V9h2v2h3v2zm4.5 1c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-        REGISTER NOW
+        <span data-en="REGISTER NOW" data-hi="अभी रजिस्टर करें">REGISTER NOW</span>
       </a>
       <a class="button discord" href="https://discord.gg/kcvREy8Kk" target="_blank">
         <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/></svg>
-        DISCORD
+        <span data-en="DISCORD" data-hi="DISCORD">DISCORD</span>
       </a>
       <a class="button whatsapp" href="https://whatsapp.com/channel/0029Vb8oK1mGE56rfZYkbp2t" target="_blank">
         <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
-        WHATSAPP
+        <span data-en="WHATSAPP" data-hi="WHATSAPP">WHATSAPP</span>
+      </a>
+      <a class="button feedback" href="https://forms.gle/3aBBtnxgx54xY8VeA" target="_blank">
+        <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+        <span data-en="FEEDBACK / HELP" data-hi="फीडबैक / सहायता">FEEDBACK / HELP</span>
       </a>
     </div>
   </div>
@@ -717,76 +787,113 @@
   <div class="card">
     <h2>
       <svg class="icon" viewBox="0 0 24 24"><path fill="var(--secondary)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/></svg>
-      SELECT MODE
+      <span data-en="SELECT MODE" data-hi="मोड चुनें">SELECT MODE</span>
     </h2>
     <div class="btn-group">
-      <button class="modeBtn" id="btnBR" onclick="showBR()">BATTLE ROYALE</button>
-      <button class="modeBtn" id="btnCS" onclick="showCS()">CLASH SQUAD</button>
-      <button class="modeBtn" id="btnLW" onclick="showLW()">LONE WOLF</button>
+      <button class="modeBtn" id="btnBR" onclick="showBR()"><span data-en="BATTLE ROYALE" data-hi="battle royale">BATTLE ROYALE</span></button>
+      <button class="modeBtn" id="btnCS" onclick="showCS()"><span data-en="CLASH SQUAD" data-hi="clash squad">CLASH SQUAD</span></button>
+      <button class="modeBtn" id="btnLW" onclick="showLW()"><span data-en="LONE WOLF" data-hi="lonewolf">LONE WOLF</span></button>
     </div>
   </div>
 
   <!-- Battle Royale Sub Selector -->
   <div class="card" id="brTypes" style="display: none;">
-    <h2>SELECT TEAM SIZE (BATTLE ROYALE)</h2>
+    <h2 data-en="SELECT TEAM SIZE (BATTLE ROYALE)" data-hi="टीम का आकार चुनें (बैटल रॉयल)">
+      <span data-en="SELECT TEAM SIZE (BATTLE ROYALE)" data-hi="टीम का आकार चुनें (बैटल रॉयल)">SELECT TEAM SIZE (BATTLE ROYALE)</span>
+    </h2>
     <div class="btn-group">
-      <button class="modeBtn" onclick="showSolo(this)">SOLO</button>
-      <button class="modeBtn" onclick="showDuo(this)">DUO</button>
-      <button class="modeBtn" onclick="showSquad(this)">SQUAD</button>
+      <button class="modeBtn" onclick="showSolo()"><span data-en="SOLO" data-hi="सोलो">SOLO</span></button>
+      <button class="modeBtn" onclick="showDuo()"><span data-en="DUO" data-hi="डुओ">DUO</span></button>
+      <button class="modeBtn" onclick="showSquad()"><span data-en="SQUAD" data-hi="स्क्वाड">SQUAD</span></button>
     </div>
   </div>
 
   <!-- Lone Wolf Sub Selector -->
   <div class="card" id="lwTypes" style="display: none;">
-    <h2>SELECT TEAM SIZE (LONE WOLF)</h2>
+    <h2>
+      <span data-en="SELECT TEAM SIZE (LONE WOLF)" data-hi="टीम का आकार चुनें (लोन वुल्फ)">SELECT TEAM SIZE (LONE WOLF)</span>
+    </h2>
     <div class="btn-group">
-      <button class="modeBtn" onclick="showLWSolo(this)">LONE WOLF SOLO (1v1)</button>
-      <button class="modeBtn" onclick="showLWDuo(this)">LONE WOLF DUO (2v2)</button>
+      <button class="modeBtn" onclick="showLWSolo()"><span data-en="LONE WOLF SOLO (1v1)" data-hi="लोन वुल्फ सोलो (1v1)">LONE WOLF SOLO (1v1)</span></button>
+      <button class="modeBtn" onclick="showLWDuo()"><span data-en="LONE WOLF DUO (2v2)" data-hi="लोन वुल्फ डुओ (2v2)">LONE WOLF DUO (2v2)</span></button>
     </div>
   </div>
 
   <!-- Dynamic Stats Frame -->
   <div class="card" id="status">
-    <h2>MATCH DETAILS</h2>
-    <p style="color: #718096; margin-top: 10px;">Select a tournament mode above to display prize pool, entry fee & total players.</p>
+    <h2 data-en="MATCH DETAILS" data-hi="मैच विवरण">MATCH DETAILS</h2>
+    <p style="color: #718096; margin-top: 10px; font-size: 14px;" data-en="Select a tournament mode above to display prize pool, entry fee & total players." data-hi="पुरस्कार पूल, प्रवेश शुल्क और कुल खिलाड़ियों को प्रदर्शित करने के लिए ऊपर एक टूर्नामेंट मोड चुनें।">
+      Select a tournament mode above to display prize pool, entry fee & total players.
+    </p>
   </div>
 
   <!-- PLANETS AI ASSISTANT WIDGET -->
   <div class="ai-widget-container">
     <div class="ai-chat-card" id="aiCard">
       <div class="ai-chat-header">
-        <span>🤖 PLANETS BOT</span>
+        <span data-en="🤖 PLANETS BOT" data-hi="🤖 PLANETS BOT">🤖 PLANETS BOT</span>
         <span style="cursor:pointer;" onclick="toggleAI()">✕</span>
       </div>
       <div class="ai-chat-messages" id="aiMessages">
-        <div class="ai-msg bot">
+        <div class="ai-msg bot" data-en="Greetings Survivor! I am your Planets Esport Assistant. Ask me anything about player counts, entry fees, or prize pools!" data-hi="नमस्कार उत्तरजीवी! मैं आपका प्लैनेट्स ईस्पोर्ट्स सहायक हूँ। मुझसे खिलाड़ी संख्या, प्रवेश शुल्क या पुरस्कार पूल के बारे में कुछ भी पूछें!">
           Greetings Survivor! I am your Planets Esport Assistant. Ask me anything about player counts, entry fees, or prize pools!
         </div>
       </div>
       <div class="ai-quick-topics">
-        <span class="chip" onclick="askQuick('What is BR Solo entry fee?')">BR Entry Fee?</span>
-        <span class="chip" onclick="askQuick('How many total players in CS?')">CS Players?</span>
-        <span class="chip" onclick="askQuick('What is the prize pool?')">Prize Pools?</span>
+        <span class="chip" onclick="askQuick('What is BR Solo entry fee?')" data-en="BR Entry Fee?" data-hi="बीआर एंट्री फीस?">BR Entry Fee?</span>
+        <span class="chip" onclick="askQuick('How many total players in CS?')" data-en="CS Players?" data-hi="सीएस खिलाड़ी?">CS Players?</span>
+        <span class="chip" onclick="askQuick('What is the prize pool?')" data-en="Prize Pools?" data-hi="प्राइज पूल?">Prize Pools?</span>
       </div>
       <div class="ai-chat-input-area">
-        <input type="text" id="aiInput" placeholder="Ask about tourneys..." onkeydown="if(event.key==='Enter') sendAIMessage()">
-        <button onclick="sendAIMessage()">SEND</button>
+        <input type="text" id="aiInput" placeholder="Ask about tourneys..." data-en-placeholder="Ask about tourneys..." data-hi-placeholder="टूर्नामेंट के बारे में पूछें..." onkeydown="if(event.key==='Enter') sendAIMessage()">
+        <button onclick="sendAIMessage()" data-en="SEND" data-hi="भेजें">SEND</button>
       </div>
     </div>
     <button class="ai-toggle-btn" onclick="toggleAI()">
-      🤖 AI BOT
+      🤖 <span data-en="AI BOT" data-hi="AI BOT">AI BOT</span>
     </button>
   </div>
 
   <footer>
-    <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 16px; letter-spacing: 2px;">PLANETS ESPORT FREE FIRE</h2>
-    <p style="margin-top: 6px; font-size: 13px;">Fair Play, Anti-Hack & Continuous Competitions</p>
-    <p style="margin-top: 12px; font-size: 12px; color: #2d3748;">© 2026 Planets Esport. All Rights Reserved.</p>
+    <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 14px; letter-spacing: 2px;" data-en="PLANETS ESPORT FREE FIRE" data-hi="PLANETS ESPORT FREE FIRE">PLANETS ESPORT FREE FIRE</h2>
+    <p style="margin-top: 6px; font-size: 12px;" data-en="Fair Play, Anti-Hack & Continuous Competitions" data-hi="फेयर प्ले, एंटी-हैक और निरंतर प्रतियोगिताएं">Fair Play, Anti-Hack & Continuous Competitions</p>
+    <p style="margin-top: 10px; font-size: 11px; color: #2d3748;" data-en="© 2026 Planets Esport. All Rights Reserved." data-hi="© 2026 Planets Esport. All Rights Reserved.">© 2026 Planets Esport. All Rights Reserved.</p>
   </footer>
 
-  <!-- Script Engine with Enhanced Smoothness -->
+  <!-- Script Engine -->
   <script>
-    /* --- HIGH-PERFORMANCE SPACE & SHOOTING STAR CANVAS --- */
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+      document.getElementById('btnHi').classList.toggle('active', lang === 'hi');
+
+      // Update all elements carrying data-en and data-hi
+      document.querySelectorAll('[data-en]').forEach(el => {
+        if (el.tagName === 'INPUT') {
+          el.placeholder = el.getAttribute(`data-${lang}-placeholder`) || el.placeholder;
+        } else {
+          const text = el.getAttribute(`data-${lang}`);
+          if (text) el.textContent = text;
+        }
+      });
+
+      // Update dynamic match card content if active
+      const statusBox = document.getElementById('status');
+      if (window.lastActiveMode) {
+        window.lastActiveMode();
+      } else {
+        statusBox.innerHTML = `
+          <h2 data-en="MATCH DETAILS" data-hi="मैच विवरण">${lang === 'hi' ? 'मैच विवरण' : 'MATCH DETAILS'}</h2>
+          <p style="color: #718096; margin-top: 10px; font-size: 14px;" data-en="Select a tournament mode above to display prize pool, entry fee & total players." data-hi="पुरस्कार पूल, प्रवेश शुल्क और कुल खिलाड़ियों को प्रदर्शित करने के लिए ऊपर एक टूर्नामेंट मोड चुनें।">
+            ${lang === 'hi' ? 'पुरस्कार पूल, प्रवेश शुल्क और कुल खिलाड़ियों को प्रदर्शित करने के लिए ऊपर एक टूर्नामेंट मोड चुनें।' : 'Select a tournament mode above to display prize pool, entry fee & total players.'}
+          </p>
+        `;
+      }
+    }
+
+    /* --- CANVAS ANIMATION --- */
     const canvas = document.getElementById('space-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -814,10 +921,7 @@
     }));
 
     class ShootingStar {
-      constructor() {
-        this.reset();
-      }
-
+      constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * (w * 1.2) - (w * 0.2);
         this.y = Math.random() * (h * 0.4) - 50;
@@ -829,116 +933,59 @@
         this.opacity = Math.random() * 0.5 + 0.5;
         this.decay = Math.random() * 0.015 + 0.008;
         this.thickness = Math.random() * 1.8 + 1;
-        
-        const colors = [
-          { main: '0, 240, 255', tail: '157, 0, 255' },
-          { main: '255, 0, 85', tail: '0, 240, 255' },
-          { main: '255, 255, 255', tail: '0, 240, 255' }
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.color = { main: '0, 240, 255', tail: '157, 0, 255' };
         this.active = false;
       }
-
-      spawn() {
-        this.reset();
-        this.active = true;
-      }
-
+      spawn() { this.reset(); this.active = true; }
       update() {
         if (!this.active) return;
         this.x += this.dx;
         this.y += this.dy;
         this.opacity -= this.decay;
-        if (this.opacity <= 0 || this.x > w + 200 || this.y > h + 200) {
-          this.active = false;
-        }
+        if (this.opacity <= 0 || this.x > w + 200 || this.y > h + 200) this.active = false;
       }
-
       draw() {
         if (!this.active) return;
         const tailX = this.x - Math.cos(this.angle) * this.length;
         const tailY = this.y - Math.sin(this.angle) * this.length;
-
         const gradient = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
         gradient.addColorStop(0, `rgba(${this.color.main}, ${this.opacity})`);
-        gradient.addColorStop(0.3, `rgba(${this.color.tail}, ${this.opacity * 0.6})`);
         gradient.addColorStop(1, `rgba(0, 0, 0, 0)`);
-
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(tailX, tailY);
         ctx.strokeStyle = gradient;
         ctx.lineWidth = this.thickness;
-        ctx.lineCap = 'round';
         ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.thickness, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = `rgba(${this.color.main}, 1)`;
-        ctx.fill();
-        ctx.shadowBlur = 0;
       }
     }
 
-    const shootingStarPool = Array.from({ length: 12 }, () => new ShootingStar());
-
+    const shootingStarPool = Array.from({ length: 8 }, () => new ShootingStar());
     setInterval(() => {
-      const count = Math.random() > 0.6 ? 2 : 1;
-      for (let i = 0; i < count; i++) {
-        const inactive = shootingStarPool.find(s => !s.active);
-        if (inactive) {
-          setTimeout(() => inactive.spawn(), Math.random() * 400);
-        }
-      }
-    }, 900);
+      const inactive = shootingStarPool.find(s => !s.active);
+      if (inactive) inactive.spawn();
+    }, 1200);
 
     function animateSpace() {
       ctx.clearRect(0, 0, w, h);
-
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
       mouse.y += (mouse.targetY - mouse.y) * 0.08;
-
       const now = Date.now();
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i];
         const alpha = Math.max(0.1, Math.min(1, s.alpha + Math.sin(now * s.speed) * 0.01));
-        const rx = s.x + mouse.x * s.parallaxFactor;
-        const ry = s.y + mouse.y * s.parallaxFactor;
-
         ctx.beginPath();
-        ctx.arc(rx, ry, s.radius, 0, Math.PI * 2);
+        ctx.arc(s.x + mouse.x * s.parallaxFactor, s.y + mouse.y * s.parallaxFactor, s.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
         ctx.fill();
       }
-
       for (let i = 0; i < shootingStarPool.length; i++) {
-        const s = shootingStarPool[i];
-        s.update();
-        s.draw();
+        shootingStarPool[i].update();
+        shootingStarPool[i].draw();
       }
-
       requestAnimationFrame(animateSpace);
     }
     animateSpace();
-
-    /* --- BUTTON RIPPLE EFFECT --- */
-    document.querySelectorAll('.button, .modeBtn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-
-        this.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-      });
-    });
 
     /* --- MATCH CONFIGURATION ENGINE --- */
     const matchData = {
@@ -954,27 +1001,33 @@
       const statusBox = document.getElementById('status');
       statusBox.style.opacity = '0';
       statusBox.style.transform = 'translate3d(0, 15px, 0)';
-      
       setTimeout(() => {
         statusBox.innerHTML = htmlContent;
         statusBox.style.opacity = '1';
         statusBox.style.transform = 'translate3d(0, 0, 0)';
-      }, 180);
+      }, 150);
     }
 
     function showCS() {
       document.getElementById('brTypes').style.display = 'none';
       document.getElementById('lwTypes').style.display = 'none';
+      window.lastActiveMode = showCS;
       const d = matchData.cs;
+      const title = currentLang === 'hi' ? '🔥 clash squad (4v4)' : '🔥 CLASH SQUAD (4v4)';
+      const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
+      const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
+      const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
+      const winTeam = currentLang === 'hi' ? '🥇 विजेता टीम' : '🥇 Winning Team';
+
       updateMatchDetails(`
-        <h2>🔥 CLASH SQUAD (4v4)</h2>
+        <h2>${title}</h2>
         <div class="stats-grid">
-          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>Prize Pool</p></div>
-          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>Entry Fee</p></div>
-          <div class="stat-box"><h3>${d.total}</h3><p>Total Players</p></div>
+          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>${pPool}</p></div>
+          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>${eFee}</p></div>
+          <div class="stat-box"><h3>${d.total}</h3><p>${tPlayers}</p></div>
         </div>
         <div class="prizes-container">
-          <div class="prize-badge rank-1"><span>🥇 Winning Team</span> <span>${d.win}</span></div>
+          <div class="prize-badge rank-1"><span>${winTeam}</span> <span>${d.win}</span></div>
         </div>
       `);
     }
@@ -990,87 +1043,128 @@
     }
 
     function showSolo() {
+      window.lastActiveMode = showSolo;
       const d = matchData.brSolo;
+      const title = currentLang === 'hi' ? '🪂 battle royale सोलो' : '🪂 BATTLE ROYALE SOLO';
+      const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
+      const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
+      const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
+      const place1 = currentLang === 'hi' ? '🥇 पहला स्थान' : '🥇 1st Place';
+      const place2 = currentLang === 'hi' ? '🥈 दूसरा स्थान' : '🥈 2nd Place';
+      const place3 = currentLang === 'hi' ? '🥉 तीसरा स्थान' : '🥉 3rd Place';
+
       updateMatchDetails(`
-        <h2>🪂 BATTLE ROYALE SOLO</h2>
+        <h2>${title}</h2>
         <div class="stats-grid">
-          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>Prize Pool</p></div>
-          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>Entry Fee</p></div>
-          <div class="stat-box"><h3>${d.total}</h3><p>Total Players</p></div>
+          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>${pPool}</p></div>
+          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>${eFee}</p></div>
+          <div class="stat-box"><h3>${d.total}</h3><p>${tPlayers}</p></div>
         </div>
         <div class="prizes-container">
-          <div class="prize-badge rank-1"><span>🥇 1st Place</span> <span>${d.r1}</span></div>
-          <div class="prize-badge rank-2"><span>🥈 2nd Place</span> <span>${d.r2}</span></div>
-          <div class="prize-badge rank-3"><span>🥉 3rd Place</span> <span>${d.r3}</span></div>
+          <div class="prize-badge rank-1"><span>${place1}</span> <span>${d.r1}</span></div>
+          <div class="prize-badge rank-2"><span>${place2}</span> <span>${d.r2}</span></div>
+          <div class="prize-badge rank-3"><span>${place3}</span> <span>${d.r3}</span></div>
         </div>
       `);
     }
 
     function showDuo() {
+      window.lastActiveMode = showDuo;
       const d = matchData.brDuo;
+      const title = currentLang === 'hi' ? '🪂 battle royale डुओ' : '🪂 BATTLE ROYALE DUO';
+      const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
+      const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
+      const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
+      const place1 = currentLang === 'hi' ? '🥇 पहला स्थान' : '🥇 1st Place';
+      const place2 = currentLang === 'hi' ? '🥈 दूसरा स्थान' : '🥈 2nd Place';
+      const place3 = currentLang === 'hi' ? '🥉 तीसरा स्थान' : '🥉 3rd Place';
+
       updateMatchDetails(`
-        <h2>🪂 BATTLE ROYALE DUO</h2>
+        <h2>${title}</h2>
         <div class="stats-grid">
-          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>Prize Pool</p></div>
-          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>Entry Fee</p></div>
-          <div class="stat-box"><h3>${d.total}</h3><p>Total Players</p></div>
+          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>${pPool}</p></div>
+          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>${eFee}</p></div>
+          <div class="stat-box"><h3>${d.total}</h3><p>${tPlayers}</p></div>
         </div>
         <div class="prizes-container">
-          <div class="prize-badge rank-1"><span>🥇 1st Place</span> <span>${d.r1}</span></div>
-          <div class="prize-badge rank-2"><span>🥈 2nd Place</span> <span>${d.r2}</span></div>
-          <div class="prize-badge rank-3"><span>🥉 3rd Place</span> <span>${d.r3}</span></div>
+          <div class="prize-badge rank-1"><span>${place1}</span> <span>${d.r1}</span></div>
+          <div class="prize-badge rank-2"><span>${place2}</span> <span>${d.r2}</span></div>
+          <div class="prize-badge rank-3"><span>${place3}</span> <span>${d.r3}</span></div>
         </div>
       `);
     }
 
     function showSquad() {
+      window.lastActiveMode = showSquad;
       const d = matchData.brSquad;
+      const title = currentLang === 'hi' ? '🪂 battle royale स्क्वाड' : '🪂 BATTLE ROYALE SQUAD';
+      const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
+      const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
+      const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
+      const place1 = currentLang === 'hi' ? '🥇 पहला स्थान' : '🥇 1st Place';
+      const place2 = currentLang === 'hi' ? '🥈 दूसरा स्थान' : '🥈 2nd Place';
+      const place3 = currentLang === 'hi' ? '🥉 तीसरा स्थान' : '🥉 3rd Place';
+
       updateMatchDetails(`
-        <h2>🪂 BATTLE ROYALE SQUAD</h2>
+        <h2>${title}</h2>
         <div class="stats-grid">
-          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>Prize Pool</p></div>
-          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>Entry Fee</p></div>
-          <div class="stat-box"><h3>${d.total}</h3><p>Total Players</p></div>
+          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>${pPool}</p></div>
+          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>${eFee}</p></div>
+          <div class="stat-box"><h3>${d.total}</h3><p>${tPlayers}</p></div>
         </div>
         <div class="prizes-container">
-          <div class="prize-badge rank-1"><span>🥇 1st Place</span> <span>${d.r1}</span></div>
-          <div class="prize-badge rank-2"><span>🥈 2nd Place</span> <span>${d.r2}</span></div>
-          <div class="prize-badge rank-3"><span>🥉 3rd Place</span> <span>${d.r3}</span></div>
+          <div class="prize-badge rank-1"><span>${place1}</span> <span>${d.r1}</span></div>
+          <div class="prize-badge rank-2"><span>${place2}</span> <span>${d.r2}</span></div>
+          <div class="prize-badge rank-3"><span>${place3}</span> <span>${d.r3}</span></div>
         </div>
       `);
     }
 
     function showLWSolo() {
+      window.lastActiveMode = showLWSolo;
       const d = matchData.lwSolo;
+      const title = currentLang === 'hi' ? '🐺 lonewolf सोलो (1v1)' : '🐺 LONE WOLF SOLO (1v1)';
+      const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
+      const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
+      const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
+      const winPlayer = currentLang === 'hi' ? '🥇 विजेता खिलाड़ी' : '🥇 Winning Player';
+
       updateMatchDetails(`
-        <h2>🐺 LONE WOLF SOLO (1v1)</h2>
+        <h2>${title}</h2>
         <div class="stats-grid">
-          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>Prize Pool</p></div>
-          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>Entry Fee</p></div>
-          <div class="stat-box"><h3>${d.total}</h3><p>Total Players</p></div>
+          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>${pPool}</p></div>
+          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>${eFee}</p></div>
+          <div class="stat-box"><h3>${d.total}</h3><p>${tPlayers}</p></div>
         </div>
         <div class="prizes-container">
-          <div class="prize-badge rank-1"><span>🥇 Winning Player</span> <span>${d.win}</span></div>
+          <div class="prize-badge rank-1"><span>${winPlayer}</span> <span>${d.win}</span></div>
         </div>
       `);
     }
 
     function showLWDuo() {
+      window.lastActiveMode = showLWDuo;
       const d = matchData.lwDuo;
+      const title = currentLang === 'hi' ? '🐺 lonewolf डुओ (2v2)' : '🐺 LONE WOLF DUO (2v2)';
+      const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
+      const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
+      const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
+      const winTeam = currentLang === 'hi' ? '🥇 विजेता टीम' : '🥇 Winning Team';
+
       updateMatchDetails(`
-        <h2>🐺 LONE WOLF DUO (2v2)</h2>
+        <h2>${title}</h2>
         <div class="stats-grid">
-          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>Prize Pool</p></div>
-          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>Entry Fee</p></div>
-          <div class="stat-box"><h3>${d.total}</h3><p>Total Players</p></div>
+          <div class="stat-box"><h3 class="gold">${d.pool}</h3><p>${pPool}</p></div>
+          <div class="stat-box"><h3 class="accent">${d.entry}</h3><p>${eFee}</p></div>
+          <div class="stat-box"><h3>${d.total}</h3><p>${tPlayers}</p></div>
         </div>
         <div class="prizes-container">
-          <div class="prize-badge rank-1"><span>🥇 Winning Team</span> <span>${d.win}</span></div>
+          <div class="prize-badge rank-1"><span>${winTeam}</span> <span>${d.win}</span></div>
         </div>
       `);
     }
 
-    /* --- AI CHAT FUNCTIONS --- */
+    /* --- AI CHAT WIDGET --- */
     function toggleAI() {
       const card = document.getElementById('aiCard');
       card.style.display = (card.style.display === 'flex') ? 'none' : 'flex';
@@ -1091,17 +1185,23 @@
       input.value = '';
 
       setTimeout(() => {
-        let reply = "Join our Discord or WhatsApp channel for live Room IDs, passwords, and custom match updates!";
+        let reply = currentLang === 'hi' 
+          ? "लाइव रूम आईडी, पासवर्ड और कस्टम मैच अपडेट के लिए हमारे डिस्कॉर्ड या व्हाट्सएप चैनल से जुड़ें!"
+          : "Join our Discord or WhatsApp channel for live Room IDs, passwords, and custom match updates!";
         const lower = val.toLowerCase();
 
-        if (lower.includes('entry')) {
-          reply = `Entry fees: BR Solo ₹30, BR Duo ₹25, BR Squad ₹20, CS ₹20, LW Duo ₹20, LW Solo ₹20!`;
-        } else if (lower.includes('br')) {
-          reply = `BR Prize Pools: Solo ₹1000 (1st: ₹650), Duo ₹950 (1st: ₹500), Squad ₹800 (1st: ₹450). All BR modes have 50 total players!`;
-        } else if (lower.includes('cs')) {
-          reply = `Clash Squad has an entry fee of ₹20, total 8 players, and a Prize Pool of ₹120 (₹30 for each winning player)!`;
-        } else if (lower.includes('prize')) {
-          reply = `Prize Pools: BR Solo ₹1000, BR Duo ₹950, BR Squad ₹800, Clash Squad ₹120, LW Duo ₹60, LW Solo ₹30!`;
+        if (lower.includes('entry') || lower.includes('फीस')) {
+          reply = currentLang === 'hi'
+            ? "प्रवेश शुल्क: BR सोलो ₹30, BR डुओ ₹25, BR स्क्वाड ₹20, CS ₹20, LW डुओ ₹20, LW सोलो ₹20!"
+            : `Entry fees: BR Solo ₹30, BR Duo ₹25, BR Squad ₹20, CS ₹20, LW Duo ₹20, LW Solo ₹20!`;
+        } else if (lower.includes('br') || lower.includes('बैटल')) {
+          reply = currentLang === 'hi'
+            ? "BR पुरस्कार पूल: सोलो ₹1000 (1st: ₹650), डुओ ₹950 (1st: ₹500), स्क्वाड ₹800 (1st: ₹450)। सभी BR मोड में कुल 50 खिलाड़ी हैं!"
+            : `BR Prize Pools: Solo ₹1000 (1st: ₹650), Duo ₹950 (1st: ₹500), Squad ₹800 (1st: ₹450). All BR modes have 50 total players!`;
+        } else if (lower.includes('cs') || lower.includes('क्लैश')) {
+          reply = currentLang === 'hi'
+            ? "क्लैश स्क्वाड का प्रवेश शुल्क ₹20, कुल 8 खिलाड़ी और पुरस्कार पूल ₹120 (प्रत्येक विजेता खिलाड़ी के लिए ₹30) है!"
+            : `Clash Squad has an entry fee of ₹20, total 8 players, and a Prize Pool of ₹120 (₹30 for each winning player)!`;
         }
 
         msgs.innerHTML += `<div class="ai-msg bot">${reply}</div>`;
