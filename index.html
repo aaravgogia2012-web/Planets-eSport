@@ -18,7 +18,7 @@
       --accent: #ff0055;
       --gold: #ffd700;
       --bg-dark: #03030c;
-      --card-bg: rgba(10, 14, 35, 0.75);
+      --card-bg: rgba(10, 14, 35, 0.78);
       --card-border: rgba(0, 240, 255, 0.35);
     }
 
@@ -40,22 +40,32 @@
       min-height: 100vh;
       position: relative;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* --- LANGUAGE SWITCHER STYLES --- */
-    .lang-switcher {
+    /* --- ABSOLUTE TOP CONTROLS (NO LONGER FIXED/SLIDING) --- */
+    .top-controls {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
+      top: 15px;
+      right: 15px;
+      z-index: 1000;
       display: flex;
-      gap: 8px;
-      background: rgba(10, 14, 35, 0.85);
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+      max-width: 100%;
+      padding-left: 15px;
+    }
+
+    .control-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: rgba(10, 14, 35, 0.9);
       backdrop-filter: blur(15px);
       border: 1px solid var(--card-border);
-      padding: 6px;
-      border-radius: 12px;
+      padding: 6px 10px;
+      border-radius: 14px;
       box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
     }
 
@@ -66,10 +76,15 @@
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
       font-size: 11px;
-      padding: 6px 12px;
+      padding: 8px 12px;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
     }
 
     .lang-btn.active, .lang-btn:hover {
@@ -99,32 +114,9 @@
       will-change: transform, opacity;
     }
 
-    .glow-1 {
-      width: 500px;
-      height: 500px;
-      background: rgba(0, 240, 255, 0.2);
-      top: -100px;
-      left: -100px;
-    }
-
-    .glow-2 {
-      width: 600px;
-      height: 600px;
-      background: rgba(157, 0, 255, 0.25);
-      bottom: -150px;
-      right: -100px;
-      animation-delay: -3s;
-    }
-
-    .glow-3 {
-      width: 400px;
-      height: 400px;
-      background: rgba(255, 0, 85, 0.18);
-      top: 45%;
-      left: 50%;
-      transform: translate3d(-50%, -50%, 0);
-      animation-delay: -6s;
-    }
+    .glow-1 { width: 500px; height: 500px; background: rgba(0, 240, 255, 0.2); top: -100px; left: -100px; }
+    .glow-2 { width: 600px; height: 600px; background: rgba(157, 0, 255, 0.25); bottom: -150px; right: -100px; animation-delay: -3s; }
+    .glow-3 { width: 400px; height: 400px; background: rgba(255, 0, 85, 0.18); top: 45%; left: 50%; transform: translate3d(-50%, -50%, 0); animation-delay: -6s; }
 
     @keyframes pulseGlow {
       0% { opacity: 0.5; transform: scale(0.85) translate3d(0, 0, 0); }
@@ -144,7 +136,6 @@
       animation: planetFloat 12s ease-in-out infinite alternate;
       z-index: -12;
       pointer-events: none;
-      will-change: transform;
     }
 
     .saturn::before {
@@ -173,7 +164,6 @@
       animation: planetFloat 9s ease-in-out infinite alternate-reverse;
       z-index: -12;
       pointer-events: none;
-      will-change: transform;
     }
 
     @keyframes planetFloat {
@@ -184,22 +174,16 @@
     /* --- HEADER & STYLIZED FREE FIRE LOGO --- */
     header {
       text-align: center;
-      padding: 50px 20px 15px;
+      padding: 70px 20px 15px;
       position: relative;
       z-index: 10;
-      animation: headerSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes headerSlideDown {
-      from { opacity: 0; transform: translate3d(0, -30px, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     .logo {
       font-family: 'Orbitron', sans-serif;
-      font-size: 50px;
+      font-size: 44px;
       font-weight: 900;
-      letter-spacing: 6px;
+      letter-spacing: 4px;
       background: linear-gradient(180deg, #ffffff 0%, var(--primary) 50%, #0044ff 100%);
       -webkit-background-clip: text;
       color: transparent;
@@ -213,31 +197,23 @@
 
     .tag-ff {
       font-family: 'Orbitron', sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       letter-spacing: 3px;
       color: #ffffff;
       background: linear-gradient(135deg, #ff0055 0%, #ff5500 100%);
       border: 1px solid rgba(255, 0, 85, 0.9);
-      padding: 6px 18px;
+      padding: 6px 16px;
       border-radius: 20px;
-      box-shadow: 0 0 25px rgba(255, 0, 85, 0.7), inset 0 0 12px rgba(255, 255, 255, 0.4);
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-      vertical-align: middle;
+      box-shadow: 0 0 25px rgba(255, 0, 85, 0.7);
       text-transform: uppercase;
-      animation: tagPulse 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes tagPulse {
-      0% { box-shadow: 0 0 15px rgba(255, 0, 85, 0.5), inset 0 0 8px rgba(255, 255, 255, 0.2); }
-      100% { box-shadow: 0 0 30px rgba(255, 0, 85, 0.9), inset 0 0 16px rgba(255, 255, 255, 0.5); }
     }
 
     .subtitle {
       font-family: 'Orbitron', sans-serif;
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 12px;
+      letter-spacing: 10px;
       color: var(--primary);
       margin-top: 8px;
       text-shadow: 0 0 20px var(--primary);
@@ -258,41 +234,18 @@
       text-align: center;
       position: relative;
       z-index: 10;
-      opacity: 0;
-      transform: translate3d(0, 30px, 0);
-      animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
-      will-change: transform, opacity;
-    }
-
-    .card:nth-child(2) { animation-delay: 0.15s; }
-    .card:nth-child(3) { animation-delay: 0.25s; }
-    .card:nth-child(4) { animation-delay: 0.35s; }
-
-    @keyframes cardEntrance {
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
       border-color: rgba(0, 240, 255, 0.8);
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95), inset 0 0 35px rgba(0, 240, 255, 0.18);
-      transform: translate3d(0, -6px, 0);
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      top: -1px;
-      right: 25px;
-      width: 80px;
-      height: 3px;
-      background: var(--primary);
-      box-shadow: 0 0 15px var(--primary);
+      transform: translate3d(0, -4px, 0);
     }
 
     .card h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 22px;
+      font-size: 21px;
       letter-spacing: 2px;
       color: #ffffff;
       display: flex;
@@ -300,7 +253,6 @@
       justify-content: center;
       gap: 12px;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
       flex-wrap: wrap;
     }
 
@@ -311,7 +263,7 @@
       flex-shrink: 0;
     }
 
-    /* --- BUTTONS & CONTROLS FIX FOR HINDI SPACING --- */
+    /* --- BUTTONS & CONTROLS --- */
     .btn-group {
       display: flex;
       flex-wrap: wrap;
@@ -339,85 +291,55 @@
       text-transform: uppercase;
       cursor: pointer;
       user-select: none;
-      overflow: hidden;
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, background 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.25);
-      will-change: transform;
       text-align: center;
       white-space: nowrap;
-      flex: 1 1 auto;
-      min-width: 140px;
-    }
-
-    .button .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.6);
-      transform: scale(0);
-      animation: rippleEffect 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes rippleEffect {
-      to { transform: scale(4); opacity: 0; }
+      flex: 1 1 160px;
     }
 
     .button.register {
       background: linear-gradient(135deg, #00f0ff 0%, #0051ff 50%, #9d00ff 100%);
-      background-size: 200% 200%;
-      animation: gradientShift 4s ease infinite;
       box-shadow: 0 0 25px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.5);
       border-color: rgba(0, 240, 255, 0.9);
     }
 
     .button.register:hover {
-      transform: translate3d(0, -5px, 0) scale(1.04);
-      box-shadow: 0 0 50px rgba(0, 240, 255, 0.9), inset 0 0 25px rgba(255, 255, 255, 0.9);
+      transform: translate3d(0, -4px, 0) scale(1.03);
+      box-shadow: 0 0 45px rgba(0, 240, 255, 0.9);
     }
 
     .button.discord {
       background: linear-gradient(135deg, rgba(88, 101, 242, 0.35) 0%, rgba(64, 78, 237, 0.65) 100%);
       border: 1px solid rgba(88, 101, 242, 0.9);
       box-shadow: 0 0 25px rgba(88, 101, 242, 0.4);
-      backdrop-filter: blur(12px);
     }
 
     .button.discord:hover {
-      transform: translate3d(0, -5px, 0) scale(1.04);
-      background: linear-gradient(135deg, rgba(88, 101, 242, 0.8) 0%, rgba(64, 78, 237, 0.95) 100%);
-      box-shadow: 0 0 50px rgba(88, 101, 242, 0.9);
+      transform: translate3d(0, -4px, 0) scale(1.03);
+      box-shadow: 0 0 45px rgba(88, 101, 242, 0.9);
     }
 
     .button.whatsapp {
       background: linear-gradient(135deg, rgba(37, 211, 102, 0.35) 0%, rgba(18, 140, 126, 0.65) 100%);
       border: 1px solid rgba(37, 211, 102, 0.9);
       box-shadow: 0 0 25px rgba(37, 211, 102, 0.4);
-      backdrop-filter: blur(12px);
     }
 
     .button.whatsapp:hover {
-      transform: translate3d(0, -5px, 0) scale(1.04);
-      background: linear-gradient(135deg, rgba(37, 211, 102, 0.8) 0%, rgba(18, 140, 126, 0.95) 100%);
-      box-shadow: 0 0 50px rgba(37, 211, 102, 0.9);
+      transform: translate3d(0, -4px, 0) scale(1.03);
+      box-shadow: 0 0 45px rgba(37, 211, 102, 0.9);
     }
 
     .button.feedback {
       background: linear-gradient(135deg, rgba(255, 165, 0, 0.35) 0%, rgba(204, 85, 0, 0.65) 100%);
       border: 1px solid rgba(255, 165, 0, 0.9);
       box-shadow: 0 0 25px rgba(255, 165, 0, 0.4);
-      backdrop-filter: blur(12px);
     }
 
     .button.feedback:hover {
-      transform: translate3d(0, -5px, 0) scale(1.04);
-      background: linear-gradient(135deg, rgba(255, 165, 0, 0.8) 0%, rgba(204, 85, 0, 0.95) 100%);
-      box-shadow: 0 0 50px rgba(255, 165, 0, 0.9);
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      transform: translate3d(0, -4px, 0) scale(1.03);
+      box-shadow: 0 0 45px rgba(255, 165, 0, 0.9);
     }
 
     .modeBtn {
@@ -425,34 +347,32 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 14px 22px;
+      padding: 14px 18px;
       border: 1px solid rgba(157, 0, 255, 0.5);
       border-radius: 12px;
       background: rgba(157, 0, 255, 0.15);
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 12px;
+      font-size: 11px;
       letter-spacing: 1px;
       cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      user-select: none;
-      will-change: transform;
+      transition: all 0.3s ease;
       text-align: center;
-      flex: 1 1 140px;
+      flex: 1 1 150px;
     }
 
     .modeBtn:hover, .modeBtn.active {
       background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
       border-color: #ff0055;
       box-shadow: 0 0 30px rgba(255, 0, 85, 0.8);
-      transform: translate3d(0, -4px, 0) scale(1.02);
+      transform: translate3d(0, -3px, 0);
     }
 
     /* --- STATS GRID & PRIZES --- */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 16px;
       margin-top: 24px;
     }
@@ -463,13 +383,12 @@
       padding: 18px 12px;
       border-radius: 14px;
       box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .stat-box:hover {
-      transform: translate3d(0, -4px, 0);
+      transform: translate3d(0, -3px, 0);
       border-color: rgba(0, 240, 255, 0.7);
-      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.1);
     }
 
     .stat-box h3 {
@@ -479,15 +398,8 @@
       text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
     }
 
-    .stat-box h3.gold {
-      color: var(--gold);
-      text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-    }
-
-    .stat-box h3.accent {
-      color: var(--accent);
-      text-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
-    }
+    .stat-box h3.gold { color: var(--gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
+    .stat-box h3.accent { color: var(--accent); text-shadow: 0 0 15px rgba(255, 0, 85, 0.6); }
 
     .stat-box p {
       font-size: 11px;
@@ -520,11 +432,11 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       width: 100%;
       max-width: 380px;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease;
+      transition: transform 0.25s ease, background 0.25s ease;
     }
 
     .prize-badge:hover {
-      transform: translate3d(0, -3px, 0);
+      transform: translate3d(0, -2px, 0);
       background: rgba(255, 255, 255, 0.08);
     }
 
@@ -535,8 +447,8 @@
     /* --- PLANETS AI ASSISTANT WIDGET --- */
     .ai-widget-container {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 25px;
+      right: 25px;
       z-index: 999;
     }
 
@@ -552,15 +464,14 @@
       letter-spacing: 1px;
       cursor: pointer;
       box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       align-items: center;
       gap: 8px;
-      will-change: transform;
     }
 
     .ai-toggle-btn:hover {
-      transform: scale(1.08) translate3d(0, -3px, 0);
+      transform: scale(1.06) translate3d(0, -3px, 0);
       box-shadow: 0 0 40px rgba(0, 240, 255, 0.9);
     }
 
@@ -580,7 +491,6 @@
       flex-direction: column;
       overflow: hidden;
       animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      will-change: transform, opacity;
     }
 
     @keyframes popIn {
@@ -616,13 +526,6 @@
       border-radius: 12px;
       font-size: 13px;
       line-height: 1.4;
-      animation: fadeInMsg 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      will-change: transform, opacity;
-    }
-
-    @keyframes fadeInMsg {
-      from { opacity: 0; transform: translate3d(0, 10px, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     .ai-msg.bot {
@@ -659,13 +562,12 @@
       cursor: pointer;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
-      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      transition: all 0.25s ease;
     }
 
     .chip:hover {
       background: var(--primary);
       color: #000;
-      transform: translate3d(0, -2px, 0);
     }
 
     .ai-chat-input-area {
@@ -710,16 +612,18 @@
     }
 
     @media (max-width: 768px) {
-      .logo { font-size: 26px; letter-spacing: 2px; }
-      .tag-ff { font-size: 11px; padding: 4px 10px; }
-      .subtitle { font-size: 10px; letter-spacing: 4px; }
-      .saturn { width: 120px; height: 120px; right: -15px; top: 15px; }
-      .saturn::before { width: 190px; height: 35px; }
-      .earth { width: 50px; height: 50px; left: 10px; top: 60px; }
+      .top-controls { top: 10px; right: 10px; left: 10px; justify-content: center; }
+      header { padding-top: 90px; }
+      .logo { font-size: 24px; letter-spacing: 2px; }
+      .tag-ff { font-size: 10px; padding: 4px 10px; }
+      .subtitle { font-size: 10px; letter-spacing: 3px; }
+      .saturn { width: 100px; height: 100px; right: -10px; top: 10px; }
+      .saturn::before { width: 160px; height: 30px; }
+      .earth { width: 45px; height: 45px; left: 5px; top: 50px; }
       .card { width: 94%; padding: 20px 14px; }
-      .button { min-width: calc(50% - 7px); padding: 12px 10px; font-size: 11px; }
+      .button { min-width: 100%; padding: 12px 10px; font-size: 11px; }
       .modeBtn { flex: 1 1 100%; }
-      .ai-chat-card { width: 280px; right: -5px; height: 380px; }
+      .ai-chat-card { width: 270px; right: -5px; height: 380px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
@@ -727,10 +631,12 @@
 
 <body>
 
-  <!-- Language Switcher -->
-  <div class="lang-switcher">
-    <button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">EN</button>
-    <button class="lang-btn" id="btnHi" onclick="setLanguage('hi')">हिन्दी</button>
+  <!-- Top Controls: Absolute Positioned (Stays at the top, does not scroll with page) -->
+  <div class="top-controls">
+    <div class="control-cluster">
+      <button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="btnHi" onclick="setLanguage('hi')">हिन्दी</button>
+    </div>
   </div>
 
   <!-- Space Canvas Background -->
@@ -759,7 +665,7 @@
       <svg class="icon" viewBox="0 0 24 24"><path fill="var(--primary)" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
       <span data-en="DAILY ARENA" data-hi="दैनिक एरिना">DAILY ARENA</span>
     </h2>
-    <p style="margin: 12px 0 20px; color: #a0aec0; font-size: 15px; line-height: 1.5;" data-en="Compete against top survivors, climb the galaxy leaderboards & win daily prize pools." data-hi="शीर्ष उत्तरजीवियों के खिलाफ प्रतिस्पर्धा करें, गैलेक्सी लीडरबोर्ड पर चढ़ें और दैनिक पुरस्कार पूल जीतें।">
+    <p style="margin: 12px 0 20px; color: #a0aec0; font-size: 14px; line-height: 1.5;" data-en="Compete against top survivors, climb the galaxy leaderboards & win daily prize pools." data-hi="शीर्ष उत्तरजीवियों के खिलाफ प्रतिस्पर्धा करें, गैलेक्सी लीडरबोर्ड पर चढ़ें और दैनिक पुरस्कार पूल जीतें।">
       Compete against top survivors, climb the galaxy leaderboards & win daily prize pools.
     </p>
 
@@ -790,15 +696,15 @@
       <span data-en="SELECT MODE" data-hi="मोड चुनें">SELECT MODE</span>
     </h2>
     <div class="btn-group">
-      <button class="modeBtn" id="btnBR" onclick="showBR()"><span data-en="BATTLE ROYALE" data-hi="battle royale">BATTLE ROYALE</span></button>
-      <button class="modeBtn" id="btnCS" onclick="showCS()"><span data-en="CLASH SQUAD" data-hi="clash squad">CLASH SQUAD</span></button>
-      <button class="modeBtn" id="btnLW" onclick="showLW()"><span data-en="LONE WOLF" data-hi="lonewolf">LONE WOLF</span></button>
+      <button class="modeBtn" id="btnBR" onclick="showBR()"><span data-en="BATTLE ROYALE" data-hi="बैटल रॉयल">BATTLE ROYALE</span></button>
+      <button class="modeBtn" id="btnCS" onclick="showCS()"><span data-en="CLASH SQUAD" data-hi="क्लैश स्क्वाड">CLASH SQUAD</span></button>
+      <button class="modeBtn" id="btnLW" onclick="showLW()"><span data-en="LONE WOLF" data-hi="लोन वुल्फ">LONE WOLF</span></button>
     </div>
   </div>
 
   <!-- Battle Royale Sub Selector -->
   <div class="card" id="brTypes" style="display: none;">
-    <h2 data-en="SELECT TEAM SIZE (BATTLE ROYALE)" data-hi="टीम का आकार चुनें (बैटल रॉयल)">
+    <h2>
       <span data-en="SELECT TEAM SIZE (BATTLE ROYALE)" data-hi="टीम का आकार चुनें (बैटल रॉयल)">SELECT TEAM SIZE (BATTLE ROYALE)</span>
     </h2>
     <div class="btn-group">
@@ -855,9 +761,9 @@
   </div>
 
   <footer>
-    <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 14px; letter-spacing: 2px;" data-en="PLANETS ESPORT FREE FIRE" data-hi="PLANETS ESPORT FREE FIRE">PLANETS ESPORT FREE FIRE</h2>
+    <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 13px; letter-spacing: 2px;" data-en="PLANETS ESPORT FREE FIRE" data-hi="PLANETS ESPORT FREE FIRE">PLANETS ESPORT FREE FIRE</h2>
     <p style="margin-top: 6px; font-size: 12px;" data-en="Fair Play, Anti-Hack & Continuous Competitions" data-hi="फेयर प्ले, एंटी-हैक और निरंतर प्रतियोगिताएं">Fair Play, Anti-Hack & Continuous Competitions</p>
-    <p style="margin-top: 10px; font-size: 11px; color: #2d3748;" data-en="© 2026 Planets Esport. All Rights Reserved." data-hi="© 2026 Planets Esport. All Rights Reserved.">© 2026 Planets Esport. All Rights Reserved.</p>
+    <p style="margin-top: 8px; font-size: 11px; color: #2d3748;" data-en="© 2026 Planets Esport. All Rights Reserved." data-hi="© 2026 Planets Esport. All Rights Reserved.">© 2026 Planets Esport. All Rights Reserved.</p>
   </footer>
 
   <!-- Script Engine -->
@@ -869,7 +775,6 @@
       document.getElementById('btnEn').classList.toggle('active', lang === 'en');
       document.getElementById('btnHi').classList.toggle('active', lang === 'hi');
 
-      // Update all elements carrying data-en and data-hi
       document.querySelectorAll('[data-en]').forEach(el => {
         if (el.tagName === 'INPUT') {
           el.placeholder = el.getAttribute(`data-${lang}-placeholder`) || el.placeholder;
@@ -879,21 +784,20 @@
         }
       });
 
-      // Update dynamic match card content if active
       const statusBox = document.getElementById('status');
       if (window.lastActiveMode) {
         window.lastActiveMode();
       } else {
         statusBox.innerHTML = `
           <h2 data-en="MATCH DETAILS" data-hi="मैच विवरण">${lang === 'hi' ? 'मैच विवरण' : 'MATCH DETAILS'}</h2>
-          <p style="color: #718096; margin-top: 10px; font-size: 14px;" data-en="Select a tournament mode above to display prize pool, entry fee & total players." data-hi="पुरस्कार पूल, प्रवेश शुल्क और कुल खिलाड़ियों को प्रदर्शित करने के लिए ऊपर एक टूर्नामेंट मोड चुनें।">
+          <p style="color: #718096; margin-top: 10px; font-size: 14px;">
             ${lang === 'hi' ? 'पुरस्कार पूल, प्रवेश शुल्क और कुल खिलाड़ियों को प्रदर्शित करने के लिए ऊपर एक टूर्नामेंट मोड चुनें।' : 'Select a tournament mode above to display prize pool, entry fee & total players.'}
           </p>
         `;
       }
     }
 
-    /* --- CANVAS ANIMATION --- */
+    /* --- CANVAS STARFIELD & METEORS --- */
     const canvas = document.getElementById('space-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -907,33 +811,32 @@
 
     let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     window.addEventListener('mousemove', (e) => {
-      mouse.targetX = (e.clientX - w / 2) * 0.04;
-      mouse.targetY = (e.clientY - h / 2) * 0.04;
+      mouse.targetX = (e.clientX - w / 2) * 0.05;
+      mouse.targetY = (e.clientY - h / 2) * 0.05;
     });
 
-    const stars = Array.from({ length: 160 }, () => ({
+    const stars = Array.from({ length: 200 }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
-      radius: Math.random() * 1.6 + 0.3,
-      alpha: Math.random() * 0.8 + 0.2,
-      speed: Math.random() * 0.015 + 0.005,
-      parallaxFactor: Math.random() * 0.03 + 0.01
+      radius: Math.random() * 1.8 + 0.4,
+      alpha: Math.random() * 0.9 + 0.1,
+      speed: Math.random() * 0.02 + 0.005,
+      parallaxFactor: Math.random() * 0.04 + 0.005
     }));
 
     class ShootingStar {
       constructor() { this.reset(); }
       reset() {
-        this.x = Math.random() * (w * 1.2) - (w * 0.2);
-        this.y = Math.random() * (h * 0.4) - 50;
+        this.x = Math.random() * (w * 1.3) - (w * 0.15);
+        this.y = Math.random() * (h * 0.35) - 60;
         this.length = Math.random() * 140 + 70;
-        this.speed = Math.random() * 12 + 10;
+        this.speed = Math.random() * 12 + 8;
         this.angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1);
         this.dx = Math.cos(this.angle) * this.speed;
         this.dy = Math.sin(this.angle) * this.speed;
-        this.opacity = Math.random() * 0.5 + 0.5;
-        this.decay = Math.random() * 0.015 + 0.008;
-        this.thickness = Math.random() * 1.8 + 1;
-        this.color = { main: '0, 240, 255', tail: '157, 0, 255' };
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.decay = Math.random() * 0.012 + 0.006;
+        this.thickness = Math.random() * 2 + 1;
         this.active = false;
       }
       spawn() { this.reset(); this.active = true; }
@@ -949,7 +852,7 @@
         const tailX = this.x - Math.cos(this.angle) * this.length;
         const tailY = this.y - Math.sin(this.angle) * this.length;
         const gradient = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
-        gradient.addColorStop(0, `rgba(${this.color.main}, ${this.opacity})`);
+        gradient.addColorStop(0, `rgba(0, 240, 255, ${this.opacity})`);
         gradient.addColorStop(1, `rgba(0, 0, 0, 0)`);
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
@@ -964,16 +867,17 @@
     setInterval(() => {
       const inactive = shootingStarPool.find(s => !s.active);
       if (inactive) inactive.spawn();
-    }, 1200);
+    }, 1100);
 
     function animateSpace() {
       ctx.clearRect(0, 0, w, h);
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
       mouse.y += (mouse.targetY - mouse.y) * 0.08;
       const now = Date.now();
+      
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i];
-        const alpha = Math.max(0.1, Math.min(1, s.alpha + Math.sin(now * s.speed) * 0.01));
+        const alpha = Math.max(0.1, Math.min(1, s.alpha + Math.sin(now * s.speed) * 0.015));
         ctx.beginPath();
         ctx.arc(s.x + mouse.x * s.parallaxFactor, s.y + mouse.y * s.parallaxFactor, s.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
@@ -1013,7 +917,7 @@
       document.getElementById('lwTypes').style.display = 'none';
       window.lastActiveMode = showCS;
       const d = matchData.cs;
-      const title = currentLang === 'hi' ? '🔥 clash squad (4v4)' : '🔥 CLASH SQUAD (4v4)';
+      const title = currentLang === 'hi' ? '🔥 क्लैश स्क्वाड (4v4)' : '🔥 CLASH SQUAD (4v4)';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1045,7 +949,7 @@
     function showSolo() {
       window.lastActiveMode = showSolo;
       const d = matchData.brSolo;
-      const title = currentLang === 'hi' ? '🪂 battle royale सोलो' : '🪂 BATTLE ROYALE SOLO';
+      const title = currentLang === 'hi' ? '🪂 बैटल रॉयल सोलो' : '🪂 BATTLE ROYALE SOLO';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1071,7 +975,7 @@
     function showDuo() {
       window.lastActiveMode = showDuo;
       const d = matchData.brDuo;
-      const title = currentLang === 'hi' ? '🪂 battle royale डुओ' : '🪂 BATTLE ROYALE DUO';
+      const title = currentLang === 'hi' ? '🪂 बैटल रॉयल डुओ' : '🪂 BATTLE ROYALE DUO';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1097,7 +1001,7 @@
     function showSquad() {
       window.lastActiveMode = showSquad;
       const d = matchData.brSquad;
-      const title = currentLang === 'hi' ? '🪂 battle royale स्क्वाड' : '🪂 BATTLE ROYALE SQUAD';
+      const title = currentLang === 'hi' ? '🪂 बैटल रॉयल स्क्वाड' : '🪂 BATTLE ROYALE SQUAD';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1123,7 +1027,7 @@
     function showLWSolo() {
       window.lastActiveMode = showLWSolo;
       const d = matchData.lwSolo;
-      const title = currentLang === 'hi' ? '🐺 lonewolf सोलो (1v1)' : '🐺 LONE WOLF SOLO (1v1)';
+      const title = currentLang === 'hi' ? '🐺 लोन वुल्फ सोलो (1v1)' : '🐺 LONE WOLF SOLO (1v1)';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1145,7 +1049,7 @@
     function showLWDuo() {
       window.lastActiveMode = showLWDuo;
       const d = matchData.lwDuo;
-      const title = currentLang === 'hi' ? '🐺 lonewolf डुओ (2v2)' : '🐺 LONE WOLF DUO (2v2)';
+      const title = currentLang === 'hi' ? '🐺 लोन वुल्फ डुओ (2v2)' : '🐺 LONE WOLF DUO (2v2)';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
