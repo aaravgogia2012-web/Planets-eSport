@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- ========================================== -->
+<!-- SECTION: HEAD & METADATA CONFIGURATION -->
+<!-- ========================================== -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +45,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* --- ABSOLUTE TOP CONTROLS (NO LONGER FIXED/SLIDING) --- */
+    /* --- ABSOLUTE TOP CONTROLS --- */
     .top-controls {
       position: absolute;
       top: 15px;
@@ -631,7 +634,11 @@
 
 <body>
 
-  <!-- Top Controls: Absolute Positioned (Stays at the top, does not scroll with page) -->
+  <!-- ========================================== -->
+  <!-- SECTION: TOP UTILITIES & BACKGROUND FX     -->
+  -- ========================================== -->
+
+  <!-- Language Switcher Bar -->
   <div class="top-controls">
     <div class="control-cluster">
       <button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">EN</button>
@@ -647,11 +654,14 @@
   <div class="nebula-glow glow-2"></div>
   <div class="nebula-glow glow-3"></div>
 
-  <!-- Planets Background -->
+  <!-- Planets Background Graphics -->
   <div class="saturn"></div>
   <div class="earth"></div>
 
-  <!-- Header -->
+
+  <!-- ========================================== -->
+  <!-- SECTION: HEADER & BRANDING                 -->
+  <!-- ========================================== -->
   <header>
     <div class="logo">
       PLANETS ESPORT <span class="tag-ff">FREE FIRE</span>
@@ -659,7 +669,10 @@
     <div class="subtitle" data-en="CYBERPUNK ARENA" data-hi="साइबरपंक एरिना">CYBERPUNK ARENA</div>
   </header>
 
-  <!-- Main Registration Portal -->
+
+  <!-- ========================================== -->
+  <!-- SECTION: MAIN REGISTRATION PORTAL & LINKS  -->
+  <!-- ========================================== -->
   <div class="card">
     <h2>
       <svg class="icon" viewBox="0 0 24 24"><path fill="var(--primary)" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
@@ -670,18 +683,22 @@
     </p>
 
     <div class="btn-group">
+      <!-- Edit registration form link inside href below -->
       <a class="button register" href="https://docs.google.com/forms/d/e/1FAIpQLSf3ktwGZacwDV0MKXi29xuh-8oTKo0y3-JVr6IQe2TzsKm43w/viewform?usp=dialog" target="_blank">
         <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v2H6v-2H4v-2h2V9h2v2h3v2zm4.5 1c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
         <span data-en="REGISTER NOW" data-hi="अभी रजिस्टर करें">REGISTER NOW</span>
       </a>
+      <!-- Edit Discord invite link below -->
       <a class="button discord" href="https://discord.gg/kcvREy8Kk" target="_blank">
         <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/></svg>
         <span data-en="DISCORD" data-hi="DISCORD">DISCORD</span>
       </a>
+      <!-- Edit WhatsApp channel link below -->
       <a class="button whatsapp" href="https://whatsapp.com/channel/0029Vb8oK1mGE56rfZYkbp2t" target="_blank">
         <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
         <span data-en="WHATSAPP" data-hi="WHATSAPP">WHATSAPP</span>
       </a>
+      <!-- Edit Feedback link below -->
       <a class="button feedback" href="https://forms.gle/3aBBtnxgx54xY8VeA" target="_blank">
         <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
         <span data-en="FEEDBACK / HELP" data-hi="फीडबैक / सहायता">FEEDBACK / HELP</span>
@@ -689,23 +706,26 @@
     </div>
   </div>
 
-  <!-- Tournament Mode Selector -->
+
+  <!-- ========================================== -->
+  <!-- SECTION: TOURNAMENT MODE SELECTOR          -->
+  <!-- ========================================== -->
   <div class="card">
     <h2>
       <svg class="icon" viewBox="0 0 24 24"><path fill="var(--secondary)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/></svg>
       <span data-en="SELECT MODE" data-hi="मोड चुनें">SELECT MODE</span>
     </h2>
     <div class="btn-group">
-      <button class="modeBtn" id="btnBR" onclick="showBR()"><span data-en="BATTLE ROYALE" data-hi="बैटल रॉयल">BATTLE ROYALE</span></button>
-      <button class="modeBtn" id="btnCS" onclick="showCS()"><span data-en="CLASH SQUAD" data-hi="क्लैश स्क्वाड">CLASH SQUAD</span></button>
-      <button class="modeBtn" id="btnLW" onclick="showLW()"><span data-en="LONE WOLF" data-hi="लोन वुल्फ">LONE WOLF</span></button>
+      <button class="modeBtn" id="btnBR" onclick="showBR()"><span data-en="BATTLE ROYALE" data-hi="Battle Royale">BATTLE ROYALE</span></button>
+      <button class="modeBtn" id="btnCS" onclick="showCS()"><span data-en="CLASH SQUAD" data-hi="Clash Squad">CLASH SQUAD</span></button>
+      <button class="modeBtn" id="btnLW" onclick="showLW()"><span data-en="LONE WOLF" data-hi="Lone Wolf">LONE WOLF</span></button>
     </div>
   </div>
 
-  <!-- Battle Royale Sub Selector -->
+  <!-- Battle Royale Sub Selector (Toggled via JS) -->
   <div class="card" id="brTypes" style="display: none;">
     <h2>
-      <span data-en="SELECT TEAM SIZE (BATTLE ROYALE)" data-hi="टीम का आकार चुनें (बैटल रॉयल)">SELECT TEAM SIZE (BATTLE ROYALE)</span>
+      <span data-en="SELECT TEAM SIZE (BATTLE ROYALE)" data-hi="टीम का आकार चुनें (BATTLE ROYALE)">SELECT TEAM SIZE (BATTLE ROYALE)</span>
     </h2>
     <div class="btn-group">
       <button class="modeBtn" onclick="showSolo()"><span data-en="SOLO" data-hi="सोलो">SOLO</span></button>
@@ -714,18 +734,18 @@
     </div>
   </div>
 
-  <!-- Lone Wolf Sub Selector -->
+  <!-- Lone Wolf Sub Selector (Toggled via JS) -->
   <div class="card" id="lwTypes" style="display: none;">
     <h2>
-      <span data-en="SELECT TEAM SIZE (LONE WOLF)" data-hi="टीम का आकार चुनें (लोन वुल्फ)">SELECT TEAM SIZE (LONE WOLF)</span>
+      <span data-en="SELECT TEAM SIZE (LONE WOLF)" data-hi="टीम का आकार चुनें (LONE WOLF)">SELECT TEAM SIZE (LONE WOLF)</span>
     </h2>
     <div class="btn-group">
-      <button class="modeBtn" onclick="showLWSolo()"><span data-en="LONE WOLF SOLO (1v1)" data-hi="लोन वुल्फ सोलो (1v1)">LONE WOLF SOLO (1v1)</span></button>
-      <button class="modeBtn" onclick="showLWDuo()"><span data-en="LONE WOLF DUO (2v2)" data-hi="लोन वुल्फ डुओ (2v2)">LONE WOLF DUO (2v2)</span></button>
+      <button class="modeBtn" onclick="showLWSolo()"><span data-en="LONE WOLF SOLO (1v1)" data-hi="LONE WOLF SOLO (1v1)">LONE WOLF SOLO (1v1)</span></button>
+      <button class="modeBtn" onclick="showLWDuo()"><span data-en="LONE WOLF DUO (2v2)" data-hi="LONE WOLF DUO (2v2)">LONE WOLF DUO (2v2)</span></button>
     </div>
   </div>
 
-  <!-- Dynamic Stats Frame -->
+  <!-- Dynamic Stats Frame (Populated dynamically when clicking modes) -->
   <div class="card" id="status">
     <h2 data-en="MATCH DETAILS" data-hi="मैच विवरण">MATCH DETAILS</h2>
     <p style="color: #718096; margin-top: 10px; font-size: 14px;" data-en="Select a tournament mode above to display prize pool, entry fee & total players." data-hi="पुरस्कार पूल, प्रवेश शुल्क और कुल खिलाड़ियों को प्रदर्शित करने के लिए ऊपर एक टूर्नामेंट मोड चुनें।">
@@ -733,7 +753,124 @@
     </p>
   </div>
 
-  <!-- PLANETS AI ASSISTANT WIDGET -->
+
+  <!-- ========================================== -->
+  <!-- SECTION: MATCH SCHEDULE & TIMINGS TABLE    -->
+  <!-- ========================================== -->
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+      <h2 style="margin: 0;">
+        <svg class="icon" viewBox="0 0 24 24"><path fill="var(--primary)" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        <span data-en="DAILY TOURNAMENT TIMINGS" data-hi="दैनिक टूर्नामेंट का समय">DAILY TOURNAMENT TIMINGS</span>
+      </h2>
+      <!-- Dynamic Date Auto-Injected via JS -->
+      <div id="schedule-date" style="font-family: 'Orbitron', sans-serif; font-size: 13px; color: var(--gold); background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); padding: 4px 12px; border-radius: 10px;"></div>
+    </div>
+    <p style="margin: 0 0 20px; color: #a0aec0; font-size: 14px;" data-en="Check the schedule below for upcoming hourly matches across different game modes." data-hi="विभिन्न गेम मोड में आगामी प्रति घंटा मैचों के लिए नीचे दिए गए समय की जाँच करें।">
+      Check the schedule below for upcoming hourly matches across different game modes.
+    </p>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: 'Rajdhani', sans-serif;">
+        <thead>
+          <tr style="border-bottom: 1px solid rgba(0, 240, 255, 0.3); color: var(--primary); font-family: 'Orbitron', sans-serif; font-size: 12px;">
+            <th style="padding: 12px;" data-en="TIME" data-hi="समय">TIME</th>
+            <th style="padding: 12px;" data-en="MODE" data-hi="मोड">MODE</th>
+            <th style="padding: 12px;" data-en="STATUS" data-hi="स्थिति">STATUS</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 15px; font-weight: 700;">
+          <!-- Edit individual times, modes, or row IDs here -->
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">4:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
+            <td style="padding: 12px;" id="status-4pm">-</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">5:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
+            <td style="padding: 12px;" id="status-5pm">-</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">6:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
+            <td style="padding: 12px;" id="status-6pm">-</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">7:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
+            <td style="padding: 12px;" id="status-7pm">-</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px; color: var(--gold);">8:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
+            <td style="padding: 12px;" id="status-8pm">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- SECTION: PREVIOUS TOURNAMENT WINNERS       -->
+  <!-- ========================================== -->
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+      <h2 style="margin: 0;">
+        <svg class="icon" viewBox="0 0 24 24"><path fill="var(--gold)" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        <span data-en="PREVIOUS TOURNAMENT WINNERS" data-hi="पिछले टूर्नामेंट के विजेता">PREVIOUS TOURNAMENT WINNERS</span>
+      </h2>
+      <!-- Dynamic Date Auto-Injected via JS -->
+      <div id="winners-date" style="font-family: 'Orbitron', sans-serif; font-size: 13px; color: var(--gold); background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); padding: 4px 12px; border-radius: 10px;"></div>
+    </div>
+    <p style="margin: 0 0 20px; color: #a0aec0; font-size: 14px;" data-en="Hall of fame champions from our latest galaxy skirmishes." data-hi="हमारी नवीनतम गैलेक्सी झड़पों से हॉल ऑफ़ फ़ेम चैंपियन।">
+      Hall of fame champions from our latest galaxy skirmishes.
+    </p>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-family: 'Rajdhani', sans-serif;">
+        <thead>
+          <tr style="border-bottom: 1px solid rgba(0, 240, 255, 0.3); color: var(--primary); font-family: 'Orbitron', sans-serif; font-size: 12px;">
+            <th style="padding: 12px;" data-en="TIME / BATCH" data-hi="समय / बैच">TIME / BATCH</th>
+            <th style="padding: 12px;" data-en="MODE" data-hi="मोड">MODE</th>
+            <th style="padding: 12px;" data-en="WINNING TEAM / PLAYER" data-hi="विजेता टीम / खिलाड़ी">WINNING TEAM / PLAYER</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 15px; font-weight: 700;">
+          <!-- Edit winner names/teams manually here -->
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">4:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
+            <td style="padding: 12px; color: #a0aec0;">N/A</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">5:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
+            <td style="padding: 12px; color: #a0aec0;">N/A</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">6:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
+            <td style="padding: 12px; color: #a0aec0;">N/A</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+            <td style="padding: 12px; color: var(--gold);">7:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
+            <td style="padding: 12px; color: #a0aec0;">N/A</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px; color: var(--gold);">8:00 PM</td>
+            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
+            <td style="padding: 12px; color: #a0aec0;">N/A</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- SECTION: PLANETS AI CHAT ASSISTANT WIDGET  -->
+  <!-- ========================================== -->
   <div class="ai-widget-container">
     <div class="ai-chat-card" id="aiCard">
       <div class="ai-chat-header">
@@ -746,8 +883,8 @@
         </div>
       </div>
       <div class="ai-quick-topics">
-        <span class="chip" onclick="askQuick('What is BR Solo entry fee?')" data-en="BR Entry Fee?" data-hi="बीआर एंट्री फीस?">BR Entry Fee?</span>
-        <span class="chip" onclick="askQuick('How many total players in CS?')" data-en="CS Players?" data-hi="सीएस खिलाड़ी?">CS Players?</span>
+        <span class="chip" onclick="askQuick('What is Lone Wolf entry fee?')" data-en="Lone Wolf Fee?" data-hi="लोन वुल्फ फीस?">Lone Wolf Fee?</span>
+        <span class="chip" onclick="askQuick('How many total players in Lone Wolf?')" data-en="Lone Wolf Players?" data-hi="लोन वुल्फ खिलाड़ी?">Lone Wolf Players?</span>
         <span class="chip" onclick="askQuick('What is the prize pool?')" data-en="Prize Pools?" data-hi="प्राइज पूल?">Prize Pools?</span>
       </div>
       <div class="ai-chat-input-area">
@@ -760,16 +897,65 @@
     </button>
   </div>
 
+
+  <!-- ========================================== -->
+  <!-- SECTION: FOOTER & COPYRIGHT                -->
+  <!-- ========================================== -->
   <footer>
     <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 13px; letter-spacing: 2px;" data-en="PLANETS ESPORT FREE FIRE" data-hi="PLANETS ESPORT FREE FIRE">PLANETS ESPORT FREE FIRE</h2>
     <p style="margin-top: 6px; font-size: 12px;" data-en="Fair Play, Anti-Hack & Continuous Competitions" data-hi="फेयर प्ले, एंटी-हैक और निरंतर प्रतियोगिताएं">Fair Play, Anti-Hack & Continuous Competitions</p>
     <p style="margin-top: 8px; font-size: 11px; color: #2d3748;" data-en="© 2026 Planets Esport. All Rights Reserved." data-hi="© 2026 Planets Esport. All Rights Reserved.">© 2026 Planets Esport. All Rights Reserved.</p>
   </footer>
 
-  <!-- Script Engine -->
+
+  <!-- ========================================== -->
+  <!-- SECTION: JAVASCRIPT LOGIC & ENGINE         -->
+  <!-- ========================================== -->
   <script>
     let currentLang = 'en';
 
+    // 1. LIVE TIME-BASED STATUS ENGINE (PENDING / COMPLETED) & DATE INJECTOR
+    function updateLiveStatuses() {
+      const now = new Date();
+      
+      // Inject Current Date at top of tables
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      const dateStr = now.toLocaleDateString(currentLang === 'hi' ? 'hi-IN' : 'en-US', options);
+      document.getElementById('schedule-date').textContent = dateStr;
+      document.getElementById('winners-date').textContent = dateStr;
+
+      // Match time slots mapping in minutes from midnight (4 PM, 5 PM, 6 PM, 7 PM, 8 PM)
+      const matches = [
+        { id: 'status-4pm', minutes: 16 * 60 },
+        { id: 'status-5pm', minutes: 17 * 60 },
+        { id: 'status-6pm', minutes: 18 * 60 },
+        { id: 'status-7pm', minutes: 19 * 60 },
+        { id: 'status-8pm', minutes: 20 * 60 }
+      ];
+
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      matches.forEach(match => {
+        const el = document.getElementById(match.id);
+        if (!el) return;
+
+        if (currentMinutes >= match.minutes + 60) {
+          // Completed after 1 hour of match start time
+          el.textContent = currentLang === 'hi' ? 'पूर्ण (Completed)' : 'Completed';
+          el.style.color = '#48bb78'; // Green
+        } else if (currentMinutes >= match.minutes && currentMinutes < match.minutes + 60) {
+          // Ongoing match counts as pending
+          el.textContent = currentLang === 'hi' ? 'लंबित (Pending)' : 'Pending';
+          el.style.color = '#ecc94b'; // Yellow/Gold
+        } else {
+          // Future match
+          el.textContent = currentLang === 'hi' ? 'लंबित (Pending)' : 'Pending';
+          el.style.color = '#00f0ff'; // Cyan
+        }
+      });
+    }
+
+    // 2. LANGUAGE TRANSLATION SWITCHER
     function setLanguage(lang) {
       currentLang = lang;
       document.getElementById('btnEn').classList.toggle('active', lang === 'en');
@@ -784,6 +970,8 @@
         }
       });
 
+      updateLiveStatuses();
+
       const statusBox = document.getElementById('status');
       if (window.lastActiveMode) {
         window.lastActiveMode();
@@ -797,7 +985,10 @@
       }
     }
 
-    /* --- CANVAS STARFIELD & METEORS --- */
+    updateLiveStatuses();
+    setInterval(updateLiveStatuses, 60000);
+
+    // 3. CANVAS STARFIELD & METEOR ENGINE
     const canvas = document.getElementById('space-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -891,7 +1082,7 @@
     }
     animateSpace();
 
-    /* --- MATCH CONFIGURATION ENGINE --- */
+    // 4. MATCH CONFIGURATION & PRICING ENGINE (Edit prize pools, entry fees, or player counts here)
     const matchData = {
       cs: { total: 8, pool: "₹120", entry: "₹20", win: "₹120 (₹30 / player)" },
       brSolo: { total: 50, pool: "₹1000", entry: "₹30", r1: "₹650", r2: "₹250", r3: "₹100" },
@@ -917,7 +1108,7 @@
       document.getElementById('lwTypes').style.display = 'none';
       window.lastActiveMode = showCS;
       const d = matchData.cs;
-      const title = currentLang === 'hi' ? '🔥 क्लैश स्क्वाड (4v4)' : '🔥 CLASH SQUAD (4v4)';
+      const title = '🔥 CLASH SQUAD (4v4)';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -949,7 +1140,7 @@
     function showSolo() {
       window.lastActiveMode = showSolo;
       const d = matchData.brSolo;
-      const title = currentLang === 'hi' ? '🪂 बैटल रॉयल सोलो' : '🪂 BATTLE ROYALE SOLO';
+      const title = '🪂 BATTLE ROYALE SOLO';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -975,7 +1166,7 @@
     function showDuo() {
       window.lastActiveMode = showDuo;
       const d = matchData.brDuo;
-      const title = currentLang === 'hi' ? '🪂 बैटल रॉयल डुओ' : '🪂 BATTLE ROYALE DUO';
+      const title = '🪂 BATTLE ROYALE DUO';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1001,7 +1192,7 @@
     function showSquad() {
       window.lastActiveMode = showSquad;
       const d = matchData.brSquad;
-      const title = currentLang === 'hi' ? '🪂 बैटल रॉयल स्क्वाड' : '🪂 BATTLE ROYALE SQUAD';
+      const title = '🪂 BATTLE ROYALE SQUAD';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1027,7 +1218,7 @@
     function showLWSolo() {
       window.lastActiveMode = showLWSolo;
       const d = matchData.lwSolo;
-      const title = currentLang === 'hi' ? '🐺 लोन वुल्फ सोलो (1v1)' : '🐺 LONE WOLF SOLO (1v1)';
+      const title = '🐺 LONE WOLF SOLO (1v1)';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1049,7 +1240,7 @@
     function showLWDuo() {
       window.lastActiveMode = showLWDuo;
       const d = matchData.lwDuo;
-      const title = currentLang === 'hi' ? '🐺 लोन वुल्फ डुओ (2v2)' : '🐺 LONE WOLF DUO (2v2)';
+      const title = '🐺 LONE WOLF DUO (2v2)';
       const pPool = currentLang === 'hi' ? 'पुरस्कार पूल' : 'Prize Pool';
       const eFee = currentLang === 'hi' ? 'प्रवेश शुल्क' : 'Entry Fee';
       const tPlayers = currentLang === 'hi' ? 'कुल खिलाड़ी' : 'Total Players';
@@ -1068,7 +1259,7 @@
       `);
     }
 
-    /* --- AI CHAT WIDGET --- */
+    // 5. AI CHAT BOT LOGIC
     function toggleAI() {
       const card = document.getElementById('aiCard');
       card.style.display = (card.style.display === 'flex') ? 'none' : 'flex';
@@ -1096,16 +1287,16 @@
 
         if (lower.includes('entry') || lower.includes('फीस')) {
           reply = currentLang === 'hi'
-            ? "प्रवेश शुल्क: BR सोलो ₹30, BR डुओ ₹25, BR स्क्वाड ₹20, CS ₹20, LW डुओ ₹20, LW सोलो ₹20!"
-            : `Entry fees: BR Solo ₹30, BR Duo ₹25, BR Squad ₹20, CS ₹20, LW Duo ₹20, LW Solo ₹20!`;
-        } else if (lower.includes('br') || lower.includes('बैटल')) {
+            ? "लोन वुल्फ प्रवेश शुल्क ₹20 है!"
+            : `Lone Wolf entry fee is ₹20!`;
+        } else if (lower.includes('player') || lower.includes('खिलाड़ी')) {
           reply = currentLang === 'hi'
-            ? "BR पुरस्कार पूल: सोलो ₹1000 (1st: ₹650), डुओ ₹950 (1st: ₹500), स्क्वाड ₹800 (1st: ₹450)। सभी BR मोड में कुल 50 खिलाड़ी हैं!"
-            : `BR Prize Pools: Solo ₹1000 (1st: ₹650), Duo ₹950 (1st: ₹500), Squad ₹800 (1st: ₹450). All BR modes have 50 total players!`;
-        } else if (lower.includes('cs') || lower.includes('क्लैश')) {
+            ? "लोन वुल्फ सोलो में 2 खिलाड़ी और डुओ में 4 खिलाड़ी होते हैं!"
+            : `Lone Wolf Solo has 2 players and Duo has 4 players!`;
+        } else if (lower.includes('prize') || lower.includes('पूल')) {
           reply = currentLang === 'hi'
-            ? "क्लैश स्क्वाड का प्रवेश शुल्क ₹20, कुल 8 खिलाड़ी और पुरस्कार पूल ₹120 (प्रत्येक विजेता खिलाड़ी के लिए ₹30) है!"
-            : `Clash Squad has an entry fee of ₹20, total 8 players, and a Prize Pool of ₹120 (₹30 for each winning player)!`;
+            ? "लोन वुल्फ सोलो प्राइज पूल ₹30 और डुओ प्राइज पूल ₹60 है!"
+            : `Lone Wolf Solo prize pool is ₹30 and Duo prize pool is ₹60!`;
         }
 
         msgs.innerHTML += `<div class="ai-msg bot">${reply}</div>`;
