@@ -636,7 +636,7 @@
 
   <!-- ========================================== -->
   <!-- SECTION: TOP UTILITIES & BACKGROUND FX     -->
-
+  <!-- ========================================== -->
 
   <!-- Language Switcher Bar -->
   <div class="top-controls">
@@ -778,33 +778,8 @@
             <th style="padding: 12px;" data-en="STATUS" data-hi="स्थिति">STATUS</th>
           </tr>
         </thead>
-        <tbody style="font-size: 15px; font-weight: 700;">
-          <!-- Edit individual times, modes, or row IDs here -->
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">4:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
-            <td style="padding: 12px;" id="status-4pm">-</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">5:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
-            <td style="padding: 12px;" id="status-5pm">-</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">6:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
-            <td style="padding: 12px;" id="status-6pm">-</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">7:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
-            <td style="padding: 12px;" id="status-7pm">-</td>
-          </tr>
-          <tr>
-            <td style="padding: 12px; color: var(--gold);">8:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
-            <td style="padding: 12px;" id="status-8pm">-</td>
-          </tr>
+        <tbody id="schedule-body" style="font-size: 15px; font-weight: 700;">
+          <!-- Dynamically populated from data.json -->
         </tbody>
       </table>
     </div>
@@ -835,33 +810,8 @@
             <th style="padding: 12px;" data-en="WINNING TEAM / PLAYER" data-hi="विजेता टीम / खिलाड़ी">WINNING TEAM / PLAYER</th>
           </tr>
         </thead>
-        <tbody style="font-size: 15px; font-weight: 700;">
-          <!-- Edit winner names/teams manually here -->
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">4:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
-            <td style="padding: 12px; color: #a0aec0;">N/A</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">5:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
-            <td style="padding: 12px; color: #a0aec0;">N/A</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">6:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
-            <td style="padding: 12px; color: #a0aec0;">N/A</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-            <td style="padding: 12px; color: var(--gold);">7:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Duo (2v2)" data-hi="Lone Wolf Duo (2v2)">Lone Wolf Duo (2v2)</td>
-            <td style="padding: 12px; color: #a0aec0;">N/A</td>
-          </tr>
-          <tr>
-            <td style="padding: 12px; color: var(--gold);">8:00 PM</td>
-            <td style="padding: 12px;" data-en="Lone Wolf Solo (1v1)" data-hi="Lone Wolf Solo (1v1)">Lone Wolf Solo (1v1)</td>
-            <td style="padding: 12px; color: #a0aec0;">N/A</td>
-          </tr>
+        <tbody id="winners-body" style="font-size: 15px; font-weight: 700;">
+          <!-- Dynamically populated from data.json -->
         </tbody>
       </table>
     </div>
@@ -914,46 +864,77 @@
   <script>
     let currentLang = 'en';
 
-    // 1. LIVE TIME-BASED STATUS ENGINE (PENDING / COMPLETED) & DATE INJECTOR
-    function updateLiveStatuses() {
-      const now = new Date();
-      
-      // Inject Current Date at top of tables
-      const options = { year: 'numeric', month: 'short', day: 'numeric' };
-      const dateStr = now.toLocaleDateString(currentLang === 'hi' ? 'hi-IN' : 'en-US', options);
-      document.getElementById('schedule-date').textContent = dateStr;
-      document.getElementById('winners-date').textContent = dateStr;
+    // 1. FETCH & LOAD TOURNAMENT DATA FROM JSON + LIVE STATUS ENGINE
+    async function loadTournamentData() {
+      try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        
+        const now = new Date();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        
+        // Inject Current Date at top of tables
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        const dateStr = now.toLocaleDateString(currentLang === 'hi' ? 'hi-IN' : 'en-US', options);
+        document.getElementById('schedule-date').textContent = dateStr;
+        document.getElementById('winners-date').textContent = dateStr;
 
-      // Match time slots mapping in minutes from midnight (4 PM, 5 PM, 6 PM, 7 PM, 8 PM)
-      const matches = [
-        { id: 'status-4pm', minutes: 16 * 60 },
-        { id: 'status-5pm', minutes: 17 * 60 },
-        { id: 'status-6pm', minutes: 18 * 60 },
-        { id: 'status-7pm', minutes: 19 * 60 },
-        { id: 'status-8pm', minutes: 20 * 60 }
-      ];
+        // Render Schedule Table
+        const scheduleBody = document.getElementById('schedule-body');
+        scheduleBody.innerHTML = '';
+        
+        data.schedule.forEach((match, index) => {
+          let statusText = '';
+          let statusColor = '';
 
-      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+          if (currentMinutes >= match.timeMinutes + 30) {
+            statusText = currentLang === 'hi' ? 'पूर्ण (Completed)' : 'Completed';
+            statusColor = '#48bb78'; // Green
+          } else if (currentMinutes >= match.timeMinutes && currentMinutes < match.timeMinutes + 30) {
+            statusText = currentLang === 'hi' ? 'शुरू हो गया (Started)' : 'Started';
+            statusColor = '#ff0055'; // Accent / Red-Pink glow
+          } else {
+            statusText = currentLang === 'hi' ? 'लंबित (Pending)' : 'Pending';
+            statusColor = '#00f0ff'; // Cyan
+          }
 
-      matches.forEach(match => {
-        const el = document.getElementById(match.id);
-        if (!el) return;
+          const modeName = currentLang === 'hi' ? match.modeHi : match.modeEn;
+          const borderStyle = index < data.schedule.length - 1 ? 'border-bottom: 1px solid rgba(255, 255, 255, 0.05);' : '';
 
-        if (currentMinutes >= match.minutes + 60) {
-          // Completed after 1 hour of match start time
-          el.textContent = currentLang === 'hi' ? 'पूर्ण (Completed)' : 'Completed';
-          el.style.color = '#48bb78'; // Green
-        } else if (currentMinutes >= match.minutes && currentMinutes < match.minutes + 60) {
-          // Ongoing match counts as pending
-          el.textContent = currentLang === 'hi' ? 'लंबित (Pending)' : 'Pending';
-          el.style.color = '#ecc94b'; // Yellow/Gold
-        } else {
-          // Future match
-          el.textContent = currentLang === 'hi' ? 'लंबित (Pending)' : 'Pending';
-          el.style.color = '#00f0ff'; // Cyan
-        }
-      });
+          scheduleBody.innerHTML += `
+            <tr style="${borderStyle}">
+              <td style="padding: 12px; color: var(--gold);">${match.time}</td>
+              <td style="padding: 12px;">${modeName}</td>
+              <td style="padding: 12px; color: ${statusColor};">${statusText}</td>
+            </tr>
+          `;
+        });
+
+        // Render Winners Table
+        const winnersBody = document.getElementById('winners-body');
+        winnersBody.innerHTML = '';
+
+        data.winners.forEach((win, index) => {
+          const modeName = currentLang === 'hi' ? win.modeHi : win.modeEn;
+          const borderStyle = index < data.winners.length - 1 ? 'border-bottom: 1px solid rgba(255, 255, 255, 0.05);' : '';
+
+          winnersBody.innerHTML += `
+            <tr style="${borderStyle}">
+              <td style="padding: 12px; color: var(--gold);">${win.time}</td>
+              <td style="padding: 12px;">${modeName}</td>
+              <td style="padding: 12px; color: #a0aec0;">${win.winner}</td>
+            </tr>
+          `;
+        });
+
+      } catch (error) {
+        console.error('Error loading tournament data:', error);
+      }
     }
+
+    // Run data loader on start and every minute
+    loadTournamentData();
+    setInterval(loadTournamentData, 60000);
 
     // 2. LANGUAGE TRANSLATION SWITCHER
     function setLanguage(lang) {
@@ -970,7 +951,7 @@
         }
       });
 
-      updateLiveStatuses();
+      loadTournamentData();
 
       const statusBox = document.getElementById('status');
       if (window.lastActiveMode) {
@@ -984,9 +965,6 @@
         `;
       }
     }
-
-    updateLiveStatuses();
-    setInterval(updateLiveStatuses, 60000);
 
     // 3. CANVAS STARFIELD & METEOR ENGINE
     const canvas = document.getElementById('space-canvas');
@@ -1082,7 +1060,7 @@
     }
     animateSpace();
 
-    // 4. MATCH CONFIGURATION & PRICING ENGINE (Edit prize pools, entry fees, or player counts here)
+    // 4. MATCH CONFIGURATION & PRICING ENGINE
     const matchData = {
       cs: { total: 8, pool: "₹120", entry: "₹20", win: "₹120 (₹30 / player)" },
       brSolo: { total: 50, pool: "₹1000", entry: "₹30", r1: "₹650", r2: "₹250", r3: "₹100" },

@@ -1,0 +1,16 @@
+{
+  "schedule": [
+    { "time": "4:00 PM", "modeEn": "Lone Wolf Solo (1v1)", "modeHi": "Lone Wolf Solo (1v1)", "timeMinutes": 960 },
+    { "time": "5:00 PM", "modeEn": "Lone Wolf Duo (2v2)", "modeHi": "Lone Wolf Duo (2v2)", "timeMinutes": 1020 },
+    { "time": "6:00 PM", "modeEn": "Lone Wolf Solo (1v1)", "modeHi": "Lone Wolf Solo (1v1)", "timeMinutes": 1080 },
+    { "time": "7:00 PM", "modeEn": "Lone Wolf Duo (2v2)", "modeHi": "Lone Wolf Duo (2v2)", "timeMinutes": 1140 },
+    { "time": "8:00 PM", "modeEn": "Lone Wolf Solo (1v1)", "modeHi": "Lone Wolf Solo (1v1)", "timeMinutes": 1200 }
+  ],
+  "winners": [
+    { "time": "4:00 PM", "modeEn": "Lone Wolf Solo (1v1)", "modeHi": "Lone Wolf Solo (1v1)", "winner": "N/A" },
+    { "time": "5:00 PM", "modeEn": "Lone Wolf Duo (2v2)", "modeHi": "Lone Wolf Duo (2v2)", "winner": "N/A" },
+    { "time": "6:00 PM", "modeEn": "Lone Wolf Solo (1v1)", "modeHi": "Lone Wolf Solo (1v1)", "winner": "N/A" },
+    { "time": "7:00 PM", "modeEn": "Lone Wolf Duo (2v2)", "modeHi": "Lone Wolf Duo (2v2)", "winner": "N/A" },
+    { "time": "8:00 PM", "modeEn": "Lone Wolf Solo (1v1)", "modeHi": "Lone Wolf Solo (1v1)", "winner": "N/A" }
+  ]
+}
