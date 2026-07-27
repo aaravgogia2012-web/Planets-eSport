@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Planets Esport</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#00010a;
+color:white;
+overflow-x:hidden;
+}
+
+
+/* Galaxy */
+
+.space{
+
+position:fixed;
+inset:0;
+z-index:-10;
+
+background:
+radial-gradient(circle at 20% 20%,#7b2cff80,transparent 30%),
+radial-gradient(circle at 80% 30%,#00eaff70,transparent 30%),
+radial-gradient(circle at 50% 80%,#ff008060,transparent 35%),
+linear-gradient(#01010a,#02031c);
+
+animation:galaxy 20s infinite alternate;
+
+}
+
+
+@keyframes galaxy{
+
+from{
+transform:scale(1);
+}
+
+to{
+transform:scale(1.2);
+}
+
+}
+
+
+/* Moving stars */
+
+.stars{
+
+position:fixed;
+inset:0;
+z-index:-9;
+
+background-image:
+radial-gradient(white 1px,transparent 1px);
+
+background-size:45px 45px;
+
+opacity:.7;
+
+animation:stars 30s linear infinite;
+
+}
+
+
+@keyframes stars{
+
+from{
+transform:translateY(0);
+}
+
+to{
+transform:translateY(-400px);
+}
+
+}
+
+
+
+/* Saturn */
+
+.saturn{
+
+position:fixed;
+
+right:-90px;
+
+top:100px;
+
+width:250px;
+
+height:250px;
+
+border-radius:50%;
+
+background:
+radial-gradient(circle at 35% 35%,#fff2b0,#d89b30,#6b3700);
+
+box-shadow:
+0 0 100px #ffb300;
+
+z-index:-5;
+
+animation:saturnMove 8s infinite alternate;
+
+}
+
+
+.ring{
+
+position:absolute;
+
+width:400px;
+
+height:120px;
+
+left:-75px;
+
+top:70px;
+
+border-radius:50%;
+
+border:22px solid #e5bd68;
+
+transform:rotate(-20deg);
+
+opacity:.9;
+
+}
+
+
+.ringFront{
+
+position:absolute;
+
+width:400px;
+
+height:120px;
+
+left:-75px;
+
+top:85px;
+
+border-radius:50%;
+
+border-bottom:15px solid #fff0a0;
+
+transform:rotate(-20deg);
+
+}
+
+
+@keyframes saturnMove{
+
+from{
+transform:translateY(0);
+}
+
+to{
+transform:translateY(40px);
+}
+
+}
+
+
+
+/* Earth */
+
+.earth{
+
+position:fixed;
+
+left:50px;
+
+top:170px;
+
+width:100px;
+
+height:100px;
+
+border-radius:50%;
+
+background:
+linear-gradient(120deg,#0066ff,#00ff88,#003366);
+
+box-shadow:
+0 0 50px #00aaff;
+
+animation:float 7s infinite alternate;
+
+}
+
+
+/* Mars */
+
+.mars{
+
+position:fixed;
+
+left:100px;
+
+bottom:100px;
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+background:
+radial-gradient(circle,#ff8866,#8b2200);
+
+box-shadow:
+0 0 40px red;
+
+animation:float 6s infinite alternate;
+
+}
+
+
+/* Moon */
+
+.moon{
+
+position:fixed;
+
+right:150px;
+
+bottom:80px;
+
+width:50px;
+
+height:50px;
+
+border-radius:50%;
+
+background:#ddd;
+
+box-shadow:
+0 0 30px white;
+
+}
+
+
+@keyframes float{
+
+from{
+transform:translateY(0);
+}
+
+to{
+transform:translateY(50px);
+}
+
+}
+
+
+
+/* Header */
+
+header{
+
+text-align:center;
+
+padding:50px 20px;
+
+}
+
+
+.logo{
+
+font-size:60px;
+
+font-weight:900;
+
+letter-spacing:8px;
+
+background:
+linear-gradient(90deg,#00eaff,#ffffff,#00eaff);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+text-shadow:
+0 0 40px #00eaff;
+
+}
+
+
+.esport{
+
+font-size:22px;
+
+letter-spacing:15px;
+
+color:#00eaff;
+
+}
+
+
+
+/* Glass UI */
+
+.card{
+
+width:90%;
+
+max-width:750px;
+
+margin:25px auto;
+
+padding:30px;
+
+background:
+rgba(255,255,255,.10);
+
+backdrop-filter:blur(15px);
+
+border-radius:30px;
+
+border:1px solid #00eaff70;
+
+box-shadow:
+0 0 50px #000;
+
+text-align:center;
+
+}
+
+
+.card h2{
+
+color:#00eaff;
+
+margin-bottom:20px;
+
+}
+
+
+/* Buttons */
+
+.button,
+.modeBtn{
+
+padding:15px 35px;
+
+margin:10px;
+
+border-radius:50px;
+
+border:none;
+
+cursor:pointer;
+
+background:
+linear-gradient(45deg,#0066ff,#00eaff);
+
+color:white;
+
+font-weight:bold;
+
+text-decoration:none;
+
+display:inline-block;
+
+transition:.3s;
+
+}
+
+
+.button:hover,
+.modeBtn:hover{
+
+transform:scale(1.1);
+
+box-shadow:
+0 0 35px #00eaff;
+
+}
+
+
+
+.stats{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+
+.stat{
+
+background:#0009;
+
+padding:20px;
+
+border-radius:20px;
+
+min-width:130px;
+
+}
+
+
+.stat h3{
+
+font-size:30px;
+
+color:#00ff99;
+
+}
+
+
+.prize{
+
+font-size:20px;
+
+margin:12px;
+
+}
+
+
+footer{
+
+text-align:center;
+
+padding:30px;
+
+color:#aaa;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="space"></div>
+
+<div class="stars"></div>
+
+
+<div class="saturn">
+
+<div class="ring"></div>
+
+<div class="ringFront"></div>
+
+</div>
+
+
+<div class="earth"></div>
+
+<div class="mars"></div>
+
+<div class="moon"></div>
+
+<header>
+
+<div class="logo">
+PLANETS
+</div>
+
+<div class="esport">
+ESPORT
+</div>
+
+</header>
+
+
+
+<div class="card">
+
+<h2>
+🌌 RULE THE GALAXY 🚀
+</h2>
+
+<p>
+🔥 Free Fire Esports Tournament
+</p>
+
+
+<a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSf3ktwGZacwDV0MKXi29xuh-8oTKo0y3-JVr6IQe2TzsKm43w/viewform?usp=dialog">
+🎮 REGISTER NOW
+</a>
+
+
+<a class="button" href="https://discord.gg/kcvREy8Kk">
+💬 DISCORD
+</a>
+
+
+<a class="button" href="https://whatsapp.com/channel/0029Vb8oK1mGE56rfZYkbp2t">
+🟢 WHATSAPP (COMPULSORY)
+</a>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+🎯 SELECT TOURNAMENT MODE
+</h2>
+
+
+<button class="modeBtn" onclick="showBR()">
+🔥 BR MODE
+</button>
+
+
+<button class="modeBtn" onclick="showCS()">
+⚔️ CLASH SQUAD
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="card" id="brTypes" style="display:none;">
+
+
+<h2>
+🔥 SELECT BR TYPE
+</h2>
+
+
+<button class="modeBtn" onclick="showSolo()">
+👤 SOLO
+</button>
+
+
+<button class="modeBtn" onclick="showDuo()">
+👥 DUO
+</button>
+
+
+<button class="modeBtn" onclick="showSquad()">
+👨‍👨‍👦 SQUAD
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="card" id="status">
+
+
+<h2>
+🏆 TOURNAMENT STATUS
+</h2>
+
+
+<p>
+Select a mode to view details
+</p>
+
+
+</div>
+
+<script>
+
+
+function showBR(){
+
+document.getElementById("brTypes").style.display="block";
+
+
+document.getElementById("status").innerHTML=`
+
+<h2>
+🔥 BATTLE ROYALE
+</h2>
+
+<p>
+Select Solo, Duo or Squad
+</p>
+
+`;
+
+}
+
+
+
+
+function showCS(){
+
+document.getElementById("brTypes").style.display="none";
+
+
+document.getElementById("status").innerHTML=`
+
+<h2>
+⚔️ CLASH SQUAD
+</h2>
+
+
+<div class="stats">
+
+
+<div class="stat">
+<h3>8</h3>
+👥 Players
+</div>
+
+
+<div class="stat">
+<h3>₹80</h3>
+🏆 Prize Pool
+</div>
+
+
+<div class="stat">
+<h3>₹20</h3>
+🎟 Entry Fee
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<p class="prize">
+🥇 Winning Prize - ₹20
+</p>
+
+
+`;
+
+}
+
+
+
+
+
+function showSolo(){
+
+document.getElementById("status").innerHTML=`
+
+<h2>
+👤 BR SOLO
+</h2>
+
+
+<div class="stats">
+
+
+<div class="stat">
+<h3>₹30</h3>
+🎟 Entry Fee / Person
+</div>
+
+
+<div class="stat">
+<h3>₹1000</h3>
+🏆 Prize Pool
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<p class="prize">
+🥇 1st Prize - ₹650
+</p>
+
+
+<p class="prize">
+🥈 2nd Prize - ₹250
+</p>
+
+
+<p class="prize">
+🥉 3rd Prize - ₹100
+</p>
+
+
+`;
+
+}
+
+
+
+
+
+function showDuo(){
+
+document.getElementById("status").innerHTML=`
+
+<h2>
+👥 BR DUO
+</h2>
+
+
+<div class="stats">
+
+
+<div class="stat">
+<h3>₹25</h3>
+🎟 Entry Fee / Person
+</div>
+
+
+<div class="stat">
+<h3>₹950</h3>
+🏆 Prize Pool
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<p class="prize">
+🥇 1st Prize - ₹500
+</p>
+
+
+<p class="prize">
+🥈 2nd Prize - ₹350
+</p>
+
+
+<p class="prize">
+🥉 3rd Prize - ₹100
+</p>
+
+
+`;
+
+}
+
+
+
+
+
+function showSquad(){
+
+document.getElementById("status").innerHTML=`
+
+<h2>
+👨‍👨‍👦 BR SQUAD
+</h2>
+
+
+<div class="stats">
+
+
+<div class="stat">
+<h3>₹20</h3>
+🎟 Entry Fee / Person
+</div>
+
+
+<div class="stat">
+<h3>₹800</h3>
+🏆 Prize Pool
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<p class="prize">
+🥇 1st Prize - ₹450
+</p>
+
+
+<p class="prize">
+🥈 2nd Prize - ₹250
+</p>
+
+
+<p class="prize">
+🥉 3rd Prize - ₹100
+</p>
+
+
+`;
+
+}
+
+
+</script>
+
+
+<footer>
+
+🌎 PLANETS ESPORT © 2026
+
+</footer>
+
+
+</body>
+
+</html>
