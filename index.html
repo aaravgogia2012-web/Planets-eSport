@@ -2,808 +2,918 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>🌌 Planets Esport</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#030312;
-color:white;
-overflow-x:hidden;
-}
-
-/* Animated Galaxy */
-
-body::before{
-
-content:"";
-
-position:fixed;
-
-inset:0;
-
-background:
-radial-gradient(circle at 20% 20%,rgba(0,255,255,.25),transparent 30%),
-radial-gradient(circle at 80% 30%,rgba(128,0,255,.25),transparent 35%),
-radial-gradient(circle at 50% 80%,rgba(255,0,140,.18),transparent 35%),
-linear-gradient(#02020c,#05051b);
-
-animation:galaxy 18s infinite alternate;
-
-z-index:-20;
-
-}
-
-@keyframes galaxy{
-
-0%{
-transform:scale(1);
-filter:hue-rotate(0deg);
-}
-
-100%{
-transform:scale(1.15);
-filter:hue-rotate(25deg);
-}
-
-}
-
-
-
-/* Stars */
-
-.stars{
-
-position:fixed;
-
-inset:0;
-
-background-image:
-radial-gradient(white 1px,transparent 1px);
-
-background-size:40px 40px;
-
-opacity:.8;
-
-animation:starsMove 35s linear infinite;
-
-z-index:-18;
-
-}
-
-@keyframes starsMove{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(-500px);
-}
-
-}
-
-
-
-/* Saturn */
-
-.saturn{
-
-position:fixed;
-
-right:-70px;
-
-top:80px;
-
-width:220px;
-
-height:220px;
-
-border-radius:50%;
-
-background:
-radial-gradient(circle at 30% 30%,#fff7c5,#d9982d,#7b4700);
-
-box-shadow:
-0 0 80px orange;
-
-animation:planetFloat 8s ease-in-out infinite alternate;
-
-z-index:-5;
-
-}
-
-.saturn::before{
-
-content:"";
-
-position:absolute;
-
-left:-75px;
-
-top:72px;
-
-width:370px;
-
-height:90px;
-
-border:16px solid rgba(222,185,105,.8);
-
-border-radius:50%;
-
-transform:rotate(-20deg);
-
-}
-
-.saturn::after{
-
-content:"";
-
-position:absolute;
-
-left:-35px;
-
-top:95px;
-
-width:290px;
-
-height:40px;
-
-background:#d9982d;
-
-border-radius:50%;
-
-transform:rotate(-20deg);
-
-}
-
-@keyframes planetFloat{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(30px);
-}
-
-}
-
-
-
-/* Earth */
-
-.earth{
-
-position:fixed;
-
-left:40px;
-
-top:170px;
-
-width:90px;
-
-height:90px;
-
-border-radius:50%;
-
-background:
-linear-gradient(135deg,#00bfff,#00ff88,#004cff);
-
-box-shadow:
-0 0 40px #00d9ff;
-
-animation:earthMove 9s infinite alternate;
-
-}
-
-@keyframes earthMove{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(35px);
-}
-
-}
-
-
-
-/* Mars */
-
-.mars{
-
-position:fixed;
-
-left:110px;
-
-bottom:80px;
-
-width:60px;
-
-height:60px;
-
-border-radius:50%;
-
-background:
-radial-gradient(circle,#ff9b73,#8b2200);
-
-box-shadow:
-0 0 30px red;
-
-animation:marsMove 6s infinite alternate;
-
-}
-
-@keyframes marsMove{
-
-from{
-transform:translateX(0);
-}
-
-to{
-transform:translateX(35px);
-}
-
-}
-
-
-
-/* Moon */
-
-.moon{
-
-position:fixed;
-
-right:150px;
-
-bottom:80px;
-
-width:45px;
-
-height:45px;
-
-border-radius:50%;
-
-background:#ddd;
-
-box-shadow:
-0 0 20px white;
-
-}
-
-
-
-/* Header */
-
-header{
-
-text-align:center;
-
-padding:45px 20px;
-
-}
-
-.logo{
-
-font-size:58px;
-
-font-weight:900;
-
-letter-spacing:8px;
-
-background:linear-gradient(90deg,#00eaff,#ffffff,#00eaff);
-
--webkit-background-clip:text;
-
-color:transparent;
-
-text-shadow:0 0 35px cyan;
-
-}
-
-.subtitle{
-
-font-size:20px;
-
-letter-spacing:10px;
-
-color:#00eaff;
-
-margin-top:8px;
-
-}
-
-
-
-/* Cards */
-
-.card{
-
-width:92%;
-
-max-width:800px;
-
-margin:25px auto;
-
-padding:30px;
-
-background:rgba(255,255,255,.08);
-
-backdrop-filter:blur(18px);
-
-border-radius:25px;
-
-border:1px solid rgba(0,255,255,.25);
-
-box-shadow:0 0 40px rgba(0,0,0,.45);
-
-text-align:center;
-
-}
-
-
-
-/* Buttons */
-
-.button{
-
-display:inline-block;
-
-padding:15px 34px;
-
-margin:10px;
-
-border-radius:40px;
-
-background:linear-gradient(45deg,#0066ff,#00d9ff);
-
-color:white;
-
-font-weight:bold;
-
-text-decoration:none;
-
-transition:.3s;
-
-}
-
-.button:hover{
-
-transform:translateY(-4px);
-
-box-shadow:0 0 25px #00d9ff;
-
-}
-
-.modeBtn{
-
-padding:14px 30px;
-
-margin:8px;
-
-border:none;
-
-border-radius:35px;
-
-background:linear-gradient(45deg,#7b2cff,#00d9ff);
-
-color:white;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.modeBtn:hover{
-
-transform:scale(1.05);
-
-box-shadow:0 0 25px #00d9ff;
-
-}
-
-
-
-/* Stats */
-
-.stats{
-
-display:flex;
-
-justify-content:center;
-
-gap:15px;
-
-flex-wrap:wrap;
-
-margin-top:20px;
-
-}
-
-.stat{
-
-background:#0008;
-
-padding:18px;
-
-border-radius:18px;
-
-min-width:130px;
-
-}
-
-.stat h3{
-
-font-size:28px;
-
-color:#00ff99;
-
-}
-
-.prize{
-
-font-size:20px;
-
-margin:10px;
-
-}
-
-footer{
-
-text-align:center;
-
-padding:25px;
-
-color:#bbb;
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLANETS ESPORT | Cyberpunk Arena</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #00f0ff;
+      --secondary: #9d00ff;
+      --accent: #ff0055;
+      --gold: #ffd700;
+      --bg-dark: #03030c;
+      --card-bg: rgba(10, 14, 35, 0.65);
+      --card-border: rgba(0, 240, 255, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: #ffffff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* --- BACKGROUND CANVAS & COSMIC GLOWS --- */
+    #space-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -10;
+    }
+
+    .nebula-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: -15;
+      animation: pulseGlow 10s ease-in-out infinite alternate;
+    }
+
+    .glow-1 {
+      width: 450px;
+      height: 450px;
+      background: rgba(0, 240, 255, 0.18);
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow-2 {
+      width: 500px;
+      height: 500px;
+      background: rgba(157, 0, 255, 0.22);
+      bottom: -150px;
+      right: -100px;
+    }
+
+    .glow-3 {
+      width: 350px;
+      height: 350px;
+      background: rgba(255, 0, 85, 0.15);
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.6; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* --- 3D PLANETS --- */
+    .saturn {
+      position: fixed;
+      right: -40px;
+      top: 50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffd000 0%, #a86200 60%, #2b1800 100%);
+      box-shadow: inset -30px -30px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 208, 0, 0.25);
+      animation: planetFloat 14s ease-in-out infinite alternate;
+      z-index: -12;
+      pointer-events: none;
+    }
+
+    .saturn::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 330px;
+      height: 60px;
+      border: 14px solid rgba(255, 208, 0, 0.55);
+      border-top-color: rgba(255, 235, 130, 0.9);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-22deg);
+      box-shadow: 0 0 20px rgba(255, 208, 0, 0.4);
+    }
+
+    .earth {
+      position: fixed;
+      left: 40px;
+      top: 160px;
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #38bdf8 0%, #0284c7 50%, #032d4d 100%);
+      box-shadow: inset -15px -15px 25px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 240, 255, 0.4);
+      animation: planetFloat 10s ease-in-out infinite alternate-reverse;
+      z-index: -12;
+      pointer-events: none;
+    }
+
+    @keyframes planetFloat {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(22px) rotate(5deg); }
+    }
+
+    /* --- HEADER & LOGO --- */
+    header {
+      text-align: center;
+      padding: 45px 20px 10px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 62px;
+      font-weight: 900;
+      letter-spacing: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, var(--primary) 50%, #0051ff 100%);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(0, 240, 255, 0.7);
+    }
+
+    .subtitle {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 14px;
+      color: var(--primary);
+      margin-top: -4px;
+      text-shadow: 0 0 15px var(--primary);
+    }
+
+    /* --- HOLOGRAPHIC GLASS CARDS --- */
+    .card {
+      width: 90%;
+      max-width: 780px;
+      margin: 24px auto;
+      padding: 28px 24px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 240, 255, 0.08);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      top: -1px;
+      right: 20px;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .card h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-transform: uppercase;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* --- ATTRACTIVE HIGH-TECH BUTTONS --- */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      user-select: none;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Primary Animated Glow Button */
+    .button.register {
+      background: linear-gradient(135deg, #00f0ff 0%, #0051ff 50%, #9d00ff 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4), inset 0 0 12px rgba(255, 255, 255, 0.4);
+      border-color: rgba(0, 240, 255, 0.8);
+    }
+
+    .button.register:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+
+    .button.discord {
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.3) 0%, rgba(64, 78, 237, 0.6) 100%);
+      border: 1px solid rgba(88, 101, 242, 0.8);
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .button.discord:hover {
+      transform: translateY(-4px) scale(1.04);
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.7) 0%, rgba(64, 78, 237, 0.9) 100%);
+      box-shadow: 0 0 40px rgba(88, 101, 242, 0.8);
+    }
+
+    .button.whatsapp {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.3) 0%, rgba(18, 140, 126, 0.6) 100%);
+      border: 1px solid rgba(37, 211, 102, 0.8);
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .button.whatsapp:hover {
+      transform: translateY(-4px) scale(1.04);
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.7) 0%, rgba(18, 140, 126, 0.9) 100%);
+      box-shadow: 0 0 40px rgba(37, 211, 102, 0.8);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .modeBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border: 1px solid rgba(157, 0, 255, 0.5);
+      border-radius: 10px;
+      background: rgba(157, 0, 255, 0.15);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.25s ease-in-out;
+      user-select: none;
+    }
+
+    .modeBtn:hover, .modeBtn.active {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+      border-color: #ff0055;
+      box-shadow: 0 0 25px rgba(255, 0, 85, 0.7);
+      transform: translateY(-2px);
+    }
+
+    /* --- STATS & PRIZES --- */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .stat {
+      background: rgba(4, 8, 22, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 16px 22px;
+      border-radius: 12px;
+      min-width: 140px;
+      box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
+    }
+
+    .stat h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      color: var(--primary);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+    }
+
+    .stat p {
+      font-size: 12px;
+      color: #8a99ad;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    .prizes-container {
+      margin-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .prize-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 28px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      min-width: 260px;
+    }
+
+    .rank-1 { border-color: rgba(255, 215, 0, 0.7); color: #ffd700; background: rgba(255, 215, 0, 0.05); }
+    .rank-2 { border-color: rgba(192, 192, 192, 0.7); color: #e2e8f0; }
+    .rank-3 { border-color: rgba(205, 127, 50, 0.7); color: #cd7f32; }
+
+    /* --- PLANETS AI ASSISTANT STYLING --- */
+    .ai-widget-container {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 999;
+    }
+
+    .ai-toggle-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #ffffff;
+      border: 1px solid var(--primary);
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ai-toggle-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
+    }
+
+    .ai-chat-card {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      width: 330px;
+      height: 420px;
+      background: rgba(6, 10, 28, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 240, 255, 0.2);
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .ai-chat-header {
+      background: rgba(0, 240, 255, 0.1);
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      color: var(--primary);
+    }
+
+    .ai-chat-messages {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ai-msg {
+      max-width: 85%;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .ai-msg.bot {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: #e2e8f0;
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+
+    .ai-msg.user {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+      color: #ffffff;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+
+    .ai-quick-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .chip {
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--primary);
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+    }
+
+    .chip:hover {
+      background: var(--primary);
+      color: #000;
+    }
+
+    .ai-chat-input-area {
+      display: flex;
+      border-top: 1px solid rgba(0, 240, 255, 0.3);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .ai-chat-input-area input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 12px;
+      color: #ffffff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .ai-chat-input-area button {
+      background: var(--primary);
+      border: none;
+      color: #000;
+      padding: 0 16px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #4a5568;
+      margin-top: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      .logo { font-size: 40px; letter-spacing: 8px; }
+      .subtitle { font-size: 11px; letter-spacing: 8px; }
+      .saturn { width: 130px; height: 130px; right: -20px; top: 20px; }
+      .saturn::before { width: 210px; height: 45px; }
+      .earth { width: 55px; height: 55px; left: 10px; top: 80px; }
+      .card { width: 92%; padding: 22px 16px; }
+      .button { width: 100%; }
+      .ai-chat-card { width: 290px; right: -10px; }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="stars"></div>
-
-<div class="saturn"></div>
-
-<div class="earth"></div>
-
-<div class="mars"></div>
-
-<div class="moon"></div>
-<header>
-
-<div class="logo">
-PLANETS
-</div>
-
-<div class="subtitle">
-ESPORT
-</div>
-
-</header>
-
-<div class="card">
-
-<h2>
-🌌 RULE THE GALAXY 🚀
-</h2>
-
-<p style="margin:18px 0;color:#ddd;font-size:18px;">
-🔥 Join Daily Free Fire Tournaments & Win Big!
-</p>
-
-<a class="button"
-href="https://docs.google.com/forms/d/e/1FAIpQLSf3ktwGZacwDV0MKXi29xuh-8oTKo0y3-JVr6IQe2TzsKm43w/viewform?usp=dialog"
-target="_blank">
-
-🎮 REGISTER NOW
-
-</a>
-
-<a class="button"
-href="https://discord.gg/kcvREy8Kk"
-target="_blank">
-
-💬 DISCORD
-
-</a>
-
-<a class="button"
-href="https://whatsapp.com/channel/0029Vb8oK1mGE56rfZYkbp2t"
-target="_blank">
-
-🟢 WHATSAPP (COMPULSORY)
-
-</a>
-
-</div>
-
-<div class="card">
-
-<h2>
-🎯 SELECT TOURNAMENT MODE
-</h2>
-
-<button
-class="modeBtn"
-onclick="showBR()">
-
-🔥 BR MODE
-
-</button>
-
-<button
-class="modeBtn"
-onclick="showCS()">
-
-⚔️ CLASH SQUAD
-
-</button>
-
-</div>
-
-<div
-class="card"
-id="brTypes"
-style="display:none;">
-
-<h2>
-🔥 SELECT BR TYPE
-</h2>
-
-<button
-class="modeBtn"
-onclick="showSolo()">
-
-👤 SOLO
-
-</button>
-
-<button
-class="modeBtn"
-onclick="showDuo()">
-
-👥 DUO
-
-</button>
-
-<button
-class="modeBtn"
-onclick="showSquad()">
-
-👨‍👨‍👦 SQUAD
-
-</button>
-
-</div>
-
-<div
-class="card"
-id="status">
-
-<h2>
-🏆 TOURNAMENT STATUS
-</h2>
-
-<p style="color:#ddd;">
-Select BR Mode or Clash Squad to view tournament details.
-</p>
-
-</div>
-<script>
-
-function showBR(){
-
-document.getElementById("brTypes").style.display="block";
-
-document.getElementById("status").innerHTML=`
-
-<h2>🔥 BATTLE ROYALE</h2>
-
-<p style="margin-top:10px;">
-Choose <b>Solo</b>, <b>Duo</b> or <b>Squad</b>.
-</p>
-
-`;
-
-}
-
-
-
-function showSolo(){
-
-document.getElementById("status").innerHTML=`
-
-<h2>👤 BR SOLO</h2>
-
-<div class="stats">
-
-<div class="stat">
-<h3>50</h3>
-<p>Players</p>
-</div>
-
-<div class="stat">
-<h3>₹30</h3>
-<p>Entry Fee / Person</p>
-</div>
-
-<div class="stat">
-<h3>₹1000</h3>
-<p>Prize Pool</p>
-</div>
-
-</div>
-
-<br>
-
-<p class="prize">🥇 1st Prize - ₹650</p>
-
-<p class="prize">🥈 2nd Prize - ₹250</p>
-
-<p class="prize">🥉 3rd Prize - ₹100</p>
-
-`;
-
-}
-
-
-
-function showDuo(){
-
-document.getElementById("status").innerHTML=`
-
-<h2>👥 BR DUO</h2>
-
-<div class="stats">
-
-<div class="stat">
-<h3>50</h3>
-<p>Players</p>
-</div>
-
-<div class="stat">
-<h3>₹25</h3>
-<p>Entry Fee / Person</p>
-</div>
-
-<div class="stat">
-<h3>₹950</h3>
-<p>Prize Pool</p>
-</div>
-
-</div>
-
-<br>
-
-<p class="prize">🥇 1st Prize - ₹500</p>
-
-<p class="prize">🥈 2nd Prize - ₹350</p>
-
-<p class="prize">🥉 3rd Prize - ₹100</p>
-
-`;
-
-}
-
-
-
-function showSquad(){
-
-document.getElementById("status").innerHTML=`
-
-<h2>👨‍👨‍👦 BR SQUAD</h2>
-
-<div class="stats">
-
-<div class="stat">
-<h3>50</h3>
-<p>Players</p>
-</div>
-
-<div class="stat">
-<h3>₹20</h3>
-<p>Entry Fee / Person</p>
-</div>
-
-<div class="stat">
-<h3>₹800</h3>
-<p>Prize Pool</p>
-</div>
-
-</div>
-
-<br>
-
-<p class="prize">🥇 1st Prize - ₹450</p>
-
-<p class="prize">🥈 2nd Prize - ₹250</p>
-
-<p class="prize">🥉 3rd Prize - ₹100</p>
-
-`;
-
-}
-function showCS(){
-
-document.getElementById("brTypes").style.display="none";
-
-document.getElementById("status").innerHTML=`
-
-<h2>⚔️ CLASH SQUAD</h2>
-
-<div class="stats">
-
-<div class="stat">
-<h3>8</h3>
-<p>Players</p>
-</div>
-
-<div class="stat">
-<h3>₹20</h3>
-<p>Entry Fee</p>
-</div>
-
-<div class="stat">
-<h3>₹120</h3>
-<p>Prize Pool</p>
-</div>
-
-</div>
-
-<br>
-
-<p class="prize">
-🥇 Winning Prize - ₹30 Per Person
-</p>
-
-`;
-
-}
-
-</script>
-
-<footer>
-
-<h2 style="color:#00eaff;">
-🌌 PLANETS ESPORT
-</h2>
-
-<p style="margin-top:10px;">
-🔥 Daily Free Fire Tournaments
-</p>
-
-<p style="margin-top:8px;">
-🎮 BR • Clash Squad • Fair Play
-</p>
-
-<p style="margin-top:15px;font-size:14px;color:#aaa;">
-© 2026 Planets Esport. All Rights Reserved.
-</p>
-
-</footer>
-
+  <!-- Dynamic Cosmic Canvas -->
+  <canvas id="space-canvas"></canvas>
+
+  <!-- Ambient Nebula Orbs -->
+  <div class="nebula-glow glow-1"></div>
+  <div class="nebula-glow glow-2"></div>
+  <div class="nebula-glow glow-3"></div>
+
+  <!-- Planets Background -->
+  <div class="saturn"></div>
+  <div class="earth"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">PLANETS</div>
+    <div class="subtitle">ESPORT</div>
+  </header>
+
+  <!-- Main Registration Portal -->
+  <div class="card">
+    <h2>
+      <svg class="icon" viewBox="0 0 24 24"><path fill="var(--primary)" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      DAILY FREE FIRE ARENA
+    </h2>
+    <p style="margin: 10px 0 20px; color: #a0aec0; font-size: 16px;">
+      Compete against top players, climb the galaxy leaderboards & win daily prize pools.
+    </p>
+
+    <div class="btn-group">
+      <a class="button register" href="https://docs.google.com/forms/d/e/1FAIpQLSf3ktwGZacwDV0MKXi29xuh-8oTKo0y3-JVr6IQe2TzsKm43w/viewform?usp=dialog" target="_blank" onclick="handleRegistrationClick()">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v2H6v-2H4v-2h2V9h2v2h3v2zm4.5 1c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        REGISTER NOW
+      </a>
+      <a class="button discord" href="https://discord.gg/kcvREy8Kk" target="_blank">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/></svg>
+        DISCORD
+      </a>
+      <a class="button whatsapp" href="https://whatsapp.com/channel/0029Vb8oK1mGE56rfZYkbp2t" target="_blank">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+        WHATSAPP
+      </a>
+    </div>
+  </div>
+
+  <!-- Tournament Mode Selector -->
+  <div class="card">
+    <h2>
+      <svg class="icon" viewBox="0 0 24 24"><path fill="var(--secondary)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/></svg>
+      TOURNAMENT MODE
+    </h2>
+    <div class="btn-group">
+      <button class="modeBtn" id="btnBR" onclick="showBR()">BATTLE ROYALE</button>
+      <button class="modeBtn" id="btnCS" onclick="showCS()">CLASH SQUAD</button>
+    </div>
+  </div>
+
+  <!-- Team Sub Selector -->
+  <div class="card" id="brTypes" style="display: none;">
+    <h2>SELECT TEAM SIZE</h2>
+    <div class="btn-group">
+      <button class="modeBtn" onclick="showSolo(this)">SOLO</button>
+      <button class="modeBtn" onclick="showDuo(this)">DUO</button>
+      <button class="modeBtn" onclick="showSquad(this)">SQUAD</button>
+    </div>
+  </div>
+
+  <!-- Dynamic Stats Frame -->
+  <div class="card" id="status">
+    <h2>MATCH DETAILS</h2>
+    <p style="color: #718096; margin-top: 10px;">Select a mode above to display match statistics & prizes.</p>
+  </div>
+
+  <!-- PLANETS AI ASSISTANT WIDGET -->
+  <div class="ai-widget-container">
+    <div class="ai-chat-card" id="aiCard">
+      <div class="ai-chat-header">
+        <span>🤖 PLANETS AI BOT</span>
+        <span style="cursor:pointer;" onclick="toggleAI()">✕</span>
+      </div>
+      <div class="ai-chat-messages" id="aiMessages">
+        <div class="ai-msg bot">
+          Greetings player! I am your Planets Esport Assistant. Ask me anything about registration, remaining slots, fees, prizes, or rules!
+        </div>
+      </div>
+      <div class="ai-quick-topics">
+        <span class="chip" onclick="askQuick('How many slots left for CS?')">CS Slots?</span>
+        <span class="chip" onclick="askQuick('How many slots left for BR Solo?')">Solo Slots?</span>
+        <span class="chip" onclick="askQuick('All slots left?')">All Slots?</span>
+      </div>
+      <div class="ai-chat-input-area">
+        <input type="text" id="aiInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter') sendAIMessage()">
+        <button onclick="sendAIMessage()">SEND</button>
+      </div>
+    </div>
+    <button class="ai-toggle-btn" onclick="toggleAI()">
+      🤖 PLANETS AI
+    </button>
+  </div>
+
+  <footer>
+    <h2 style="font-family: 'Orbitron'; color: var(--primary); font-size: 16px; letter-spacing: 2px;">PLANETS ESPORT</h2>
+    <p style="margin-top: 6px; font-size: 13px;">Fair Play & Continuous Galactic Competitions</p>
+    <p style="margin-top: 12px; font-size: 12px; color: #2d3748;">© 2026 Planets Esport. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    /* --- AUTO-SLOT CALCULATION ENGINE --- */
+    // Capacity defines total seats; registered count auto-increments to calculate remaining slots
+    const matchData = {
+      cs: { total: 8, registered: 5 },
+      brSolo: { total: 50, registered: 32 },
+      brDuo: { total: 50, registered: 26 },
+      brSquad: { total: 50, registered: 38 }
+    };
+
+    // Calculation function for remaining slots
+    function getRemainingSlots(modeKey) {
+      const mode = matchData[modeKey];
+      return Math.max(0, mode.total - mode.registered);
+    }
+
+    let activeView = null; // Remembers current displayed card view
+
+    // Auto-decrement slots when user clicks Register Now
+    function handleRegistrationClick() {
+      // Decrements active mode or default fallback
+      if (activeView && matchData[activeView]) {
+        matchData[activeView].registered++;
+      } else {
+        matchData.cs.registered++;
+      }
+      refreshCurrentView();
+    }
+
+    function refreshCurrentView() {
+      if (activeView === 'cs') showCS();
+      else if (activeView === 'brSolo') showSolo();
+      else if (activeView === 'brDuo') showDuo();
+      else if (activeView === 'brSquad') showSquad();
+    }
+
+    /* --- CANVAS STARFIELD ENGINE --- */
+    const canvas = document.getElementById('space-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const staticStars = Array.from({ length: 160 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.3,
+      alpha: Math.random()
+    }));
+
+    class ShootingStar {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * width * 1.2;
+        this.y = -20;
+        this.len = Math.random() * 100 + 80;
+        this.speed = Math.random() * 10 + 8;
+        this.size = Math.random() * 1.6 + 0.6;
+        this.waitTime = Date.now() + Math.random() * 2500;
+        this.active = false;
+      }
+      update() {
+        if (!this.active) {
+          if (Date.now() > this.waitTime) this.active = true;
+          return;
+        }
+        this.x -= this.speed;
+        this.y += this.speed * 0.55;
+        if (this.x < -100 || this.y > height + 100) this.reset();
+      }
+      draw() {
+        if (!this.active) return;
+        const tailX = this.x + this.len;
+        const tailY = this.y - (this.len * 0.55);
+        const gradient = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        gradient.addColorStop(0.3, 'rgba(0, 240, 255, 0.8)');
+        gradient.addColorStop(1, 'rgba(0, 240, 255, 0)');
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = this.size;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.stroke();
+      }
+    }
+
+    const shootingStars = Array.from({ length: 6 }, () => new ShootingStar());
+
+    function renderSpace() {
+      ctx.clearRect(0, 0, width, height);
+      staticStars.forEach(star => {
+        star.alpha += (Math.random() - 0.5) * 0.02;
+        star.alpha = Math.max(0.1, Math.min(0.9, star.alpha));
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      shootingStars.forEach(star => { star.update(); star.draw(); });
+      requestAnimationFrame(renderSpace);
+    }
+    renderSpace();
+
+    /* --- GUI TOURNAMENT CONTROLLER --- */
+    function clearActiveButtons(containerId) {
+      const parent = containerId ? document.getElementById(containerId) : document;
+      parent.querySelectorAll('.modeBtn').forEach(btn => btn.classList.remove('active'));
+    }
+
+    function showBR() {
+      clearActiveButtons();
+      document.getElementById("btnBR").classList.add("active");
+      document.getElementById("brTypes").style.display = "block";
+      document.getElementById("status").innerHTML = `
+        <h2>BATTLE ROYALE</h2>
+        <p style="margin-top: 10px; color: #a0aec0;">Select team composition above to inspect match breakdown.</p>
+      `;
+    }
+
+    function showSolo(btnElement) {
+      activeView = 'brSolo';
+      if(btnElement) { clearActiveButtons('brTypes'); btnElement.classList.add('active'); }
+      document.getElementById("status").innerHTML = `
+        <h2>SOLO BATTLE ROYALE</h2>
+        <div class="stats">
+          <div class="stat"><h3>${getRemainingSlots('brSolo')}/${matchData.brSolo.total}</h3><p>SLOTS LEFT</p></div>
+          <div class="stat"><h3>₹30</h3><p>ENTRY / PLAYER</p></div>
+          <div class="stat"><h3>₹1000</h3><p>PRIZE POOL</p></div>
+        </div>
+        <div class="prizes-container">
+          <div class="prize-badge rank-1"><span>1st Place</span> <strong>₹650</strong></div>
+          <div class="prize-badge rank-2"><span>2nd Place</span> <strong>₹250</strong></div>
+          <div class="prize-badge rank-3"><span>3rd Place</span> <strong>₹100</strong></div>
+        </div>
+      `;
+    }
+
+    function showDuo(btnElement) {
+      activeView = 'brDuo';
+      if(btnElement) { clearActiveButtons('brTypes'); btnElement.classList.add('active'); }
+      document.getElementById("status").innerHTML = `
+        <h2>DUO BATTLE ROYALE</h2>
+        <div class="stats">
+          <div class="stat"><h3>${getRemainingSlots('brDuo')}/${matchData.brDuo.total}</h3><p>SLOTS LEFT</p></div>
+          <div class="stat"><h3>₹25</h3><p>ENTRY / PLAYER</p></div>
+          <div class="stat"><h3>₹950</h3><p>PRIZE POOL</p></div>
+        </div>
+        <div class="prizes-container">
+          <div class="prize-badge rank-1"><span>1st Place</span> <strong>₹500</strong></div>
+          <div class="prize-badge rank-2"><span>2nd Place</span> <strong>₹350</strong></div>
+          <div class="prize-badge rank-3"><span>3rd Place</span> <strong>₹100</strong></div>
+        </div>
+      `;
+    }
+
+    function showSquad(btnElement) {
+      activeView = 'brSquad';
+      if(btnElement) { clearActiveButtons('brTypes'); btnElement.classList.add('active'); }
+      document.getElementById("status").innerHTML = `
+        <h2>SQUAD BATTLE ROYALE</h2>
+        <div class="stats">
+          <div class="stat"><h3>${getRemainingSlots('brSquad')}/${matchData.brSquad.total}</h3><p>SLOTS LEFT</p></div>
+          <div class="stat"><h3>₹20</h3><p>ENTRY / PLAYER</p></div>
+          <div class="stat"><h3>₹800</h3><p>PRIZE POOL</p></div>
+        </div>
+        <div class="prizes-container">
+          <div class="prize-badge rank-1"><span>1st Place</span> <strong>₹450</strong></div>
+          <div class="prize-badge rank-2"><span>2nd Place</span> <strong>₹250</strong></div>
+          <div class="prize-badge rank-3"><span>3rd Place</span> <strong>₹100</strong></div>
+        </div>
+      `;
+    }
+
+    function showCS() {
+      activeView = 'cs';
+      clearActiveButtons();
+      document.getElementById("btnCS").classList.add("active");
+      document.getElementById("brTypes").style.display = "none";
+      document.getElementById("status").innerHTML = `
+        <h2>CLASH SQUAD</h2>
+        <div class="stats">
+          <div class="stat"><h3>${getRemainingSlots('cs')}/${matchData.cs.total}</h3><p>SLOTS LEFT</p></div>
+          <div class="stat"><h3>₹20</h3><p>ENTRY FEE</p></div>
+          <div class="stat"><h3>₹120</h3><p>PRIZE POOL</p></div>
+        </div>
+        <div class="prizes-container">
+          <div class="prize-badge rank-1"><span>WINNER REWARD</span> <strong>₹30 / Player</strong></div>
+        </div>
+      `;
+    }
+
+    /* --- PLANETS DYNAMIC SLOT AI ENGINE --- */
+
+    function toggleAI() {
+      const card = document.getElementById("aiCard");
+      card.style.display = (card.style.display === "flex") ? "none" : "flex";
+    }
+
+    function askQuick(questionText) {
+      document.getElementById("aiInput").value = questionText;
+      sendAIMessage();
+    }
+
+    function sendAIMessage() {
+      const input = document.getElementById("aiInput");
+      const messagesContainer = document.getElementById("aiMessages");
+      const userText = input.value.trim().toLowerCase();
+
+      if (!userText) return;
+
+      // Render User Message
+      const userMsgDiv = document.createElement("div");
+      userMsgDiv.className = "ai-msg user";
+      userMsgDiv.innerText = input.value;
+      messagesContainer.appendChild(userMsgDiv);
+
+      input.value = "";
+
+      let reply = "";
+
+      /* --- DYNAMIC AUTOMATIC SLOT CALCULATION --- */
+      if (userText.includes("slot") || userText.includes("left") || userText.includes("available")) {
+        if (userText.includes("cs") || userText.includes("clash")) {
+          reply = `🎯 Clash Squad has ${getRemainingSlots('cs')} out of ${matchData.cs.total} slots remaining!`;
+        } else if (userText.includes("solo")) {
+          reply = `👤 BR Solo has ${getRemainingSlots('brSolo')} out of ${matchData.brSolo.total} slots remaining!`;
+        } else if (userText.includes("duo")) {
+          reply = `👥 BR Duo has ${getRemainingSlots('brDuo')} out of ${matchData.brDuo.total} slots remaining!`;
+        } else if (userText.includes("squad")) {
+          reply = `🔥 BR Squad has ${getRemainingSlots('brSquad')} out of ${matchData.brSquad.total} slots remaining!`;
+        } else {
+          // Output live calculated remaining slots for all modes
+          reply = `📊 Live Dynamic Slots Remaining:\n` +
+                  `• CS: ${getRemainingSlots('cs')}/${matchData.cs.total}\n` +
+                  `• BR Solo: ${getRemainingSlots('brSolo')}/${matchData.brSolo.total}\n` +
+                  `• BR Duo: ${getRemainingSlots('brDuo')}/${matchData.brDuo.total}\n` +
+                  `• BR Squad: ${getRemainingSlots('brSquad')}/${matchData.brSquad.total}`;
+        }
+      } 
+      /* --- GENERAL FAQ LOGIC --- */
+      else if (userText.includes("register") || userText.includes("join")) {
+        reply = "To register, click the glowing 'REGISTER NOW' button at the top to open our Google Form!";
+      } else if (userText.includes("discord") || userText.includes("whatsapp")) {
+        reply = "Join our community channels using the direct Discord and WhatsApp buttons above!";
+      } else if (userText.includes("payment") || userText.includes("pay")) {
+        reply = "Payment details are listed inside the Google Form once you select your tournament mode.";
+      } else {
+        reply = "I automatically calculate available match slots! Ask me 'How many slots left for CS?' or 'BR Solo slots?'";
+      }
+
+      // Add Bot Reply
+      setTimeout(() => {
+        const botMsgDiv = document.createElement("div");
+        botMsgDiv.className = "ai-msg bot";
+        botMsgDiv.style.whiteSpace = "pre-line";
+        botMsgDiv.innerText = reply;
+        messagesContainer.appendChild(botMsgDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }, 250);
+
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  </script>
 </body>
-
 </html>
