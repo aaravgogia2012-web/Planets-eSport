@@ -1,15 +1,81 @@
 <!DOCTYPE html>
-< lang="en">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Planets Esport</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+    /* Small startup screen to prevent the raw HTML/white flash */
+    #startup-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #050505;
+        transition: opacity .25s ease, visibility .25s ease;
+    }
+
+    #startup-screen.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .startup-inner {
+        text-align: center;
+    }
+
+    .startup-p {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: linear-gradient(135deg,#ff6a00,#ff2200);
+        font-size: 30px;
+        font-weight: 900;
+        box-shadow: 0 0 30px rgba(255,70,0,.35);
+    }
+
+    .startup-title {
+        font-size: 16px;
+        font-weight: 900;
+        letter-spacing: 3px;
+    }
+
+    .startup-sub {
+        margin-top: 6px;
+        font-size: 9px;
+        letter-spacing: 2px;
+        color: #ff6a00;
+    }
+</style>
 </head>
 
 <body>
 
+<!-- STARTUP -->
+
+<div id="startup-screen">
+    <div class="startup-inner">
+        <div class="startup-p">P</div>
+        <div class="startup-title">PLANETS ESPORT</div>
+        <div class="startup-sub">LOADING</div>
+    </div>
+</div>
+
+
+<!-- ANIMATED BACKGROUND -->
+
 <div class="animated-background">
+
     <div class="glow glow-one"></div>
     <div class="glow glow-two"></div>
     <div class="glow glow-three"></div>
@@ -20,22 +86,41 @@
         <i></i><i></i><i></i><i></i>
         <i></i><i></i><i></i><i></i>
     </div>
+
 </div>
 
+
+<!-- TOPBAR -->
 
 <header class="topbar">
 
     <div class="logo" onclick="showPage('home')">
-        <div class="logo-mark">P</div>
+
+        <div class="logo-mark">
+            P
+        </div>
 
         <div>
-            <div class="logo-main">PLANETS</div>
-            <div class="logo-sub">ESPORT</div>
+            <div class="logo-main">
+                PLANETS
+            </div>
+
+            <div class="logo-sub">
+                ESPORT
+            </div>
         </div>
+
     </div>
 
-    <button class="top-login" onclick="showPage('login')">
+
+    <button
+        id="login-btn"
+        class="top-login"
+        type="button"
+        onclick="showPage('login')">
+
         LOGIN
+
     </button>
 
 </header>
@@ -62,8 +147,10 @@
                 Compete. Dominate. Become the champion.
             </p>
 
-            <button class="battle-button"
-                    onclick="showPage('tournaments')">
+            <button
+                class="battle-button"
+                type="button"
+                onclick="showPage('tournaments')">
 
                 ENTER THE BATTLE
 
@@ -75,8 +162,6 @@
 
     </section>
 
-
-    <!-- NEW HOME MODE SELECTOR -->
 
     <section class="battle-selector">
 
@@ -96,8 +181,10 @@
 
         <div class="battle-list">
 
-            <button class="battle-row"
-                    onclick="openMode('battle')">
+            <button
+                class="battle-row"
+                type="button"
+                onclick="openMode('battle')">
 
                 <div class="row-number">
                     BR
@@ -130,8 +217,10 @@
             </button>
 
 
-            <button class="battle-row"
-                    onclick="openMode('clash')">
+            <button
+                class="battle-row"
+                type="button"
+                onclick="openMode('clash')">
 
                 <div class="row-number">
                     CS
@@ -164,8 +253,10 @@
             </button>
 
 
-            <button class="battle-row"
-                    onclick="openMode('lone')">
+            <button
+                class="battle-row"
+                type="button"
+                onclick="openMode('lone')">
 
                 <div class="row-number">
                     LW
@@ -198,8 +289,10 @@
             </button>
 
 
-            <button class="battle-row"
-                    onclick="openMode('headshot')">
+            <button
+                class="battle-row"
+                type="button"
+                onclick="openMode('headshot')">
 
                 <div class="row-number">
                     HS
@@ -257,9 +350,11 @@
 
     <div class="tournament-menu">
 
-        <button onclick="openMode('battle')">
+        <button type="button" onclick="openMode('battle')">
 
-            <div class="menu-icon">🎯</div>
+            <div class="menu-icon">
+                🎯
+            </div>
 
             <div class="menu-text">
 
@@ -278,9 +373,11 @@
         </button>
 
 
-        <button onclick="openMode('clash')">
+        <button type="button" onclick="openMode('clash')">
 
-            <div class="menu-icon">⚔️</div>
+            <div class="menu-icon">
+                ⚔️
+            </div>
 
             <div class="menu-text">
 
@@ -289,7 +386,7 @@
                 </strong>
 
                 <small>
-                    1V1 • 2V2 • 4V4
+                    SQUAD BATTLES
                 </small>
 
             </div>
@@ -299,9 +396,11 @@
         </button>
 
 
-        <button onclick="openMode('lone')">
+        <button type="button" onclick="openMode('lone')">
 
-            <div class="menu-icon">🐺</div>
+            <div class="menu-icon">
+                🐺
+            </div>
 
             <div class="menu-text">
 
@@ -310,7 +409,7 @@
                 </strong>
 
                 <small>
-                    1V1 • 2V2
+                    1V1
                 </small>
 
             </div>
@@ -320,9 +419,11 @@
         </button>
 
 
-        <button onclick="openMode('headshot')">
+        <button type="button" onclick="openMode('headshot')">
 
-            <div class="menu-icon">🎯</div>
+            <div class="menu-icon">
+                🎯
+            </div>
 
             <div class="menu-text">
 
@@ -331,7 +432,7 @@
                 </strong>
 
                 <small>
-                    1V1 • 2V2 • 4V4
+                    PRECISION BATTLES
                 </small>
 
             </div>
@@ -349,12 +450,15 @@
 
 <section id="formats" class="page">
 
-    <button class="back-button"
-            onclick="showPage('tournaments')">
+    <button
+        class="back-button"
+        type="button"
+        onclick="showPage('tournaments')">
 
         ← BACK
 
     </button>
+
 
     <div class="page-header">
 
@@ -372,8 +476,10 @@
 
     </div>
 
-    <div id="format-container"
-         class="format-grid">
+
+    <div
+        id="format-container"
+        class="format-grid">
     </div>
 
 </section>
@@ -383,12 +489,15 @@
 
 <section id="tournament-list" class="page">
 
-    <button class="back-button"
-            onclick="showPage('formats')">
+    <button
+        class="back-button"
+        type="button"
+        onclick="showPage('formats')">
 
         ← BACK
 
     </button>
+
 
     <div class="page-header">
 
@@ -406,8 +515,10 @@
 
     </div>
 
-    <div id="tournament-container"
-         class="tournament-container">
+
+    <div
+        id="tournament-container"
+        class="tournament-container">
     </div>
 
 </section>
@@ -417,12 +528,15 @@
 
 <section id="details" class="page">
 
-    <button class="back-button"
-            onclick="showPage('tournament-list')">
+    <button
+        class="back-button"
+        type="button"
+        onclick="showPage('tournament-list')">
 
         ← BACK
 
     </button>
+
 
     <div class="details-box">
 
@@ -478,8 +592,10 @@
         </div>
 
 
-        <button class="battle-button full"
-                onclick="joinTournament()">
+        <button
+            class="battle-button full"
+            type="button"
+            onclick="joinTournament()">
 
             JOIN TOURNAMENT
 
@@ -519,20 +635,23 @@
 
             <label>EMAIL</label>
 
-            <input type="email"
-                   placeholder="Enter your email"
-                   required>
+            <input
+                type="email"
+                placeholder="Enter your email"
+                required>
 
 
             <label>PASSWORD</label>
 
-            <input type="password"
-                   placeholder="Enter your password"
-                   required>
+            <input
+                type="password"
+                placeholder="Enter your password"
+                required>
 
 
-            <button class="battle-button full"
-                    type="submit">
+            <button
+                class="battle-button full"
+                type="submit">
 
                 LOGIN
 
@@ -585,61 +704,70 @@
 
             <label>FIRST NAME</label>
 
-            <input type="text"
-                   placeholder="First name"
-                   required>
+            <input
+                type="text"
+                placeholder="First name"
+                required>
 
 
             <label>LAST NAME</label>
 
-            <input type="text"
-                   placeholder="Last name"
-                   required>
+            <input
+                type="text"
+                placeholder="Last name"
+                required>
 
 
             <label>EMAIL</label>
 
-            <input type="email"
-                   placeholder="example@gmail.com"
-                   required>
+            <input
+                type="email"
+                placeholder="example@gmail.com"
+                required>
 
 
             <label>FREE FIRE UID</label>
 
-            <input type="text"
-                   placeholder="Enter your UID"
-                   required>
+            <input
+                type="text"
+                placeholder="Enter your UID"
+                required>
 
 
             <label>IN-GAME NAME</label>
 
-            <input type="text"
-                   placeholder="Your IGN"
-                   required>
+            <input
+                type="text"
+                placeholder="Your IGN"
+                required>
 
 
             <label>WHATSAPP NUMBER</label>
 
-            <input type="tel"
-                   placeholder="Enter WhatsApp number">
+            <input
+                type="tel"
+                placeholder="Enter WhatsApp number">
 
 
             <label>PASSWORD</label>
 
-            <input type="password"
-                   placeholder="Create password"
-                   required>
+            <input
+                type="password"
+                placeholder="Create password"
+                required>
 
 
             <label>CONFIRM PASSWORD</label>
 
-            <input type="password"
-                   placeholder="Confirm password"
-                   required>
+            <input
+                type="password"
+                placeholder="Confirm password"
+                required>
 
 
-            <button class="battle-button full"
-                    type="submit">
+            <button
+                class="battle-button full"
+                type="submit">
 
                 CREATE ACCOUNT
 
@@ -671,7 +799,9 @@
 
     <div class="page-header">
 
-        <small>PLANETS ESPORT</small>
+        <small>
+            PLANETS ESPORT
+        </small>
 
         <h1>
             WALLET
@@ -698,12 +828,20 @@
 
             <div class="wallet-actions">
 
-                <button onclick="showWalletDemo()">
+                <button
+                    type="button"
+                    onclick="showWalletDemo()">
+
                     ＋ ADD MONEY
+
                 </button>
 
-                <button onclick="showWalletDemo()">
+                <button
+                    type="button"
+                    onclick="showWalletDemo()">
+
                     ↗ WITHDRAW
+
                 </button>
 
             </div>
@@ -734,8 +872,9 @@
             </div>
 
 
-            <div id="transactions"
-                 class="transactions">
+            <div
+                id="transactions"
+                class="transactions">
 
                 <div class="empty-transactions">
 
@@ -793,68 +932,195 @@
 
     <div class="profile-menu">
 
-        <button>
+        <!-- PERSONAL DETAILS -->
+
+        <button
+            type="button"
+            data-profile="personal"
+            onclick="openPersonalDetails()">
 
             <span class="profile-icon">
                 👤
             </span>
 
             <div>
-                <strong>ACCOUNT</strong>
-                <small>Personal information</small>
+                <strong>
+                    ACCOUNT
+                </strong>
+
+                <small>
+                    Personal information
+                </small>
             </div>
 
-            <b>→</b>
+            <b>
+                →
+            </b>
 
         </button>
 
 
-        <button onclick="showPage('tournaments')">
+        <!-- MY TOURNAMENTS -->
+
+        <button
+            type="button"
+            data-profile="tournaments"
+            onclick="openMyTournaments()">
 
             <span class="profile-icon">
                 🏆
             </span>
 
             <div>
-                <strong>MY TOURNAMENTS</strong>
-                <small>Your registered matches</small>
+                <strong>
+                    MY TOURNAMENTS
+                </strong>
+
+                <small>
+                    Your registered matches
+                </small>
             </div>
 
-            <b>→</b>
+            <b>
+                →
+            </b>
 
         </button>
 
 
-        <button onclick="showPage('wallet')">
+        <!-- WALLET -->
+
+        <button
+            type="button"
+            onclick="showPage('wallet')">
 
             <span class="profile-icon">
                 💰
             </span>
 
             <div>
-                <strong>WALLET</strong>
-                <small>Balance and transactions</small>
+                <strong>
+                    WALLET
+                </strong>
+
+                <small>
+                    Balance and transactions
+                </small>
             </div>
 
-            <b>→</b>
+            <b>
+                →
+            </b>
 
         </button>
 
 
-        <button>
+        <!-- HELP -->
+
+        <button
+            type="button"
+            data-profile="help"
+            onclick="openHelpFeedback()">
 
             <span class="profile-icon">
                 💬
             </span>
 
             <div>
-                <strong>HELP & FEEDBACK</strong>
-                <small>Contact Planets Esport</small>
+                <strong>
+                    HELP & FEEDBACK
+                </strong>
+
+                <small>
+                    Contact Planets Esport
+                </small>
             </div>
 
-            <b>→</b>
+            <b>
+                →
+            </b>
 
         </button>
+
+    </div>
+
+</section>
+
+
+<!-- PERSONAL DETAILS -->
+
+<section id="account-info" class="page">
+
+    <button
+        class="back-button"
+        type="button"
+        onclick="showPage('profile')">
+
+        ← BACK
+
+    </button>
+
+
+    <div class="page-header">
+
+        <small>
+            PLAYER PROFILE
+        </small>
+
+        <h1>
+            PERSONAL DETAILS
+        </h1>
+
+        <p>
+            View your account information.
+        </p>
+
+    </div>
+
+
+    <div
+        id="account-details-content"
+        class="details-box">
+
+    </div>
+
+</section>
+
+
+<!-- MY TOURNAMENTS -->
+
+<section id="my-tournaments" class="page">
+
+    <button
+        class="back-button"
+        type="button"
+        onclick="showPage('profile')">
+
+        ← BACK
+
+    </button>
+
+
+    <div class="page-header">
+
+        <small>
+            PLAYER PROFILE
+        </small>
+
+        <h1>
+            MY TOURNAMENTS
+        </h1>
+
+        <p>
+            Your registered tournaments.
+        </p>
+
+    </div>
+
+
+    <div
+        id="my-tournaments-container"
+        class="tournament-container">
 
     </div>
 
@@ -865,53 +1131,112 @@
 
 <nav class="bottom-hub">
 
-    <button class="hub-item active"
-            onclick="showPage('home')">
+    <button
+        class="hub-item active"
+        type="button"
+        onclick="showPage('home')">
 
-        <span class="hub-icon">🏠</span>
-        <small>HOME</small>
+        <span class="hub-icon">
+            🏠
+        </span>
 
-    </button>
-
-
-    <button class="hub-item"
-            onclick="showPage('tournaments')">
-
-        <span class="hub-icon">🏆</span>
-        <small>TOURNAMENTS</small>
+        <small>
+            HOME
+        </small>
 
     </button>
 
 
-    <button class="hub-center"
-            onclick="showPage('home')">
+    <button
+        class="hub-item"
+        type="button"
+        onclick="showPage('tournaments')">
+
+        <span class="hub-icon">
+            🏆
+        </span>
+
+        <small>
+            TOURNAMENTS
+        </small>
+
+    </button>
+
+
+    <button
+        class="hub-center"
+        type="button"
+        onclick="showPage('home')">
 
         P
 
     </button>
 
 
-    <button class="hub-item"
-            onclick="showPage('wallet')">
+    <button
+        class="hub-item"
+        type="button"
+        onclick="showPage('wallet')">
 
-        <span class="hub-icon">💳</span>
-        <small>WALLET</small>
+        <span class="hub-icon">
+            💳
+        </span>
+
+        <small>
+            WALLET
+        </small>
 
     </button>
 
 
-    <button class="hub-item"
-            onclick="showPage('profile')">
+    <button
+        class="hub-item"
+        type="button"
+        onclick="showPage('profile')">
 
-        <span class="hub-icon">👤</span>
-        <small>PROFILE</small>
+        <span class="hub-icon">
+            👤
+        </span>
+
+        <small>
+            PROFILE
+        </small>
 
     </button>
 
 </nav>
 
 
+<!-- IMPORTANT: tournaments.js MUST COME FIRST -->
+
 <script src="tournaments.js"></script>
 <script src="script.js"></script>
+
+
+<script>
+    window.addEventListener("load", function () {
+
+        const startup =
+            document.getElementById("startup-screen");
+
+        if (startup) {
+
+            setTimeout(function () {
+
+                startup.classList.add("hide");
+
+                setTimeout(function () {
+
+                    startup.remove();
+
+                }, 300);
+
+            }, 250);
+
+        }
+
+    });
+</script>
+
 </body>
 </html>

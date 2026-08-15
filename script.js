@@ -1,5 +1,6 @@
 /* =========================================
-   PLANETS ESPORT - COMPLETE SCRIPT.JS
+   PLANETS ESPORT - SCRIPT.JS
+   FIXED VERSION
    ========================================= */
 
 let currentMode = "";
@@ -19,9 +20,26 @@ let transactions =
 
 let registeredTournaments =
     JSON.parse(
-        localStorage.getItem(
-            "planetsRegisteredTournaments"
-        ) || "[]"
+        localStorage.getItem("planetsRegisteredTournaments") || "[]"
+    );
+
+
+const HELP_FEEDBACK_URL =
+    "https://forms.gle/7MCFtkPN4bV3vq6j6";
+
+
+/* =========================================
+   ACCOUNT MEMORY
+   ========================================= */
+
+let currentAccount =
+    JSON.parse(
+        localStorage.getItem("planetsCurrentAccount") || "null"
+    );
+
+let previousAccount =
+    JSON.parse(
+        localStorage.getItem("planetsPreviousAccount") || "null"
     );
 
 
@@ -29,7 +47,15 @@ let registeredTournaments =
    STARTUP
    ========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
+
+    /*
+       Prevent the page from remaining blank if
+       another function has an error.
+    */
+
+    document.documentElement.style.visibility = "visible";
+    document.body.style.visibility = "visible";
 
     addLoginStyles();
     removeBlueTapEffect();
@@ -41,6 +67,20 @@ document.addEventListener("DOMContentLoaded", () => {
     renderAccountInformation();
 
     setupModeButtons();
+    setupProfileOptions();
+    setupHelpFeedback();
+
+    /*
+       Make sure the correct initial page is shown.
+    */
+
+    const activePage =
+        document.querySelector(".page.active");
+
+    if (!activePage) {
+        showPage("home");
+    }
+
 });
 
 
@@ -50,17 +90,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function showPage(pageId) {
 
-    document
-        .querySelectorAll(".page")
-        .forEach(page => {
-            page.classList.remove("active");
-        });
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function (page) {
+        page.classList.remove("active");
+    });
 
 
     const page =
         document.getElementById(pageId);
 
-    if (!page) return;
+    if (!page) {
+
+        /*
+           If an old/missing page is requested,
+           don't leave the website blank.
+        */
+
+        const home =
+            document.getElementById("home");
+
+        if (home) {
+            home.classList.add("active");
+        }
+
+        return;
+    }
+
 
     page.classList.add("active");
 
@@ -76,21 +133,38 @@ function showPage(pageId) {
     }
 
 
-    if (pageId === "my-tournaments") {
+    if (
+        pageId === "my-tournaments" ||
+        pageId === "profile"
+    ) {
         renderMyTournaments();
     }
 
 
     if (pageId === "wallet") {
+
         updateWallet();
         renderTransactions();
+
     }
 
 
+    updateHub(pageId);
+}
+
+
+/* =========================================
+   BOTTOM HUB
+   ========================================= */
+
+function updateHub(pageId) {
+
     document
         .querySelectorAll(".hub-item")
-        .forEach(item => {
+        .forEach(function (item) {
+
             item.classList.remove("active");
+
         });
 
 
@@ -99,6 +173,7 @@ function showPage(pageId) {
         document
             .querySelector(".hub-item:nth-child(1)")
             ?.classList.add("active");
+
     }
 
 
@@ -112,6 +187,7 @@ function showPage(pageId) {
         document
             .querySelector(".hub-item:nth-child(2)")
             ?.classList.add("active");
+
     }
 
 
@@ -120,6 +196,7 @@ function showPage(pageId) {
         document
             .querySelector(".hub-item:nth-child(4)")
             ?.classList.add("active");
+
     }
 
 
@@ -132,90 +209,146 @@ function showPage(pageId) {
         document
             .querySelector(".hub-item:nth-child(5)")
             ?.classList.add("active");
+
     }
+
 }
 
 
 /* =========================================
-   MODES
+   TOURNAMENT MODES
    ========================================= */
 
 function getModes() {
 
+    if (
+        typeof TOURNAMENTS === "undefined"
+    ) {
+
+        console.error(
+            "tournaments.js was not loaded."
+        );
+
+        return {};
+
+    }
+
+
     return {
 
         battle: {
-            name: TOURNAMENTS.battleRoyale.name,
-            icon: TOURNAMENTS.battleRoyale.icon,
+
+            name:
+                TOURNAMENTS.battleRoyale.name,
+
+            icon:
+                TOURNAMENTS.battleRoyale.icon,
 
             formats: [
+
                 TOURNAMENTS.battleRoyale.solo,
+
                 TOURNAMENTS.battleRoyale.duo,
+
                 TOURNAMENTS.battleRoyale.squad
+
             ]
+
         },
+
 
         clash: {
-            name: TOURNAMENTS.clashSquad.name,
-            icon: TOURNAMENTS.clashSquad.icon,
+
+            name:
+                TOURNAMENTS.clashSquad.name,
+
+            icon:
+                TOURNAMENTS.clashSquad.icon,
 
             formats: [
+
                 TOURNAMENTS.clashSquad.standard
+
             ]
+
         },
+
 
         lone: {
-            name: TOURNAMENTS.loneWolf.name,
-            icon: TOURNAMENTS.loneWolf.icon,
+
+            name:
+                TOURNAMENTS.loneWolf.name,
+
+            icon:
+                TOURNAMENTS.loneWolf.icon,
 
             formats: [
+
                 TOURNAMENTS.loneWolf.oneVsOne
+
             ]
+
         },
 
+
         headshot: {
-            name: TOURNAMENTS.headshotOnly.name,
-            icon: TOURNAMENTS.headshotOnly.icon,
+
+            name:
+                TOURNAMENTS.headshotOnly.name,
+
+            icon:
+                TOURNAMENTS.headshotOnly.icon,
 
             formats: [
+
                 TOURNAMENTS.headshotOnly.oneVsOne
+
             ]
+
         }
+
     };
+
 }
 
 
 /* =========================================
-   MODE BUTTON SETUP
+   MODE BUTTONS
    ========================================= */
 
 function setupModeButtons() {
 
     const selectors = [
+
         "[data-mode]",
         ".mode-card",
         ".mode-option",
         ".battle-mode",
         ".mode-button",
         ".game-mode"
+
     ];
+
 
     const buttons = [];
 
-    selectors.forEach(selector => {
+
+    selectors.forEach(function (selector) {
 
         document
             .querySelectorAll(selector)
-            .forEach(element => {
+            .forEach(function (element) {
 
                 if (!buttons.includes(element)) {
                     buttons.push(element);
                 }
+
             });
+
     });
 
 
-    buttons.forEach(button => {
+    buttons.forEach(function (button) {
 
         if (
             button.dataset.modeBound === "true"
@@ -239,40 +372,50 @@ function setupModeButtons() {
                 text.includes("br")
             ) {
                 mode = "battle";
+            }
 
-            } else if (
+            else if (
                 text.includes("clash")
             ) {
                 mode = "clash";
+            }
 
-            } else if (
+            else if (
                 text.includes("lone")
             ) {
                 mode = "lone";
+            }
 
-            } else if (
+            else if (
                 text.includes("headshot")
             ) {
                 mode = "headshot";
             }
+
         }
 
 
         if (mode) {
 
-            button.dataset.modeBound = "true";
+            button.dataset.modeBound =
+                "true";
+
 
             button.addEventListener(
                 "click",
-                function(event) {
+                function (event) {
 
                     event.preventDefault();
 
                     openMode(mode);
+
                 }
             );
+
         }
+
     });
+
 }
 
 
@@ -282,21 +425,34 @@ function setupModeButtons() {
 
 function openMode(mode) {
 
-    const modes = getModes();
+    const modes =
+        getModes();
 
-    if (!modes[mode]) return;
+
+    if (!modes[mode]) {
+
+        showMessage(
+            "Tournament",
+            "Tournament modes are currently unavailable.",
+            "warning"
+        );
+
+        return;
+
+    }
+
 
     currentMode = mode;
 
-    const data = modes[mode];
+
+    const data =
+        modes[mode];
 
 
-    const title =
-        document.getElementById("format-mode");
-
-    if (title) {
-        title.textContent = data.name;
-    }
+    setText(
+        "format-mode",
+        data.name
+    );
 
 
     const container =
@@ -304,66 +460,88 @@ function openMode(mode) {
             "format-container"
         );
 
+
     if (!container) {
+
         showPage("formats");
+
         return;
+
     }
 
 
     container.innerHTML = "";
 
 
-    data.formats.forEach(format => {
+    data.formats.forEach(
+        function (format) {
 
-        const card =
-            document.createElement("div");
-
-        card.className = "format-card";
+            if (!format) return;
 
 
-        card.innerHTML = `
-
-            <div class="format-icon">
-                ${data.icon}
-            </div>
-
-            <h3>
-                ${format.name}
-            </h3>
-
-            <p>
-                ${format.players} players
-            </p>
-
-            <button
-                type="button"
-                class="format-select-button">
-
-                VIEW TOURNAMENTS
-
-            </button>
-        `;
+            const card =
+                document.createElement("div");
 
 
-        card
-            .querySelector(
-                ".format-select-button"
-            )
-            .addEventListener(
-                "click",
-                () => {
-                    openTournamentList(
-                        format.name
-                    );
-                }
-            );
+            card.className =
+                "format-card";
 
 
-        container.appendChild(card);
-    });
+            card.innerHTML = `
+
+                <div class="format-icon">
+                    ${data.icon}
+                </div>
+
+                <h3>
+                    ${format.name}
+                </h3>
+
+                <p>
+                    ${format.players} players
+                </p>
+
+                <button
+                    type="button"
+                    class="format-select-button">
+
+                    VIEW TOURNAMENTS
+
+                </button>
+
+            `;
+
+
+            const button =
+                card.querySelector(
+                    ".format-select-button"
+                );
+
+
+            if (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        openTournamentList(
+                            format.name
+                        );
+
+                    }
+                );
+
+            }
+
+
+            container.appendChild(card);
+
+        }
+    );
 
 
     showPage("formats");
+
 }
 
 
@@ -373,25 +551,40 @@ function openMode(mode) {
 
 function openTournamentList(format) {
 
-    const modes = getModes();
+    const modes =
+        getModes();
 
-    const data = modes[currentMode];
+
+    const data =
+        modes[currentMode];
+
 
     if (!data) return;
 
-    currentFormat = format;
+
+    currentFormat =
+        format;
 
 
     const formatData =
         data.formats.find(
-            item => item.name === format
+            function (item) {
+
+                return item &&
+                    item.name === format;
+
+            }
         );
 
 
     if (!formatData) return;
 
 
-    setText("list-mode", data.name);
+    setText(
+        "list-mode",
+        data.name
+    );
+
 
     setText(
         "list-title",
@@ -415,88 +608,141 @@ function openTournamentList(format) {
         formatData.timings || [];
 
 
-    timings.forEach((time, index) => {
+    if (timings.length === 0) {
 
-        const card =
-            document.createElement("div");
+        container.innerHTML = `
 
+            <div class="my-tournaments-empty">
 
-        card.className =
-            "tournament-card";
+                <div class="empty-tournament-icon">
+                    🏆
+                </div>
 
-
-        card.innerHTML = `
-
-            <div>
-
-                <small>
-                    ${data.name}
-                </small>
-
-                <h3>
-                    ${format} BATTLE
-                </h3>
+                <h2>
+                    NO TOURNAMENTS AVAILABLE
+                </h2>
 
                 <p>
-                    🕒 ${time}
+                    There are currently no tournaments
+                    available for this format.
                 </p>
 
             </div>
 
-
-            <div class="tournament-info">
-
-                <div>
-                    <small>ENTRY</small>
-                    <strong>
-                        ₹${formatData.entryFee}
-                    </strong>
-                </div>
-
-                <div>
-                    <small>PRIZE</small>
-                    <strong>
-                        ₹${formatData.prizePool}
-                    </strong>
-                </div>
-
-                <div>
-                    <small>PLAYERS</small>
-                    <strong>
-                        ${formatData.players}
-                    </strong>
-                </div>
-
-                <button
-                    type="button"
-                    class="view-btn">
-
-                    VIEW
-
-                </button>
-
-            </div>
         `;
 
-
-        card
-            .querySelector(".view-btn")
-            .addEventListener(
-                "click",
-                () => {
-                    viewTournament(
-                        index,
-                        time
-                    );
-                }
-            );
+    }
 
 
-        container.appendChild(card);
-    });
+    timings.forEach(
+        function (time, index) {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "tournament-card";
+
+
+            card.innerHTML = `
+
+                <div>
+
+                    <small>
+                        ${data.name}
+                    </small>
+
+                    <h3>
+                        ${format} BATTLE
+                    </h3>
+
+                    <p>
+                        🕒 ${time}
+                    </p>
+
+                </div>
+
+                <div class="tournament-info">
+
+                    <div>
+
+                        <small>
+                            ENTRY
+                        </small>
+
+                        <strong>
+                            ₹${formatData.entryFee}
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+                            PRIZE
+                        </small>
+
+                        <strong>
+                            ₹${formatData.prizePool}
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+                            PLAYERS
+                        </small>
+
+                        <strong>
+                            ${formatData.players}
+                        </strong>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="view-btn">
+
+                        VIEW
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            const viewButton =
+                card.querySelector(".view-btn");
+
+
+            if (viewButton) {
+
+                viewButton.addEventListener(
+                    "click",
+                    function () {
+
+                        viewTournament(
+                            index,
+                            time
+                        );
+
+                    }
+                );
+
+            }
+
+
+            container.appendChild(card);
+
+        }
+    );
 
 
     showPage("tournament-list");
+
 }
 
 
@@ -506,17 +752,25 @@ function openTournamentList(format) {
 
 function viewTournament(index, time) {
 
-    const modes = getModes();
+    const modes =
+        getModes();
 
-    const data = modes[currentMode];
+
+    const data =
+        modes[currentMode];
+
 
     if (!data) return;
 
 
     const formatData =
         data.formats.find(
-            item =>
-                item.name === currentFormat
+            function (item) {
+
+                return item &&
+                    item.name === currentFormat;
+
+            }
         );
 
 
@@ -525,9 +779,11 @@ function viewTournament(index, time) {
 
     currentTournament = {
 
-        mode: data.name,
+        mode:
+            data.name,
 
-        format: currentFormat,
+        format:
+            currentFormat,
 
         entry:
             Number(formatData.entryFee),
@@ -538,7 +794,9 @@ function viewTournament(index, time) {
         players:
             formatData.players,
 
-        time: time
+        time:
+            time
+
     };
 
 
@@ -590,6 +848,7 @@ function viewTournament(index, time) {
 
 
     showPage("details");
+
 }
 
 
@@ -608,6 +867,7 @@ function joinTournament() {
         );
 
         return;
+
     }
 
 
@@ -626,15 +886,20 @@ function joinTournament() {
         );
 
 
-        setTimeout(() => {
+        setTimeout(
+            function () {
 
-            closeMessage();
+                closeMessage();
 
-            showPage("login");
+                showPage("login");
 
-        }, 4000);
+            },
+            3000
+        );
+
 
         return;
+
     }
 
 
@@ -654,27 +919,41 @@ function joinTournament() {
         );
 
 
-        setTimeout(() => {
+        setTimeout(
+            function () {
 
-            closeMessage();
+                closeMessage();
 
-            showPage("wallet");
+                showPage("wallet");
 
-        }, 4000);
+            },
+            3000
+        );
+
 
         return;
+
     }
 
 
     const alreadyRegistered =
         registeredTournaments.some(
-            tournament =>
-                tournament.mode ===
+            function (tournament) {
+
+                return (
+
+                    tournament.mode ===
                     currentTournament.mode &&
-                tournament.format ===
+
+                    tournament.format ===
                     currentTournament.format &&
-                tournament.time ===
+
+                    tournament.time ===
                     currentTournament.time
+
+                );
+
+            }
         );
 
 
@@ -687,6 +966,7 @@ function joinTournament() {
         );
 
         return;
+
     }
 
 
@@ -695,7 +975,8 @@ function joinTournament() {
 
     registeredTournaments.push({
 
-        id: Date.now(),
+        id:
+            Date.now(),
 
         mode:
             currentTournament.mode,
@@ -717,6 +998,7 @@ function joinTournament() {
 
         status:
             "REGISTERED"
+
     });
 
 
@@ -750,6 +1032,199 @@ function joinTournament() {
         ".",
         "success"
     );
+
+}
+
+
+/* =========================================
+   REGISTERED TOURNAMENTS
+   ========================================= */
+
+function saveRegisteredTournaments() {
+
+    localStorage.setItem(
+        "planetsRegisteredTournaments",
+        JSON.stringify(
+            registeredTournaments
+        )
+    );
+
+}
+
+
+function renderMyTournaments() {
+
+    const container =
+        document.getElementById(
+            "my-tournaments-container"
+        );
+
+
+    if (!container) return;
+
+
+    try {
+
+        registeredTournaments =
+            JSON.parse(
+                localStorage.getItem(
+                    "planetsRegisteredTournaments"
+                ) || "[]"
+            );
+
+    }
+
+    catch (error) {
+
+        registeredTournaments = [];
+
+    }
+
+
+    if (!Array.isArray(registeredTournaments)) {
+        registeredTournaments = [];
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (
+        registeredTournaments.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="my-tournaments-empty">
+
+                <div class="empty-tournament-icon">
+                    🏆
+                </div>
+
+                <h2>
+                    NO TOURNAMENTS YET
+                </h2>
+
+                <p>
+                    You haven't joined any tournaments yet.
+                </p>
+
+                <p class="empty-subtext">
+                    Please join a tournament and it will
+                    appear here automatically.
+                </p>
+
+                <button
+                    type="button"
+                    class="battle-button"
+                    onclick="showPage('tournaments')">
+
+                    🎮 JOIN A TOURNAMENT
+
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    registeredTournaments.forEach(
+        function (tournament) {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "my-tournament-card";
+
+
+            card.innerHTML = `
+
+                <div class="my-tournament-top">
+
+                    <div>
+
+                        <span class="my-tournament-mode">
+                            ${tournament.mode || "TOURNAMENT"}
+                        </span>
+
+                        <h3>
+                            ${tournament.format || "Tournament"}
+                        </h3>
+
+                    </div>
+
+                    <span class="registered-badge">
+                        ✓ REGISTERED
+                    </span>
+
+                </div>
+
+                <div class="my-tournament-details">
+
+                    <div>
+
+                        <small>
+                            🕒 TIME
+                        </small>
+
+                        <strong>
+                            ${tournament.time || "TBA"}
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+                            💰 ENTRY
+                        </small>
+
+                        <strong>
+                            ₹${Number(tournament.entry || 0)}
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+                            🏆 PRIZE
+                        </small>
+
+                        <strong>
+                            ₹${Number(tournament.prize || 0)}
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <small>
+                            👥 PLAYERS
+                        </small>
+
+                        <strong>
+                            ${tournament.players || "TBA"}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        }
+    );
+
 }
 
 
@@ -760,12 +1235,13 @@ function joinTournament() {
 function updateLoginStatus() {
 
     const selectors = [
+
         ".login-status",
         "#login-status",
-        ".login-dot",
         ".login-btn",
         ".top-login",
         "#login-btn"
+
     ];
 
 
@@ -773,63 +1249,66 @@ function updateLoginStatus() {
         .querySelectorAll(
             selectors.join(",")
         )
-        .forEach(element => {
+        .forEach(
+            function (element) {
 
-            if (isLoggedIn) {
+                if (isLoggedIn) {
 
-                element.textContent =
-                    "✓ LOGGED IN";
-
-                element.classList.remove(
-                    "planets-login"
-                );
-
-                element.classList.add(
-                    "planets-logged-in"
-                );
+                    element.textContent =
+                        "✓ LOGGED IN";
 
 
-                /*
-                   Clicking LOGGED IN opens
-                   Personal Details.
-                */
-
-                element.onclick =
-                    function(event) {
-
-                        event.preventDefault();
-
-                        openPersonalDetails();
-                    };
-
-            } else {
-
-                element.textContent =
-                    "LOGIN";
-
-                element.classList.remove(
-                    "planets-logged-in"
-                );
-
-                element.classList.add(
-                    "planets-login"
-                );
+                    element.classList.remove(
+                        "planets-login"
+                    );
 
 
-                /*
-                   Clicking LOGIN opens
-                   login page.
-                */
+                    element.classList.add(
+                        "planets-logged-in"
+                    );
 
-                element.onclick =
-                    function(event) {
 
-                        event.preventDefault();
+                    element.onclick =
+                        function (event) {
 
-                        showPage("login");
-                    };
+                            event.preventDefault();
+
+                            openPersonalDetails();
+
+                        };
+
+                }
+
+                else {
+
+                    element.textContent =
+                        "LOGIN";
+
+
+                    element.classList.remove(
+                        "planets-logged-in"
+                    );
+
+
+                    element.classList.add(
+                        "planets-login"
+                    );
+
+
+                    element.onclick =
+                        function (event) {
+
+                            event.preventDefault();
+
+                            showPage("login");
+
+                        };
+
+                }
+
             }
-        });
+        );
+
 }
 
 
@@ -844,12 +1323,38 @@ function openPersonalDetails() {
         showPage("login");
 
         return;
+
     }
 
 
-    renderAccountInformation();
+    /*
+       If the HTML has the page, use it.
+    */
 
-    showPage("account-info");
+    const accountPage =
+        document.getElementById(
+            "account-info"
+        );
+
+
+    if (accountPage) {
+
+        renderAccountInformation();
+
+        showPage("account-info");
+
+        return;
+
+    }
+
+
+    /*
+       Fallback: open profile if the older
+       HTML doesn't contain account-info.
+    */
+
+    showPage("profile");
+
 }
 
 
@@ -872,9 +1377,7 @@ function renderAccountInformation() {
 
         container.innerHTML = `
 
-            <div style="
-                text-align:center;
-            ">
+            <div style="text-align:center;">
 
                 <div style="
                     font-size:42px;
@@ -897,19 +1400,30 @@ function renderAccountInformation() {
                 <button
                     class="battle-button"
                     type="button"
-                    onclick="
-                        showPage('login')
-                    ">
+                    onclick="showPage('login')">
 
                     LOGIN
 
                 </button>
 
             </div>
+
         `;
 
         return;
+
     }
+
+
+    const accountName =
+        currentAccount?.firstName ||
+        currentAccount?.name ||
+        "Player";
+
+
+    const accountEmail =
+        currentAccount?.email ||
+        "Account email";
 
 
     container.innerHTML = `
@@ -919,7 +1433,6 @@ function renderAccountInformation() {
             flex-direction:column;
             gap:18px;
         ">
-
 
             <div style="
                 text-align:center;
@@ -941,19 +1454,14 @@ function renderAccountInformation() {
                     👤
                 </div>
 
-
-                <h2 style="
-                    margin:0;
-                ">
+                <h2>
                     Personal Details
                 </h2>
-
 
                 <div style="
                     display:inline-flex;
                     align-items:center;
                     gap:6px;
-                    margin-top:9px;
                     padding:6px 11px;
                     border-radius:10px;
                     background:rgba(34,197,94,.10);
@@ -962,7 +1470,9 @@ function renderAccountInformation() {
                     font-size:11px;
                     font-weight:800;
                 ">
+
                     ✓ LOGGED IN
+
                 </div>
 
             </div>
@@ -971,11 +1481,24 @@ function renderAccountInformation() {
             <div class="account-info-row">
 
                 <small>
-                    ACCOUNT STATUS
+                    NAME
                 </small>
 
                 <strong>
-                    Active
+                    ${escapeHTML(accountName)}
+                </strong>
+
+            </div>
+
+
+            <div class="account-info-row">
+
+                <small>
+                    EMAIL
+                </small>
+
+                <strong>
+                    ${escapeHTML(accountEmail)}
                 </strong>
 
             </div>
@@ -1010,32 +1533,239 @@ function renderAccountInformation() {
             <button
                 class="switch-account-button"
                 type="button"
-                onclick="
-                    switchAccount()
-                ">
+                onclick="switchAccount()">
 
                 ⇄ &nbsp; SWITCH ACCOUNT
 
             </button>
 
         </div>
+
     `;
+
 }
 
 
 /* =========================================
-   SWITCH ACCOUNT
+   PROFILE OPTIONS
+   ========================================= */
+
+function setupProfileOptions() {
+
+    /*
+       Personal details
+    */
+
+    document
+        .querySelectorAll(
+            ".personal-details, [data-profile='personal'], [data-profile='details']"
+        )
+        .forEach(
+            function (element) {
+
+                element.onclick =
+                    function (event) {
+
+                        event.preventDefault();
+
+                        openPersonalDetails();
+
+                    };
+
+            }
+        );
+
+
+    /*
+       My tournaments
+    */
+
+    document
+        .querySelectorAll(
+            ".my-tournaments, [data-profile='tournaments']"
+        )
+        .forEach(
+            function (element) {
+
+                element.onclick =
+                    function (event) {
+
+                        event.preventDefault();
+
+                        openMyTournaments();
+
+                    };
+
+            }
+        );
+
+
+    /*
+       Help and feedback
+    */
+
+    setupHelpFeedback();
+
+}
+
+
+/* =========================================
+   MY TOURNAMENTS
+   ========================================= */
+
+function openMyTournaments() {
+
+    renderMyTournaments();
+
+
+    if (
+        document.getElementById(
+            "my-tournaments"
+        )
+    ) {
+
+        showPage("my-tournaments");
+
+        return;
+
+    }
+
+
+    /*
+       If the old HTML does not contain
+       a separate My Tournaments page,
+       show it inside the profile page
+       without changing the overall GUI.
+    */
+
+    showPage("profile");
+
+
+    const container =
+        document.getElementById(
+            "my-tournaments-container"
+        );
+
+
+    if (container) {
+
+        container.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+}
+
+
+/* =========================================
+   HELP & FEEDBACK
+   ========================================= */
+
+function setupHelpFeedback() {
+
+    document
+        .querySelectorAll(
+            ".help-feedback, [data-profile='help'], [data-profile='feedback']"
+        )
+        .forEach(
+            function (element) {
+
+                element.removeAttribute("onclick");
+
+
+                if (
+                    element.tagName.toLowerCase() === "a"
+                ) {
+
+                    element.href =
+                        HELP_FEEDBACK_URL;
+
+                    element.target =
+                        "_blank";
+
+                    element.rel =
+                        "noopener noreferrer";
+
+                }
+
+
+                element.onclick =
+                    function (event) {
+
+                        event.preventDefault();
+
+                        openHelpFeedback();
+
+                    };
+
+            }
+        );
+
+}
+
+
+function openHelpFeedback() {
+
+    /*
+       Direct navigation is more reliable
+       on mobile than window.open().
+    */
+
+    const link =
+        document.createElement("a");
+
+
+    link.href =
+        HELP_FEEDBACK_URL;
+
+
+    link.target =
+        "_blank";
+
+
+    link.rel =
+        "noopener noreferrer";
+
+
+    document.body.appendChild(link);
+
+
+    link.click();
+
+
+    setTimeout(
+        function () {
+
+            link.remove();
+
+        },
+        1000
+    );
+
+}
+
+
+/* =========================================
+   ACCOUNT SWITCHING
    ========================================= */
 
 function switchAccount() {
+
+    closeMessage();
+
 
     const popup =
         document.createElement("div");
 
 
-    popup.id = "pe-message";
+    popup.id =
+        "pe-message";
 
-    popup.className = "pe-popup";
+
+    popup.className =
+        "pe-popup";
 
 
     popup.innerHTML = `
@@ -1051,29 +1781,25 @@ function switchAccount() {
             </h2>
 
             <p>
-                You'll be logged out of this
-                account and taken to the login page.
+                You can log into another account.
+                Your current account will be saved
+                so you can switch back later.
             </p>
 
             <div class="pe-popup-actions">
 
                 <button
                     type="button"
-                    onclick="
-                        confirmSwitchAccount()
-                    ">
+                    onclick="confirmSwitchAccount()">
 
                     SWITCH
 
                 </button>
 
-
                 <button
                     type="button"
                     class="cancel"
-                    onclick="
-                        closeMessage()
-                    ">
+                    onclick="closeMessage()">
 
                     CANCEL
 
@@ -1082,19 +1808,36 @@ function switchAccount() {
             </div>
 
         </div>
+
     `;
 
 
-    document
-        .getElementById("pe-message")
-        ?.remove();
-
-
     document.body.appendChild(popup);
+
 }
 
 
 function confirmSwitchAccount() {
+
+    /*
+       Save the current account so it can be
+       restored later.
+    */
+
+    if (currentAccount) {
+
+        previousAccount =
+            currentAccount;
+
+        localStorage.setItem(
+            "planetsPreviousAccount",
+            JSON.stringify(
+                previousAccount
+            )
+        );
+
+    }
+
 
     isLoggedIn = false;
 
@@ -1112,6 +1855,175 @@ function confirmSwitchAccount() {
     closeMessage();
 
     showPage("login");
+
+    showSwitchBackOption();
+
+}
+
+
+/* =========================================
+   SWITCH BACK TO PREVIOUS ACCOUNT
+   ========================================= */
+
+function showSwitchBackOption() {
+
+    if (!previousAccount) return;
+
+
+    setTimeout(
+        function () {
+
+            const loginPage =
+                document.getElementById(
+                    "login"
+                );
+
+
+            if (!loginPage) return;
+
+
+            let existing =
+                document.getElementById(
+                    "switch-back-account"
+                );
+
+
+            if (existing) {
+                existing.remove();
+            }
+
+
+            existing =
+                document.createElement("div");
+
+
+            existing.id =
+                "switch-back-account";
+
+
+            existing.style.cssText = `
+                margin-top:18px;
+                padding:16px;
+                border-radius:16px;
+                background:rgba(255,255,255,.035);
+                border:1px solid rgba(255,255,255,.09);
+                text-align:center;
+            `;
+
+
+            existing.innerHTML = `
+
+                <div style="
+                    font-size:12px;
+                    opacity:.65;
+                    margin-bottom:8px;
+                ">
+                    PREVIOUS ACCOUNT
+                </div>
+
+                <strong>
+                    ${escapeHTML(
+                        previousAccount.email ||
+                        previousAccount.name ||
+                        "Saved account"
+                    )}
+                </strong>
+
+                <button
+                    type="button"
+                    class="battle-button full"
+                    style="margin-top:12px;"
+                    onclick="switchBackToPreviousAccount()">
+
+                    ↩ SWITCH BACK
+
+                    <span>→</span>
+
+                </button>
+
+            `;
+
+
+            const authBox =
+                loginPage.querySelector(
+                    ".auth-box"
+                );
+
+
+            if (authBox) {
+
+                authBox.appendChild(
+                    existing
+                );
+
+            }
+
+        },
+        100
+    );
+
+}
+
+
+function switchBackToPreviousAccount() {
+
+    if (!previousAccount) {
+
+        showPage("login");
+
+        return;
+
+    }
+
+
+    currentAccount =
+        previousAccount;
+
+
+    isLoggedIn = true;
+
+
+    localStorage.setItem(
+        "planetsCurrentAccount",
+        JSON.stringify(
+            currentAccount
+        )
+    );
+
+
+    localStorage.setItem(
+        "planetsLoggedIn",
+        "true"
+    );
+
+
+    /*
+       Remove the previous account after
+       successfully switching back.
+    */
+
+    previousAccount = null;
+
+
+    localStorage.removeItem(
+        "planetsPreviousAccount"
+    );
+
+
+    updateLoginStatus();
+
+    renderAccountInformation();
+
+
+    document
+        .getElementById(
+            "switch-back-account"
+        )
+        ?.remove();
+
+
+    showLoginSuccessPopup();
+
 }
 
 
@@ -1124,6 +2036,40 @@ function loginSubmit(event) {
     event.preventDefault();
 
 
+    const form =
+        event.target;
+
+
+    const emailInput =
+        form.querySelector(
+            'input[type="email"]'
+        );
+
+
+    const email =
+        emailInput
+            ? emailInput.value.trim()
+            : "";
+
+
+    /*
+       Save a simple account profile locally.
+       This keeps the existing frontend system
+       working without changing the GUI.
+    */
+
+    currentAccount = {
+
+        email:
+            email,
+
+        name:
+            email.split("@")[0] ||
+            "Player"
+
+    };
+
+
     isLoggedIn = true;
 
 
@@ -1133,9 +2079,28 @@ function loginSubmit(event) {
     );
 
 
+    localStorage.setItem(
+        "planetsCurrentAccount",
+        JSON.stringify(
+            currentAccount
+        )
+    );
+
+
     updateLoginStatus();
 
     renderAccountInformation();
+
+
+    /*
+       Remove switch-back box after login.
+    */
+
+    document
+        .getElementById(
+            "switch-back-account"
+        )
+        ?.remove();
 
 
     const returnPage =
@@ -1152,21 +2117,28 @@ function loginSubmit(event) {
     showLoginSuccessPopup();
 
 
-    setTimeout(() => {
+    setTimeout(
+        function () {
 
-        if (
-            returnPage === "details" &&
-            currentTournament
-        ) {
+            if (
+                returnPage === "details" &&
+                currentTournament
+            ) {
 
-            showPage("details");
+                showPage("details");
 
-        } else {
+            }
 
-            showPage("home");
-        }
+            else {
 
-    }, 5000);
+                showPage("home");
+
+            }
+
+        },
+        5000
+    );
+
 }
 
 
@@ -1192,7 +2164,7 @@ function signupSubmit(event) {
     if (
         passwords.length >= 2 &&
         passwords[0].value !==
-            passwords[1].value
+        passwords[1].value
     ) {
 
         showMessage(
@@ -1202,7 +2174,88 @@ function signupSubmit(event) {
         );
 
         return;
+
     }
+
+
+    const inputs =
+        form.querySelectorAll(
+            "input"
+        );
+
+
+    let firstName = "";
+    let lastName = "";
+    let email = "";
+
+
+    inputs.forEach(
+        function (input) {
+
+            const placeholder =
+                (
+                    input.placeholder ||
+                    ""
+                ).toLowerCase();
+
+
+            if (
+                placeholder.includes(
+                    "first name"
+                )
+            ) {
+
+                firstName =
+                    input.value.trim();
+
+            }
+
+
+            if (
+                placeholder.includes(
+                    "last name"
+                )
+            ) {
+
+                lastName =
+                    input.value.trim();
+
+            }
+
+
+            if (
+                input.type === "email"
+            ) {
+
+                email =
+                    input.value.trim();
+
+            }
+
+        }
+    );
+
+
+    currentAccount = {
+
+        firstName:
+            firstName,
+
+        lastName:
+            lastName,
+
+        name:
+            (
+                firstName +
+                " " +
+                lastName
+            ).trim() ||
+            "Player",
+
+        email:
+            email
+
+    };
 
 
     isLoggedIn = true;
@@ -1214,6 +2267,14 @@ function signupSubmit(event) {
     );
 
 
+    localStorage.setItem(
+        "planetsCurrentAccount",
+        JSON.stringify(
+            currentAccount
+        )
+    );
+
+
     updateLoginStatus();
 
     renderAccountInformation();
@@ -1222,11 +2283,15 @@ function signupSubmit(event) {
     showLoginSuccessPopup();
 
 
-    setTimeout(() => {
+    setTimeout(
+        function () {
 
-        showPage("home");
+            showPage("home");
 
-    }, 5000);
+        },
+        5000
+    );
+
 }
 
 
@@ -1244,7 +2309,9 @@ function showLoginSuccessPopup() {
 
 
     const popup =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     popup.id =
@@ -1276,25 +2343,27 @@ function showLoginSuccessPopup() {
             <button
                 class="pe-popup-button"
                 type="button"
-                onclick="
-                    closeLoginSuccessPopup()
-                ">
+                onclick="closeLoginSuccessPopup()">
 
                 CONTINUE
 
             </button>
 
         </div>
+
     `;
 
 
-    document.body.appendChild(popup);
+    document.body.appendChild(
+        popup
+    );
 
 
     setTimeout(
         closeLoginSuccessPopup,
         8000
     );
+
 }
 
 
@@ -1305,164 +2374,7 @@ function closeLoginSuccessPopup() {
             "pe-login-success"
         )
         ?.remove();
-}
 
-
-/* =========================================
-   MY TOURNAMENTS
-   ========================================= */
-
-function saveRegisteredTournaments() {
-
-    localStorage.setItem(
-        "planetsRegisteredTournaments",
-        JSON.stringify(
-            registeredTournaments
-        )
-    );
-}
-
-
-function renderMyTournaments() {
-
-    const container =
-        document.getElementById(
-            "my-tournaments-container"
-        );
-
-
-    if (!container) return;
-
-
-    container.innerHTML = "";
-
-
-    if (
-        registeredTournaments.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div
-                class="details-box"
-                style="
-                    text-align:center;
-                ">
-
-                <div style="
-                    font-size:45px;
-                    margin-bottom:15px;
-                ">
-                    🏆
-                </div>
-
-                <h2>
-                    NO TOURNAMENTS YET
-                </h2>
-
-                <p style="
-                    margin:12px 0 22px;
-                    opacity:.7;
-                ">
-                    You haven't registered
-                    for any tournaments yet.
-                </p>
-
-                <button
-                    class="battle-button"
-                    type="button"
-                    onclick="
-                        showPage('tournaments')
-                    ">
-
-                    FIND A TOURNAMENT
-
-                </button>
-
-            </div>
-        `;
-
-        return;
-    }
-
-
-    registeredTournaments.forEach(
-        tournament => {
-
-            const card =
-                document.createElement("div");
-
-
-            card.className =
-                "tournament-card";
-
-
-            card.innerHTML = `
-
-                <div>
-
-                    <small>
-                        ${tournament.mode}
-                    </small>
-
-                    <h3>
-                        ${tournament.format}
-                    </h3>
-
-                    <p>
-                        🕒 ${tournament.time}
-                    </p>
-
-                </div>
-
-
-                <div class="tournament-info">
-
-                    <div>
-
-                        <small>
-                            ENTRY
-                        </small>
-
-                        <strong>
-                            ₹${tournament.entry}
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <small>
-                            PRIZE
-                        </small>
-
-                        <strong>
-                            ₹${tournament.prize}
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <small>
-                            STATUS
-                        </small>
-
-                        <strong>
-                            ${tournament.status}
-                        </strong>
-
-                    </div>
-
-                </div>
-            `;
-
-
-            container.appendChild(card);
-        }
-    );
 }
 
 
@@ -1484,6 +2396,7 @@ function saveWallet() {
             transactions
         )
     );
+
 }
 
 
@@ -1500,7 +2413,24 @@ function updateWallet() {
         balance.textContent =
             "₹" +
             walletBalance.toFixed(2);
+
     }
+
+}
+
+
+/* =========================================
+   WALLET DEMO
+   ========================================= */
+
+function showWalletDemo() {
+
+    showMessage(
+        "Wallet",
+        "Wallet deposits and withdrawals are not connected yet. This is currently a frontend demo.",
+        "info"
+    );
+
 }
 
 
@@ -1516,17 +2446,22 @@ function addTransaction(
 
     transactions.unshift({
 
-        icon: icon,
+        icon:
+            icon,
 
-        title: title,
+        title:
+            title,
 
-        description: description
+        description:
+            description
+
     });
 
 
     saveWallet();
 
     renderTransactions();
+
 }
 
 
@@ -1541,12 +2476,13 @@ function renderTransactions() {
     if (!container) return;
 
 
-    if (transactions.length === 0) {
+    if (
+        transactions.length === 0
+    ) {
 
         container.innerHTML = `
 
-            <div
-                class="empty-transactions">
+            <div class="empty-transactions">
 
                 <div>
                     💰
@@ -1561,9 +2497,11 @@ function renderTransactions() {
                 </small>
 
             </div>
+
         `;
 
         return;
+
     }
 
 
@@ -1571,7 +2509,7 @@ function renderTransactions() {
 
 
     transactions.forEach(
-        transaction => {
+        function (transaction) {
 
             const item =
                 document.createElement(
@@ -1592,25 +2530,34 @@ function renderTransactions() {
                 <div class="transaction-info">
 
                     <strong>
-                        ${transaction.title}
+                        ${escapeHTML(
+                            transaction.title
+                        )}
                     </strong>
 
                     <small>
-                        ${transaction.description}
+                        ${escapeHTML(
+                            transaction.description
+                        )}
                     </small>
 
                 </div>
+
             `;
 
 
-            container.appendChild(item);
+            container.appendChild(
+                item
+            );
+
         }
     );
+
 }
 
 
 /* =========================================
-   POPUP
+   POPUPS
    ========================================= */
 
 function showMessage(
@@ -1624,18 +2571,25 @@ function showMessage(
 
     const icons = {
 
-        info: "ℹ",
+        info:
+            "ℹ",
 
-        success: "✓",
+        success:
+            "✓",
 
-        warning: "!",
+        warning:
+            "!",
 
-        error: "×"
+        error:
+            "×"
+
     };
 
 
     const popup =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     popup.id =
@@ -1655,29 +2609,31 @@ function showMessage(
             </div>
 
             <h2>
-                ${title}
+                ${escapeHTML(title)}
             </h2>
 
             <p>
-                ${message}
+                ${escapeHTML(message)}
             </p>
 
             <button
                 class="pe-popup-button"
                 type="button"
-                onclick="
-                    closeMessage()
-                ">
+                onclick="closeMessage()">
 
                 OK
 
             </button>
 
         </div>
+
     `;
 
 
-    document.body.appendChild(popup);
+    document.body.appendChild(
+        popup
+    );
+
 }
 
 
@@ -1688,14 +2644,18 @@ function closeMessage() {
             "pe-message"
         )
         ?.remove();
+
 }
 
 
 /* =========================================
-   HELPERS
+   HELPER
    ========================================= */
 
-function setText(id, value) {
+function setText(
+    id,
+    value
+) {
 
     const element =
         document.getElementById(id);
@@ -1703,19 +2663,68 @@ function setText(id, value) {
 
     if (element) {
 
-        element.textContent = value;
+        element.textContent =
+            value;
+
     }
+
 }
 
 
 /* =========================================
-   REMOVE BLUE TAP BOX
+   ESCAPE HTML
+   ========================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
+   REMOVE BLUE TAP EFFECT
    ========================================= */
 
 function removeBlueTapEffect() {
 
+    if (
+        document.getElementById(
+            "planets-tap-style"
+        )
+    ) {
+        return;
+    }
+
+
     const style =
-        document.createElement("style");
+        document.createElement(
+            "style"
+        );
+
+
+    style.id =
+        "planets-tap-style";
 
 
     style.textContent = `
@@ -1739,15 +2748,19 @@ function removeBlueTapEffect() {
         a:active {
             outline:none !important;
         }
+
     `;
 
 
-    document.head.appendChild(style);
+    document.head.appendChild(
+        style
+    );
+
 }
 
 
 /* =========================================
-   EXTRA ACCOUNT / POPUP STYLES
+   EXTRA STYLES
    ========================================= */
 
 function addLoginStyles() {
@@ -1757,12 +2770,16 @@ function addLoginStyles() {
             "planets-account-style"
         )
     ) {
+
         return;
+
     }
 
 
     const style =
-        document.createElement("style");
+        document.createElement(
+            "style"
+        );
 
 
     style.id =
@@ -1788,6 +2805,9 @@ function addLoginStyles() {
             font-weight:700;
 
             white-space:nowrap;
+
+            cursor:pointer;
+
         }
 
 
@@ -1822,9 +2842,6 @@ function addLoginStyles() {
 
             cursor:pointer;
 
-            box-shadow:
-                0 0 15px
-                rgba(34,197,94,.08);
         }
 
 
@@ -1846,6 +2863,7 @@ function addLoginStyles() {
             border:
                 1px solid
                 rgba(255,255,255,.08);
+
         }
 
 
@@ -1856,12 +2874,18 @@ function addLoginStyles() {
             font-size:10px;
 
             font-weight:700;
+
         }
 
 
         .account-info-row strong {
 
             font-size:14px;
+
+            max-width:60%;
+
+            text-align:right;
+
         }
 
 
@@ -1887,6 +2911,185 @@ function addLoginStyles() {
             font-weight:800;
 
             cursor:pointer;
+
+        }
+
+
+        .my-tournaments-empty {
+
+            text-align:center;
+
+            padding:35px 20px;
+
+            border-radius:20px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+        }
+
+
+        .empty-tournament-icon {
+
+            font-size:50px;
+
+            margin-bottom:12px;
+
+        }
+
+
+        .my-tournaments-empty h2 {
+
+            margin:0 0 10px;
+
+            font-size:20px;
+
+        }
+
+
+        .my-tournaments-empty p {
+
+            margin:7px 0;
+
+            opacity:.75;
+
+            font-size:13px;
+
+        }
+
+
+        .my-tournaments-empty
+        .empty-subtext {
+
+            opacity:.5;
+
+            margin-bottom:22px;
+
+        }
+
+
+        .my-tournament-card {
+
+            padding:18px;
+
+            margin-bottom:14px;
+
+            border-radius:18px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,.09);
+
+        }
+
+
+        .my-tournament-top {
+
+            display:flex;
+
+            align-items:flex-start;
+
+            justify-content:space-between;
+
+            gap:10px;
+
+            margin-bottom:17px;
+
+        }
+
+
+        .my-tournament-mode {
+
+            font-size:10px;
+
+            opacity:.5;
+
+            text-transform:uppercase;
+
+        }
+
+
+        .my-tournament-card h3 {
+
+            margin:5px 0 0;
+
+            font-size:17px;
+
+        }
+
+
+        .registered-badge {
+
+            padding:6px 8px;
+
+            border-radius:8px;
+
+            background:
+                rgba(34,197,94,.10);
+
+            border:
+                1px solid
+                rgba(34,197,94,.25);
+
+            color:#63e887;
+
+            font-size:9px;
+
+            font-weight:800;
+
+            white-space:nowrap;
+
+        }
+
+
+        .my-tournament-details {
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap:10px;
+
+        }
+
+
+        .my-tournament-details > div {
+
+            padding:11px;
+
+            border-radius:11px;
+
+            background:
+                rgba(255,255,255,.035);
+
+        }
+
+
+        .my-tournament-details small {
+
+            display:block;
+
+            opacity:.5;
+
+            font-size:9px;
+
+            margin-bottom:5px;
+
+        }
+
+
+        .my-tournament-details strong {
+
+            font-size:12px;
+
         }
 
 
@@ -1914,6 +3117,7 @@ function addLoginStyles() {
                 blur(8px);
 
             z-index:99999;
+
         }
 
 
@@ -1942,6 +3146,7 @@ function addLoginStyles() {
             box-shadow:
                 0 25px 80px
                 rgba(0,0,0,.65);
+
         }
 
 
@@ -1974,6 +3179,7 @@ function addLoginStyles() {
             font-size:30px;
 
             font-weight:900;
+
         }
 
 
@@ -1983,6 +3189,7 @@ function addLoginStyles() {
                 0 0 8px;
 
             font-size:21px;
+
         }
 
 
@@ -1997,6 +3204,7 @@ function addLoginStyles() {
             font-size:13px;
 
             white-space:pre-line;
+
         }
 
 
@@ -2015,6 +3223,7 @@ function addLoginStyles() {
             font-weight:800;
 
             cursor:pointer;
+
         }
 
 
@@ -2025,6 +3234,7 @@ function addLoginStyles() {
             gap:10px;
 
             margin-top:20px;
+
         }
 
 
@@ -2041,15 +3251,83 @@ function addLoginStyles() {
             font-weight:800;
 
             cursor:pointer;
+
         }
 
-
-        .pe-popup-actions .cancel {
-
-            opacity:.7;
-        }
     `;
 
 
-    document.head.appendChild(style);
+    document.head.appendChild(
+        style
+    );
+
 }
+
+
+/* =========================================
+   WHITE SCREEN PROTECTION
+   ========================================= */
+
+/*
+   This does NOT replace your CSS.
+   It only prevents JavaScript from leaving
+   the site without a visible page.
+*/
+
+window.addEventListener(
+    "error",
+    function (event) {
+
+        console.error(
+            "Planets Esport error:",
+            event.error || event.message
+        );
+
+
+        const pages =
+            document.querySelectorAll(".page");
+
+
+        let visiblePage = false;
+
+
+        pages.forEach(function (page) {
+
+            if (
+                page.classList.contains(
+                    "active"
+                )
+            ) {
+
+                visiblePage = true;
+
+            }
+
+        });
+
+
+        if (!visiblePage) {
+
+            const home =
+                document.getElementById(
+                    "home"
+                );
+
+
+            if (home) {
+
+                home.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   END
+   ========================================= */
