@@ -14,7 +14,7 @@ const TOURNAMENTS = {
             name: "SOLO",
             players: 50,
 
-            entryFee: 30,
+            entryFee: 10000,
             prizePool: 1000,
 
             firstPrize: 650,
