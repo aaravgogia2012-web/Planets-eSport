@@ -22,7 +22,7 @@ const TOURNAMENTS = {
             thirdPrize: 100,
 
             timings: [
-                "3:00 PM",
+                
                 "3:15 PM",
                 "3:30 PM",
                 "3:45 PM",
